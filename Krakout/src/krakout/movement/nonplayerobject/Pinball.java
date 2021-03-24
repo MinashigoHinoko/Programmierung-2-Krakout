@@ -2,7 +2,7 @@ package krakout.movement.nonplayerobject;
 
 import krakout.movement.Position;
 
-public class Pinball {
+public class Pinball extends Position{
     //Position of the ball
     public double x;
     public double y;
@@ -16,6 +16,8 @@ public class Pinball {
     public double size;
     //Color of ball
     public String color;
+    //Initiating Position
+    public Position pinball;
 
     //Constructor without an input
     public Pinball() {
@@ -24,6 +26,7 @@ public class Pinball {
 
     //Constructor
     public Pinball(double x, double y, boolean hit, int ammount, double speedInPixel, double size, String color) {
+        super(x, y);
         this.x = x;
         this.y = y;
         this.hit = hit;
@@ -37,27 +40,26 @@ public class Pinball {
     //adjusting it to the PixelSpeed
     public void updatePosition(String direction) {
         //Initating pinball movement
-        Position pinball = new Position(x, y);
         switch (direction) {
             case "LEFT":
-                pinball.left(this.speedInPixel);
-                this.x=pinball.x;
-                this.y=pinball.y;
+                super.left(this.speedInPixel);
+                this.x=this.x+super.x;
+                this.y=this.y+super.y;
                 break;
             case "RIGHT":
-                pinball.right(this.speedInPixel);
-                this.x=pinball.x;
-                this.y=pinball.y;
+                super.right(this.speedInPixel);
+                this.x=this.x+super.x;
+                this.y=this.y+super.y;
                 break;
             case "UP":
-                pinball.up(this.speedInPixel);
-                this.x=pinball.x;
-                this.y=pinball.y;
+                super.up(this.speedInPixel);
+                this.x=this.x+super.x;
+                this.y=this.y+super.y;
                 break;
             case "DOWN":
-                pinball.down(this.speedInPixel);
-                this.x=pinball.x;
-                this.y=pinball.y;
+                super.down(this.speedInPixel);
+                this.x=this.x+super.x;
+                this.y=this.y+super.y;
                 break;
         }
     }
@@ -80,8 +82,7 @@ public class Pinball {
     @Override
 
     public String toString() {
-        //Initating pinball movement
-        Position pinball = new Position(x, y);
+        Position pinball = new Position(this.x, this.y);
         return "Pinball: " + pinball;
     }
 }

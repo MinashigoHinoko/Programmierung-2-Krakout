@@ -2,10 +2,10 @@ package krakout.movement.nonplayerobject;
 
 import krakout.movement.Position;
 
-public class Item {
+public class Item extends Position{
     //Position of the item
-    public double x;
-    public double y;
+    public double x ;
+    public double y ;
     //declares what kind of item it is
     public int status;
     //When being hit;
@@ -20,16 +20,17 @@ public class Item {
     public double size;
     //Color of item
     public String color;
+    //initiating Position
+    public Position item;
 
     //Constructor without an input
     public Item() {
-        this(0, 0, 1, false, 2, 0, 0, 5, "green");
+        this(0,0, 1, false, 2, 0, 0, 5, "green");
     }
 
     //Constructor
     public Item(double x, double y, int status, boolean hit, double speedInPixel, int ammount, int live, double size, String color) {
-        this.x = x;
-        this.y = y;
+        super(x,y);
         this.status = status;
         this.hit = hit;
         this.speedInPixel = speedInPixel;
@@ -55,34 +56,32 @@ public class Item {
     //adjusting it to the PixelSpeed
     public void updatePosition(String direction) {
         //Initating PowerUp movement
-        Position item = new Position(this.x, this.y);
         switch (direction) {
             case "LEFT":
-                item.left(this.speedInPixel);
-                this.x=item.x;
-                this.y=item.y;
+                super.left(this.speedInPixel);
+                this.x=this.x+super.x;
+                this.y=this.y+super.y;
                 break;
             case "RIGHT":
-                item.right(this.speedInPixel);
-                this.x=item.x;
-                this.y=item.y;
+                super.right(this.speedInPixel);
+                this.x=this.x+super.x;
+                this.y=this.y+super.y;
                 break;
             case "UP":
-                item.up(this.speedInPixel);
-                this.x=item.x;
-                this.y=item.y;
+                super.up(this.speedInPixel);
+                this.x=this.x+super.x;
+                this.y=this.y+super.y;
                 break;
             case "DOWN":
-                item.down(this.speedInPixel);
-                this.x=item.x;
-                this.y=item.y;
+                super.down(this.speedInPixel);
+                this.x=this.x+super.x;
+                this.y=this.y+super.y;
                 break;
         }
     }
 
     @Override
     public String toString() {
-        //Initating PowerUp movement
         Position item = new Position(this.x, this.y);
         return "Item, " + itemStatus(this.status) + " : " + item;
     }
