@@ -72,9 +72,6 @@ public class Item {
                 break;
         }
     }
-    public void Position(){
-
-    }
 
     @Override
     public String toString() {

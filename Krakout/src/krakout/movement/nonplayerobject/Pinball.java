@@ -53,9 +53,6 @@ public class Pinball {
                 break;
         }
     }
-    public void Position(){
-
-    }
 
     /*
         //Damaging Objects
