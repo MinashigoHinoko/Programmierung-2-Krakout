@@ -16,8 +16,6 @@ public class Pinball {
     public double size;
     //Color of ball
     public String color;
-    //Initating pinball movement
-    Position pinball = new Position(x, y);
 
     //Constructor without an input
     public Pinball() {
@@ -38,18 +36,28 @@ public class Pinball {
 
     //adjusting it to the PixelSpeed
     public void updatePosition(String direction) {
+        //Initating pinball movement
+        Position pinball = new Position(x, y);
         switch (direction) {
             case "LEFT":
                 pinball.left(this.speedInPixel);
+                this.x=pinball.x;
+                this.y=pinball.y;
                 break;
             case "RIGHT":
                 pinball.right(this.speedInPixel);
+                this.x=pinball.x;
+                this.y=pinball.y;
                 break;
             case "UP":
                 pinball.up(this.speedInPixel);
+                this.x=pinball.x;
+                this.y=pinball.y;
                 break;
             case "DOWN":
                 pinball.down(this.speedInPixel);
+                this.x=pinball.x;
+                this.y=pinball.y;
                 break;
         }
     }
@@ -70,7 +78,10 @@ public class Pinball {
 
      */
     @Override
+
     public String toString() {
+        //Initating pinball movement
+        Position pinball = new Position(x, y);
         return "Pinball: " + pinball;
     }
 }

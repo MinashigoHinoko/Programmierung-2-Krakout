@@ -27,8 +27,8 @@ public class Start {
         System.out.println("\n");
 
         //Creating Object Pinball and Item
-        var ball = new Pinball();
-        var wall = new Item();
+        Pinball ball = new Pinball();
+        Item wall = new Item();
 
         //Formating output of the Pinball and Item
         System.out.println("\n");

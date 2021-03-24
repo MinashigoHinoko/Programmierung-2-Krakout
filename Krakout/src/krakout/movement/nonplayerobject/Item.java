@@ -20,8 +20,6 @@ public class Item {
     public double size;
     //Color of item
     public String color;
-    //Initating PowerUp movement
-    Position item = new Position(x, y);
 
     //Constructor without an input
     public Item() {
@@ -40,7 +38,6 @@ public class Item {
         this.size = size;
         this.color = color;
     }
-
     public String itemStatus(int status) {
         switch (status) {
             case 0:
@@ -57,24 +54,36 @@ public class Item {
 
     //adjusting it to the PixelSpeed
     public void updatePosition(String direction) {
+        //Initating PowerUp movement
+        Position item = new Position(this.x, this.y);
         switch (direction) {
             case "LEFT":
                 item.left(this.speedInPixel);
+                this.x=item.x;
+                this.y=item.y;
                 break;
             case "RIGHT":
                 item.right(this.speedInPixel);
+                this.x=item.x;
+                this.y=item.y;
                 break;
             case "UP":
                 item.up(this.speedInPixel);
+                this.x=item.x;
+                this.y=item.y;
                 break;
             case "DOWN":
                 item.down(this.speedInPixel);
+                this.x=item.x;
+                this.y=item.y;
                 break;
         }
     }
 
     @Override
     public String toString() {
-        return "Item, " + itemStatus(this.status) + " : " + this.item;
+        //Initating PowerUp movement
+        Position item = new Position(this.x, this.y);
+        return "Item, " + itemStatus(this.status) + " : " + item;
     }
 }
