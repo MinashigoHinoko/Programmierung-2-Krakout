@@ -41,8 +41,8 @@ public class Item {
         this.color = color;
     }
 
-    public String itemStatus(int status){
-        switch(status){
+    public String itemStatus(int status) {
+        switch (status) {
             case 0:
                 return "PowerUp";
             case 1:
@@ -56,11 +56,21 @@ public class Item {
     }
 
     //adjusting it to the PixelSpeed
-    public void updatePosition() {
-        item.left(this.speedInPixel);
-        item.right(this.speedInPixel);
-        item.up(this.speedInPixel);
-        item.down(this.speedInPixel);
+    public void updatePosition(String direction) {
+        switch (direction) {
+            case "LEFT":
+                item.left(this.speedInPixel);
+                break;
+            case "RIGHT":
+                item.right(this.speedInPixel);
+                break;
+            case "UP":
+                item.up(this.speedInPixel);
+                break;
+            case "DOWN":
+                item.down(this.speedInPixel);
+                break;
+        }
     }
 
     @Override

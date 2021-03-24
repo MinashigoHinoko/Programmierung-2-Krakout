@@ -37,11 +37,21 @@ public class Pinball {
     }
 
     //adjusting it to the PixelSpeed
-    public void updatePosition() {
-        pinball.left(this.speedInPixel);
-        pinball.right(this.speedInPixel);
-        pinball.up(this.speedInPixel);
-        pinball.down(this.speedInPixel);
+    public void updatePosition(String direction) {
+        switch (direction) {
+            case "LEFT":
+                pinball.left(this.speedInPixel);
+                break;
+            case "RIGHT":
+                pinball.right(this.speedInPixel);
+                break;
+            case "UP":
+                pinball.up(this.speedInPixel);
+                break;
+            case "DOWN":
+                pinball.down(this.speedInPixel);
+                break;
+        }
     }
 
     /*
