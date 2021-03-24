@@ -1,4 +1,4 @@
-package krakout.movement.nonPlayerObject;
+package krakout.movement.nonplayerobject;
 
 import krakout.movement.Position;
 
@@ -71,6 +71,9 @@ public class Item {
                 item.down(this.speedInPixel);
                 break;
         }
+    }
+    public void Position(){
+
     }
 
     @Override

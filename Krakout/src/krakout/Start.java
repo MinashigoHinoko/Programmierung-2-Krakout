@@ -1,8 +1,8 @@
 package krakout;
 
 import krakout.movement.Position;
-import krakout.movement.nonPlayerObject.Item;
-import krakout.movement.nonPlayerObject.Pinball;
+import krakout.movement.nonplayerobject.Item;
+import krakout.movement.nonplayerobject.Pinball;
 
 public class Start {
 
