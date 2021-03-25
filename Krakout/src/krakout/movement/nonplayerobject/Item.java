@@ -2,10 +2,10 @@ package krakout.movement.nonplayerobject;
 
 import krakout.movement.Position;
 
-public class Item extends Position{
+public class Item extends Position {
     //Position of the item
-    public double x ;
-    public double y ;
+    public double x;
+    public double y;
     //declares what kind of item it is
     public int status;
     //When being hit;
@@ -21,16 +21,16 @@ public class Item extends Position{
     //Color of item
     public String color;
     //initiating Position
-     Position Wall = new Position();
+    Position Wall = new Position();
 
     //Constructor without an input
     public Item() {
-        this(0,0, 1, false, 2, 0, 0, 5, "green");
+        this(0, 0, 1, false, 2, 0, 0, 5, "green");
     }
 
     //Constructor
     public Item(double x, double y, int status, boolean hit, double speedInPixel, int ammount, int live, double size, String color) {
-        super(x,y);
+        super(x, y);
         this.status = status;
         this.hit = hit;
         this.speedInPixel = speedInPixel;
@@ -38,9 +38,10 @@ public class Item extends Position{
         this.live = live;
         this.size = size;
         this.color = color;
-        Wall.x=this.x;
-        Wall.y=this.y;
+        Wall.x = this.x;
+        Wall.y = this.y;
     }
+
     public String itemStatus(int status) {
         switch (status) {
             case 0:
@@ -61,23 +62,23 @@ public class Item extends Position{
         switch (direction) {
             case "LEFT":
                 Wall.left(this.speedInPixel);
-                this.x=this.x+Wall.x;
-                this.y=this.y+Wall.y;
+                this.x = this.x + Wall.x;
+                this.y = this.y + Wall.y;
                 break;
             case "RIGHT":
                 Wall.right(this.speedInPixel);
-                this.x=this.x+Wall.x;
-                this.y=this.y+Wall.y;
+                this.x = this.x + Wall.x;
+                this.y = this.y + Wall.y;
                 break;
             case "UP":
                 Wall.up(this.speedInPixel);
-                this.x=this.x+Wall.x;
-                this.y=this.y+Wall.y;
+                this.x = this.x + Wall.x;
+                this.y = this.y + Wall.y;
                 break;
             case "DOWN":
                 Wall.down(this.speedInPixel);
-                this.x=this.x+Wall.x;
-                this.y=this.y+Wall.y;
+                this.x = this.x + Wall.x;
+                this.y = this.y + Wall.y;
                 break;
         }
     }

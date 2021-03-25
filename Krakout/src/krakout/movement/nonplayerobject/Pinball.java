@@ -2,7 +2,7 @@ package krakout.movement.nonplayerobject;
 
 import krakout.movement.Position;
 
-public class Pinball extends Position{
+public class Pinball extends Position {
     //Position of the ball
     public double x;
     public double y;
@@ -33,8 +33,8 @@ public class Pinball extends Position{
         this.speedInPixel = speedInPixel;
         this.size = size;
         this.color = color;
-        pinball.x=this.x;
-        pinball.y=this.y;
+        pinball.x = this.x;
+        pinball.y = this.y;
 
     }
 
@@ -44,23 +44,23 @@ public class Pinball extends Position{
         switch (direction) {
             case "LEFT":
                 pinball.left(this.speedInPixel);
-                this.x=this.x+pinball.x;
-                this.y=this.y+pinball.y;
+                this.x = this.x + pinball.x;
+                this.y = this.y + pinball.y;
                 break;
             case "RIGHT":
                 pinball.right(this.speedInPixel);
-                this.x=this.x+pinball.x;
-                this.y=this.y+pinball.y;
+                this.x = this.x + pinball.x;
+                this.y = this.y + pinball.y;
                 break;
             case "UP":
                 pinball.up(this.speedInPixel);
-                this.x=this.x+pinball.x;
-                this.y=this.y+pinball.y;
+                this.x = this.x + pinball.x;
+                this.y = this.y + pinball.y;
                 break;
             case "DOWN":
                 pinball.down(this.speedInPixel);
-                this.x=this.x+pinball.x;
-                this.y=this.y+pinball.y;
+                this.x = this.x + pinball.x;
+                this.y = this.y + pinball.y;
                 break;
         }
     }
