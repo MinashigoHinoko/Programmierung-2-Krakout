@@ -21,7 +21,7 @@ public class Item extends Position{
     //Color of item
     public String color;
     //initiating Position
-    public Position item;
+     Position Wall = new Position();
 
     //Constructor without an input
     public Item() {
@@ -38,6 +38,8 @@ public class Item extends Position{
         this.live = live;
         this.size = size;
         this.color = color;
+        Wall.x=this.x;
+        Wall.y=this.y;
     }
     public String itemStatus(int status) {
         switch (status) {
@@ -58,31 +60,30 @@ public class Item extends Position{
         //Initating PowerUp movement
         switch (direction) {
             case "LEFT":
-                super.left(this.speedInPixel);
-                this.x=this.x+super.x;
-                this.y=this.y+super.y;
+                Wall.left(this.speedInPixel);
+                this.x=this.x+Wall.x;
+                this.y=this.y+Wall.y;
                 break;
             case "RIGHT":
-                super.right(this.speedInPixel);
-                this.x=this.x+super.x;
-                this.y=this.y+super.y;
+                Wall.right(this.speedInPixel);
+                this.x=this.x+Wall.x;
+                this.y=this.y+Wall.y;
                 break;
             case "UP":
-                super.up(this.speedInPixel);
-                this.x=this.x+super.x;
-                this.y=this.y+super.y;
+                Wall.up(this.speedInPixel);
+                this.x=this.x+Wall.x;
+                this.y=this.y+Wall.y;
                 break;
             case "DOWN":
-                super.down(this.speedInPixel);
-                this.x=this.x+super.x;
-                this.y=this.y+super.y;
+                Wall.down(this.speedInPixel);
+                this.x=this.x+Wall.x;
+                this.y=this.y+Wall.y;
                 break;
         }
     }
 
     @Override
     public String toString() {
-        Position item = new Position(this.x, this.y);
-        return "Item, " + itemStatus(this.status) + " : " + item;
+        return "Item, " + itemStatus(this.status) + " : " + Wall;
     }
 }

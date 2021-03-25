@@ -17,7 +17,7 @@ public class Pinball extends Position{
     //Color of ball
     public String color;
     //Initiating Position
-    public Position pinball;
+    Position pinball = new Position();
 
     //Constructor without an input
     public Pinball() {
@@ -26,7 +26,6 @@ public class Pinball extends Position{
 
     //Constructor
     public Pinball(double x, double y, boolean hit, int ammount, double speedInPixel, double size, String color) {
-        super(x, y);
         this.x = x;
         this.y = y;
         this.hit = hit;
@@ -34,6 +33,8 @@ public class Pinball extends Position{
         this.speedInPixel = speedInPixel;
         this.size = size;
         this.color = color;
+        pinball.x=this.x;
+        pinball.y=this.y;
 
     }
 
@@ -42,24 +43,24 @@ public class Pinball extends Position{
         //Initating pinball movement
         switch (direction) {
             case "LEFT":
-                super.left(this.speedInPixel);
-                this.x=this.x+super.x;
-                this.y=this.y+super.y;
+                pinball.left(this.speedInPixel);
+                this.x=this.x+pinball.x;
+                this.y=this.y+pinball.y;
                 break;
             case "RIGHT":
-                super.right(this.speedInPixel);
-                this.x=this.x+super.x;
-                this.y=this.y+super.y;
+                pinball.right(this.speedInPixel);
+                this.x=this.x+pinball.x;
+                this.y=this.y+pinball.y;
                 break;
             case "UP":
-                super.up(this.speedInPixel);
-                this.x=this.x+super.x;
-                this.y=this.y+super.y;
+                pinball.up(this.speedInPixel);
+                this.x=this.x+pinball.x;
+                this.y=this.y+pinball.y;
                 break;
             case "DOWN":
-                super.down(this.speedInPixel);
-                this.x=this.x+super.x;
-                this.y=this.y+super.y;
+                pinball.down(this.speedInPixel);
+                this.x=this.x+pinball.x;
+                this.y=this.y+pinball.y;
                 break;
         }
     }
@@ -82,7 +83,6 @@ public class Pinball extends Position{
     @Override
 
     public String toString() {
-        Position pinball = new Position(this.x, this.y);
         return "Pinball: " + pinball;
     }
 }
