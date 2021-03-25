@@ -64,7 +64,7 @@ public class Pinball {
         }
     }
 
-    /*
+
         //Damaging Objects
         public void damage(boolean hit){
             if(hit=true){
@@ -78,7 +78,7 @@ public class Pinball {
             }
     }
 
-     */
+
     @Override
 
     public String toString() {
