@@ -1,4 +1,4 @@
-package view;
+package krakout.gameview;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
