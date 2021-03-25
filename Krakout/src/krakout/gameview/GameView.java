@@ -1441,6 +1441,7 @@ public class GameView {
             colorMap.put('o', Color.ORANGE.darker());
             colorMap.put('W', Color.WHITE);
             colorMap.put('L', Color.BLACK);
+            colorMap.put('Z', Color.DARK_GRAY);
         }
 
         // Anzeige
