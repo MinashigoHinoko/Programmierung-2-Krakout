@@ -2,7 +2,7 @@ package krakout.movement.nonplayerobject;
 
 import krakout.movement.Position;
 
-public class Pinball extends Position {
+public class Pinball {
     //Position of the ball
     public double x;
     public double y;

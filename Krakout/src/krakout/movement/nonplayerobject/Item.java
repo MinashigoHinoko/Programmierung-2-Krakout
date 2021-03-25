@@ -2,7 +2,7 @@ package krakout.movement.nonplayerobject;
 
 import krakout.movement.Position;
 
-public class Item extends Position {
+public class Item {
     //Position of the item
     public double x;
     public double y;
@@ -30,7 +30,8 @@ public class Item extends Position {
 
     //Constructor
     public Item(double x, double y, int status, boolean hit, double speedInPixel, int ammount, int live, double size, String color) {
-        super(x, y);
+        this.x = x;
+        this.y = y;
         this.status = status;
         this.hit = hit;
         this.speedInPixel = speedInPixel;
