@@ -17,7 +17,7 @@ public class Pinball {
     //Color of ball
     public String color;
     //Initiating Position
-    Position pinball;
+    Position position;
 
     //Constructor without an input
     public Pinball() {
@@ -33,7 +33,7 @@ public class Pinball {
         this.speedInPixel = speedInPixel;
         this.size = size;
         this.color = color;
-        pinball = new Position(this.x,this.y);
+        position = new Position(this.x,this.y);
 
     }
 
@@ -42,24 +42,24 @@ public class Pinball {
         //Initating pinball movement
         switch (direction) {
             case "LEFT":
-                pinball.left(this.speedInPixel);
-                this.x = this.x + pinball.x;
-                this.y = this.y + pinball.y;
+                position.left(this.speedInPixel);
+                this.x = this.x + position.x;
+                this.y = this.y + position.y;
                 break;
             case "RIGHT":
-                pinball.right(this.speedInPixel);
-                this.x = this.x + pinball.x;
-                this.y = this.y + pinball.y;
+                position.right(this.speedInPixel);
+                this.x = this.x + position.x;
+                this.y = this.y + position.y;
                 break;
             case "UP":
-                pinball.up(this.speedInPixel);
-                this.x = this.x + pinball.x;
-                this.y = this.y + pinball.y;
+                position.up(this.speedInPixel);
+                this.x = this.x + position.x;
+                this.y = this.y + position.y;
                 break;
             case "DOWN":
-                pinball.down(this.speedInPixel);
-                this.x = this.x + pinball.x;
-                this.y = this.y + pinball.y;
+                position.down(this.speedInPixel);
+                this.x = this.x + position.x;
+                this.y = this.y + position.y;
                 break;
         }
     }
@@ -82,6 +82,6 @@ public class Pinball {
     @Override
 
     public String toString() {
-        return "Pinball: " + pinball;
+        return "Pinball: " + position;
     }
 }

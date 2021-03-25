@@ -21,11 +21,11 @@ public class Item {
     //Color of item
     public String color;
     //initiating Position
-    Position Wall;
+    Position position;
 
     //Constructor without an input
     public Item() {
-        this(0, 500, 1, false, 2, 0, 0, 5, "green");
+        this(0, 0, 1, false, 2, 0, 0, 5, "green");
     }
 
     //Constructor
@@ -39,7 +39,7 @@ public class Item {
         this.live = live;
         this.size = size;
         this.color = color;
-        Wall = new Position(this.x,this.y);
+        position = new Position(this.x,this.y);
     }
 
     public String itemStatus(int status) {
@@ -61,30 +61,30 @@ public class Item {
         //Initating PowerUp movement
         switch (direction) {
             case "LEFT":
-                Wall.left(this.speedInPixel);
-                this.x = this.x + Wall.x;
-                this.y = this.y + Wall.y;
+                position.left(this.speedInPixel);
+                this.x = this.x + position.x;
+                this.y = this.y + position.y;
                 break;
             case "RIGHT":
-                Wall.right(this.speedInPixel);
-                this.x = this.x + Wall.x;
-                this.y = this.y + Wall.y;
+                position.right(this.speedInPixel);
+                this.x = this.x + position.x;
+                this.y = this.y + position.y;
                 break;
             case "UP":
-                Wall.up(this.speedInPixel);
-                this.x = this.x + Wall.x;
-                this.y = this.y + Wall.y;
+                position.up(this.speedInPixel);
+                this.x = this.x + position.x;
+                this.y = this.y + position.y;
                 break;
             case "DOWN":
-                Wall.down(this.speedInPixel);
-                this.x = this.x + Wall.x;
-                this.y = this.y + Wall.y;
+                position.down(this.speedInPixel);
+                this.x = this.x + position.x;
+                this.y = this.y + position.y;
                 break;
         }
     }
 
     @Override
     public String toString() {
-        return "Item, " + itemStatus(this.status) + " : " + Wall;
+        return "Item, " + itemStatus(this.status) + " : " + position;
     }
 }
