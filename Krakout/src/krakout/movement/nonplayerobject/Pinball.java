@@ -17,7 +17,7 @@ public class Pinball {
     //Color of ball
     public String color;
     //Initiating Position
-    Position pinball = new Position();
+    Position pinball;
 
     //Constructor without an input
     public Pinball() {
@@ -33,8 +33,7 @@ public class Pinball {
         this.speedInPixel = speedInPixel;
         this.size = size;
         this.color = color;
-        pinball.x = this.x;
-        pinball.y = this.y;
+        pinball = new Position(this.x,this.y);
 
     }
 

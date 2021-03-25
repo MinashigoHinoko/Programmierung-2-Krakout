@@ -21,11 +21,11 @@ public class Item {
     //Color of item
     public String color;
     //initiating Position
-    Position Wall = new Position();
+    Position Wall;
 
     //Constructor without an input
     public Item() {
-        this(0, 0, 1, false, 2, 0, 0, 5, "green");
+        this(0, 500, 1, false, 2, 0, 0, 5, "green");
     }
 
     //Constructor
@@ -39,8 +39,7 @@ public class Item {
         this.live = live;
         this.size = size;
         this.color = color;
-        Wall.x = this.x;
-        Wall.y = this.y;
+        Wall = new Position(this.x,this.y);
     }
 
     public String itemStatus(int status) {
