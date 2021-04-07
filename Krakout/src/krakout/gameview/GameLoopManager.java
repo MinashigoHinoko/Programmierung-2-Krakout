@@ -6,7 +6,6 @@ public class GameLoopManager {
     private final GameView gameView;
     private final String background;
     private final String house;
-    private final String player;
 
     public GameLoopManager() {
         this.gameView = new GameView();
