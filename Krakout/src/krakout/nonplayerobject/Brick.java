@@ -5,7 +5,7 @@ import krakout.movement.Position;
 public class Brick {
     private final boolean isHit;
     //initiating Position
-    private Position position;
+    private final Position position;
     //x Position of the Brick
     private double x;
     //y Position of the Brick
@@ -29,18 +29,20 @@ public class Brick {
     }
 
     /**
-     * Positions of the Brick
+     * Positions {@link Position} of the Brick
      *
      * @param x as Position x
+     * @see Position
      */
     public void setX(double x) {
         this.x = x;
     }
 
     /**
-     * Positions of the Brick
+     * Positions {@link Position} of the Brick
      *
      * @param y as Position y
+     * @see Position
      */
     public void setY(double y) {
         this.y = y;
@@ -59,6 +61,7 @@ public class Brick {
      * gets Position to see if ball collides with it
      *
      * @return Position of Brick as String Position ("X","Y")
+     * @see Position
      */
     public Position getPosition() {
         return position;

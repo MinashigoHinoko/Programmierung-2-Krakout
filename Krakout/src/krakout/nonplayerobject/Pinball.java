@@ -28,7 +28,9 @@ public class Pinball {
     /**
      * Takes Input to determine where the ball gets respawned
      *
+     * {@link Position}
      * @param x as Position x
+     * @see Position
      */
     public void setX(double x) {
         this.x = x;
@@ -37,7 +39,9 @@ public class Pinball {
     /**
      * Takes Input to determine where the ball gets respawned
      *
+     *{@link Position}
      * @param y as Position y
+     * @see Position
      */
     public void setY(double y) {
         this.y = y;
@@ -91,6 +95,7 @@ public class Pinball {
     /**
      * We need the Position of the ball to determine if it hits something
      *
+     * @see Position
      * @return position of ball as String Position ("X","Y")
      */
     public Position getPosition() {
@@ -125,16 +130,23 @@ public class Pinball {
     }
 
 
-    //Damaging Objects
+    /**
+     * detemines if pinball hits something to call bounce
+     * @param hit if true, bounce
+     */
     public void damage(boolean hit) {
         if (hit = true) {
             bounce(hit);
         }
     }
 
-    //Bouncing of walls or Objects
+    /**
+     * ball bounces of hitted element.
+     * @param hit if true, bounce
+     */
     public void bounce(boolean hit) {
         if (hit = true) {
+            // Change Direction (WIP)
         }
     }
 

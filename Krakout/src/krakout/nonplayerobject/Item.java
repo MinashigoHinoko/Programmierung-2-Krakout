@@ -46,18 +46,20 @@ public class Item {
     }
 
     /**
-     * Sets first Position, will be identical to the Pos of the brick
+     * Sets first Position{@link Position}, will be identical to the Pos of the brick
      *
      * @param x Position x of Brick
+     * @see Position
      */
     public void setX(double x) {
         this.x = x;
     }
 
     /**
-     * Sets first Position, will be identical to the Pos of the brick
+     * Sets first Position{@link Position}, will be identical to the Pos of the brick
      *
      * @param y Position y of Brick
+     * @see Position
      */
     public void setY(double y) {
         this.y = y;
@@ -120,7 +122,8 @@ public class Item {
     /**
      * Get the Position of the Item to determine if being Hit
      *
-     * @return Position of Item as String Position ("X","Y")
+     * @return Position {@link Position} of Item as String Position ("X","Y")
+     * @see Position
      */
     public Position getPosition() {
         return position;
