@@ -2,27 +2,39 @@ package krakout.nonplayerobject;
 
 import krakout.movement.Position;
 
+/**
+ * This Object will be used to create Items, these Items can be enemies,PowerUps or PowerDowns
+ */
 public class Item {
     private final boolean isHit;
+    private final int live;
+    //initiating Position
+    private final Position position;
     //declares what kind of item it is
     private int status;
     private double fallSpeedInPixel;
     //Ammount of items
     private int maxAmmount;
-    private int live;
     private double size;
     private String color;
-    //initiating Position
-    private Position position;
     //Position of the item
     private double x;
     private double y;
 
+    /**
+     * Item needs pre Constructed parameters as the live and if it already has been hit
+     */
     public Item() {
-        this(false);
+        this(2, false);
     }
 
-    public Item(boolean isHit) {
+    /**
+     * Constructer with Initialisation
+     * @param live as how damaged the item is
+     * @param isHit  if it has been hit, true means live reduced
+     */
+    public Item(int live, boolean isHit) {
+        this.live = live;
         this.isHit = isHit;
         position = new Position(this.x, this.y);
     }
@@ -69,7 +81,7 @@ public class Item {
      * To Output the Information, what kind of item manipulates the game/player
      *
      * @return status as number, this will convert in the Output to the actual Item
-     * */
+     */
     public int getStatus() {
         return status;
     }
@@ -86,7 +98,7 @@ public class Item {
     /**
      * Determines if the Item is Hit and calculates dmg
      *
-     * @return  true if hit and false if not
+     * @return true if hit and false if not
      */
     public boolean isHit() {
         return isHit;
@@ -95,7 +107,7 @@ public class Item {
     /**
      * gets the Max Ammount of Items there are in the game
      *
-     * @return  Max Ammount of Items
+     * @return Max Ammount of Items
      */
     public int getMaxAmmount() {
         return maxAmmount;
@@ -104,7 +116,7 @@ public class Item {
     /**
      * gets the remaining Live points of the Item
      *
-     * @return  Live as a Number
+     * @return Live as a Number
      */
     public int getLive() {
         return live;
@@ -113,7 +125,7 @@ public class Item {
     /**
      * Get the Size of the Item for Hitbox calculation
      *
-     * @return  Size as a Number
+     * @return Size as a Number
      */
     public double getSize() {
         return size;
@@ -132,10 +144,10 @@ public class Item {
     /**
      * For determining which kind of Item it is
      *
-     * @param status    takes the Status and looks for it in the switch
-     * @return  kind of Item
+     * @param status takes the Status and looks for it in the switch
+     * @return kind of Item
      */
-    public String itemStatus(int status) {
+    private String itemStatus(int status) {
         switch (status) {
             case 0:
                 return "PowerUp";
@@ -153,8 +165,9 @@ public class Item {
      * Movement of the Item
      *
      * @param direction the way the Item decides to move
-     * */
-    public void updatePosition(String direction) {
+     *                  (this has the sole purpose of testing the movement and will be removed)
+     */
+    private void updatePosition(String direction) {
         //Initating PowerUp movement
         switch (direction) {
             case "LEFT":

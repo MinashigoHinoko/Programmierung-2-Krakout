@@ -2,11 +2,14 @@ package krakout.nonplayerobject;
 
 import krakout.movement.Position;
 
+/**
+ * This is the pinball the player needs to play, it will destroy bricks {@link Brick} and collect PowerUps {@link Item}
+ */
 public class Pinball {
     private final boolean hasHit;
     //Initiating Position
     private final Position position;
-    private double size;
+    private final double size;
     //x Position of the ball
     private double x;
     //y Position of the ball
@@ -15,11 +18,20 @@ public class Pinball {
     private double speedInPixel;
     private String color;
 
+    /**
+     * Pinball needs pre Constructed parameters as the size and if it already has hit something
+     */
     public Pinball() {
-        this(false);
+        this(5,false);
     }
 
-    public Pinball(boolean hasHit) {
+    /**
+     * Constructer with Initialisation
+     * @param size for the size of the ball
+     * @param hasHit if true, has hit an Object
+     */
+    public Pinball(double size,boolean hasHit) {
+        this.size = size;
         this.hasHit = hasHit;
         position = new Position(this.x, this.y);
 
@@ -93,7 +105,8 @@ public class Pinball {
     }
 
     /**
-     * We need the Position of the ball to determine if it hits something
+     * We need the Position {@link Position} of the ball to determine if it hits something
+     *
      *
      * @see Position
      * @return position of ball as String Position ("X","Y")
@@ -102,8 +115,14 @@ public class Pinball {
         return position;
     }
 
-    //adjusting it to the PixelSpeed
-    public void updatePosition(String direction) {
+
+    /**
+     * Adjusting movement to the speed of the ball
+     *
+     * @param direction if  direction has been called, move in that direction
+     *               (this has the sole purpose of testing the movement and will be removed)
+     */
+    private void updatePosition(String direction) {
         //Initating pinball movement
         switch (direction) {
             case "LEFT":
@@ -134,7 +153,7 @@ public class Pinball {
      * detemines if pinball hits something to call bounce
      * @param hit if true, bounce
      */
-    public void damage(boolean hit) {
+    private void damage(boolean hit) {
         if (hit = true) {
             bounce(hit);
         }
@@ -144,7 +163,7 @@ public class Pinball {
      * ball bounces of hitted element.
      * @param hit if true, bounce
      */
-    public void bounce(boolean hit) {
+    private void bounce(boolean hit) {
         if (hit = true) {
             // Change Direction (WIP)
         }

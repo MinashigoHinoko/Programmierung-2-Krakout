@@ -2,17 +2,24 @@ package krakout.gameview;
 
 import java.awt.*;
 
+/**
+ * This is the GameLoopManager, here we will Input what the player sees. This includes animations and the game itself
+ */
 public class GameLoopManager {
     private final GameView gameView;
     private final String background;
     private final String house;
 
+    /**
+     * Flag Color for the Background as Krakout backgrounds are often Colorful
+     * @
+     */
     public GameLoopManager() {
+
         this.gameView = new GameView();
         this.gameView.setWindowTitle("Krakout");
         this.gameView.setStatusText("Amir(mHiko), Amuri - Java Programmierung SS 2021");
         this.gameView.setWindowIcon("Target.png");
-        //Flag Color for Background (Krakout Backgrounds hare most of the time more colorful(and animated but I dont know how to that yet))
         this.background = "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
                         + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
                         + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
@@ -84,6 +91,9 @@ public class GameLoopManager {
                     +  "WWWWWWW\n";
     }
 
+    /**
+     * Initialisation of the game and Building Game screen {@link GameView}
+     */
     public void startGame() {
         //Tex top left
         gameView.addTextToCanvas("Oben links", 0, 0, 18, Color.YELLOW, 0);
@@ -130,8 +140,12 @@ public class GameLoopManager {
             //Small tilted Heart
         gameView.addImageToCanvas("Herz.png",300,400,0.7,90);
 
-        //Box bottom right
-            //Background
+        /**
+         * This is m Own Background on the Bottom right
+         *
+         * @see background is the flag stated above
+         * I have designed the Ball, the Player and the Brick myself and its inspired by the Krakout game
+         */
         gameView.addBlockImageToCanvas(background, 550, GameView.HEIGHT-330, 4.65, 0);
             //Border of the Background
         gameView.addRectangleToCanvas(550, GameView.HEIGHT-330, 400, 270, 2, false, Color.WHITE);

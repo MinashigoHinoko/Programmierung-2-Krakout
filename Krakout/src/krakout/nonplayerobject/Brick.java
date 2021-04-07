@@ -2,28 +2,41 @@ package krakout.nonplayerobject;
 
 import krakout.movement.Position;
 
+/**
+ * This is the Brick the player has to hit with his Pinball {@link Pinball}.
+ * Every Brick has to be destroyed to finish the game
+ */
 public class Brick {
     private final boolean isHit;
     //initiating Position
     private final Position position;
+    private final int live;
     //x Position of the Brick
     private double x;
     //y Position of the Brick
     private double y;
     //Ammount of Bricks for Win condition
     private int ammount;
-    private int live;
     private double size;
     private String color;
     //Has PowerUP?
     private boolean powerUp;
 
+    /**
+     * Brick needs pre Constructed parameters as the live and if it already has been hit
+     */
     public Brick() {
-        this(false);
+        this(1, false);
 
     }
 
-    public Brick(boolean isHit) {
+    /**
+     * Constructer with Initialisation
+     * @param live as how damaged the brick is
+     * @param isHit  if it has been hit, true means live reduced
+     */
+    public Brick(int live, boolean isHit) {
+        this.live = live;
         this.isHit = isHit;
         position = new Position(this.x, this.y);
     }
@@ -58,7 +71,7 @@ public class Brick {
     }
 
     /**
-     * gets Position to see if ball collides with it
+     * gets Position {@link Position} to see if ball collides with it
      *
      * @return Position of Brick as String Position ("X","Y")
      * @see Position
@@ -99,7 +112,6 @@ public class Brick {
      *
      * @return Size of Brick
      */
-    //To check if being hit
     public double getSize() {
         return size;
     }
