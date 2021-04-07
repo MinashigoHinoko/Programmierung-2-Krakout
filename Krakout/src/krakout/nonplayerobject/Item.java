@@ -24,6 +24,7 @@ public class Item {
 
     public Item(boolean isHit) {
         this.isHit = isHit;
+        position = new Position(this.x, this.y);
     }
 
     public void setfallSpeedInPixel(double fallSpeedInPixel) {

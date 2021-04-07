@@ -4,7 +4,7 @@ import krakout.movement.Position;
 
 public class Pinball {
     private final boolean hasHit;
-    private final double size;
+    private  double size;
     //Initiating Position
     private final Position position;
     //x Position of the ball
@@ -16,49 +16,74 @@ public class Pinball {
     private String color;
 
     public Pinball() {
-        this(false, 3, 5, "gray");
+        this(false);
     }
 
-    public Pinball(boolean hasHit, double speedInPixel, double size, String color) {
+    public Pinball(boolean hasHit) {
         this.hasHit = hasHit;
-        this.speedInPixel = speedInPixel;
-        this.size = size;
-        this.color = color;
         position = new Position(this.x, this.y);
 
     }
 
-    //Set X Position If respawn
+    /**
+     * Takes Input to determine where the ball gets respawned
+     *
+     * @param x as Position x
+     */
     public void setX(double x) {
         this.x = x;
     }
 
-    //Set Y Position if respawn
+    /**
+     * Takes Input to determine where the ball gets respawned
+     *
+     * @param y as Position y
+     */
     public void setY(double y) {
         this.y = y;
     }
 
-    //Set Speed if PowerUp or PowerDown
+    /**
+     * Declares the Speed of the Ball if it gets manipulated by an item
+     *
+     * @param speedInPixel
+     */
     public void setSpeedInPixel(double speedInPixel) {
         this.speedInPixel = speedInPixel;
     }
 
-    //Set Color if PowerUp picked up
+    /**
+     * The ball will change color for a brief second to signalise the picked up item
+     *
+     * @param color
+     */
     public void setColor(String color) {
         this.color = color;
     }
 
-    //Get Information if it hits something
+    /**
+     * If the Ball hits something, this turns to true and triggers the Hit
+     *
+     * @return
+     */
     public boolean hasHit() {
         return hasHit;
     }
 
-    //Get Information on the amount of balls for animation
+    /**
+     * to track the Ammount of balls is necessary to run the game as smooth as possible
+     *
+     * @return
+     */
     public int getAmmount() {
         return ammount;
     }
 
-    //Get Size for the Hitbox of the balls
+    /**
+     * We need to know the size of the balls to track the Hitbox correctly
+     *
+     * @return
+     */
     public double getSize() {
         return size;
     }

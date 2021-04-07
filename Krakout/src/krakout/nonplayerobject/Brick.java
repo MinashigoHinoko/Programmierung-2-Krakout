@@ -20,10 +20,12 @@ public class Brick {
 
     public Brick() {
         this(false);
+
     }
 
     public Brick(boolean isHit) {
         this.isHit = isHit;
+        position = new Position(this.x, this.y);
     }
 
     public void setX(double x) {
