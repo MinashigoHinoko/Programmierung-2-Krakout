@@ -4,9 +4,9 @@ import krakout.movement.Position;
 
 public class Pinball {
     private final boolean hasHit;
-    private  double size;
     //Initiating Position
     private final Position position;
+    private double size;
     //x Position of the ball
     private double x;
     //y Position of the ball
@@ -46,7 +46,7 @@ public class Pinball {
     /**
      * Declares the Speed of the Ball if it gets manipulated by an item
      *
-     * @param speedInPixel
+     * @param speedInPixel How fast the ball moves
      */
     public void setSpeedInPixel(double speedInPixel) {
         this.speedInPixel = speedInPixel;
@@ -55,7 +55,7 @@ public class Pinball {
     /**
      * The ball will change color for a brief second to signalise the picked up item
      *
-     * @param color
+     * @param color what color the ball has
      */
     public void setColor(String color) {
         this.color = color;
@@ -64,7 +64,7 @@ public class Pinball {
     /**
      * If the Ball hits something, this turns to true and triggers the Hit
      *
-     * @return
+     * @return if the Ball has Hit anything
      */
     public boolean hasHit() {
         return hasHit;
@@ -73,7 +73,7 @@ public class Pinball {
     /**
      * to track the Ammount of balls is necessary to run the game as smooth as possible
      *
-     * @return
+     * @return how many balls there are at the same time
      */
     public int getAmmount() {
         return ammount;
@@ -82,13 +82,17 @@ public class Pinball {
     /**
      * We need to know the size of the balls to track the Hitbox correctly
      *
-     * @return
+     * @return size of ball
      */
     public double getSize() {
         return size;
     }
 
-    //Track position to check if ball hits something
+    /**
+     * We need the Position of the ball to determine if it hits something
+     *
+     * @return position of ball as String Position ("X","Y")
+     */
     public Position getPosition() {
         return position;
     }
