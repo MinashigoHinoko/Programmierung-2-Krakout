@@ -120,7 +120,7 @@ public class Item {
     /**
      * Get the Position of the Item to determine if being Hit
      *
-     * @return  Position of Item as String Position ("X","Y")
+     * @return Position of Item as String Position ("X","Y")
      */
     public Position getPosition() {
         return position;

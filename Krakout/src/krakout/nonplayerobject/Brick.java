@@ -67,7 +67,7 @@ public class Brick {
     /**
      * If being Hit, the Live of the Brick will be reduced according to the Damage
      *
-     * @return  if being Hit, true = Damage
+     * @return if being Hit, true = Damage
      */
     public boolean isHit() {
         return isHit;
@@ -76,7 +76,7 @@ public class Brick {
     /**
      * Get Ammount of Bricks to determine how many have to be destroyed to finish game
      *
-     * @return  Number of Bricks
+     * @return Number of Bricks
      */
     public int getAmmount() {
         return ammount;
