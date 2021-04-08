@@ -12,7 +12,7 @@ public class GameLoopManager {
 
     /**
      * Flag Color for the Background as Krakout backgrounds are often Colorful
-     * @
+     *
      */
     public GameLoopManager() {
 
@@ -140,12 +140,7 @@ public class GameLoopManager {
             //Small tilted Heart
         gameView.addImageToCanvas("Herz.png",300,400,0.7,90);
 
-        /**
-         * This is m Own Background on the Bottom right
-         *
-         * @see background is the flag stated above
-         * I have designed the Ball, the Player and the Brick myself and its inspired by the Krakout game
-         */
+        //Background
         gameView.addBlockImageToCanvas(background, 550, GameView.HEIGHT-330, 4.65, 0);
             //Border of the Background
         gameView.addRectangleToCanvas(550, GameView.HEIGHT-330, 400, 270, 2, false, Color.WHITE);

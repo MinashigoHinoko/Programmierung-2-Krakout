@@ -3,7 +3,7 @@ package krakout.nonplayerobject;
 import krakout.movement.Position;
 
 /**
- * This is the pinball the player needs to play, it will destroy bricks {@link Brick} and collect PowerUps {@link Item}
+ * This is the pinball the player needs to play with, it will destroy bricks {@link Brick} and collect PowerUps {@link Item}
  */
 public class Pinball {
     private final boolean hasHit;

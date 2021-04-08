@@ -99,7 +99,7 @@ public class Brick {
     }
 
     /**
-     * Get Live of Brick to determine how oftern it has to be hit, to be destroyed
+     * Get Live of Brick to determine how often it has to be hit, to be destroyed
      *
      * @return remaining Live of Brick
      */
