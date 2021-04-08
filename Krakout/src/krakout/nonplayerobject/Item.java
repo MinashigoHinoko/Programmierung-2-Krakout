@@ -30,8 +30,9 @@ public class Item {
 
     /**
      * Constructer with Initialisation
-     * @param live as how damaged the item is
-     * @param isHit  if it has been hit, true means live reduced
+     *
+     * @param live  as how damaged the item is
+     * @param isHit if it has been hit, true means live reduced
      */
     public Item(int live, boolean isHit) {
         this.live = live;

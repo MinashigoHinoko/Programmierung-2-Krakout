@@ -32,8 +32,9 @@ public class Brick {
 
     /**
      * Constructer with Initialisation
-     * @param live as how damaged the brick is
-     * @param isHit  if it has been hit, true means live reduced
+     *
+     * @param live  as how damaged the brick is
+     * @param isHit if it has been hit, true means live reduced
      */
     public Brick(int live, boolean isHit) {
         this.live = live;

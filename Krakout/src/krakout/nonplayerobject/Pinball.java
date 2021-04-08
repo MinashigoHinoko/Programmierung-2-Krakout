@@ -22,15 +22,16 @@ public class Pinball {
      * Pinball needs pre Constructed parameters as the size and if it already has hit something
      */
     public Pinball() {
-        this(5,false);
+        this(5, false);
     }
 
     /**
      * Constructer with Initialisation
-     * @param size for the size of the ball
+     *
+     * @param size   for the size of the ball
      * @param hasHit if true, has hit an Object
      */
-    public Pinball(double size,boolean hasHit) {
+    public Pinball(double size, boolean hasHit) {
         this.size = size;
         this.hasHit = hasHit;
         position = new Position(this.x, this.y);
@@ -39,8 +40,9 @@ public class Pinball {
 
     /**
      * Takes Input to determine where the ball gets respawned
-     *
+     * <p>
      * {@link Position}
+     *
      * @param x as Position x
      * @see Position
      */
@@ -50,8 +52,9 @@ public class Pinball {
 
     /**
      * Takes Input to determine where the ball gets respawned
+     * <p>
+     * {@link Position}
      *
-     *{@link Position}
      * @param y as Position y
      * @see Position
      */
@@ -107,9 +110,8 @@ public class Pinball {
     /**
      * We need the Position {@link Position} of the ball to determine if it hits something
      *
-     *
-     * @see Position
      * @return position of ball as String Position ("X","Y")
+     * @see Position
      */
     public Position getPosition() {
         return position;
@@ -120,7 +122,7 @@ public class Pinball {
      * Adjusting movement to the speed of the ball
      *
      * @param direction if  direction has been called, move in that direction
-     *               (this has the sole purpose of testing the movement and will be removed)
+     *                  (this has the sole purpose of testing the movement and will be removed)
      */
     private void updatePosition(String direction) {
         //Initating pinball movement
@@ -151,6 +153,7 @@ public class Pinball {
 
     /**
      * detemines if pinball hits something to call bounce
+     *
      * @param hit if true, bounce
      */
     private void damage(boolean hit) {
@@ -161,6 +164,7 @@ public class Pinball {
 
     /**
      * ball bounces of hitted element.
+     *
      * @param hit if true, bounce
      */
     private void bounce(boolean hit) {

@@ -26,6 +26,7 @@ public class Position {
 
     /**
      * Constructor for the x and y Coordinate for Position
+     *
      * @param x Position
      * @param y Position
      */
@@ -36,56 +37,55 @@ public class Position {
 
     /**
      * Takes input and lets the Object Move one left
-     *
      */
     public void left() {
         this.x = x--;
     }
+
     /**
      * Takes input and lets the Object Move left with a certain pixel Speed
-     *
      */
     public void left(double pixel) {
         this.x -= pixel;
     }
+
     /**
      * Takes input and lets the Object Move one right
-     *
      */
     public void right() {
         this.x++;
     }
+
     /**
      * Takes input and lets the Object Move right with a certain pixel Speed
-     *
      */
     public void right(double pixel) {
         this.x += pixel;
     }
+
     /**
      * Takes input and lets the Object Move one up
-     *
      */
     public void up() {
         this.y--;
     }
+
     /**
      * Takes input and lets the Object Move up with a certain pixel Speed
-     *
      */
     public void up(double pixel) {
         this.y -= pixel;
     }
+
     /**
      * Takes input and lets the Object Move one down
-     *
      */
     public void down() {
         this.y++;
     }
+
     /**
      * Takes input and lets the Object Move down with a certain pixel Speed
-     *
      */
     public void down(double pixel) {
         this.y += pixel;
