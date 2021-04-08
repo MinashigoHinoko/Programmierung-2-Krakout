@@ -1,46 +1,56 @@
 package krakout.nonplayerobject;
 
+import krakout.gameview.GameView;
 import krakout.movement.Position;
 
 /**
- * This is the pinball the player needs to play with, it will destroy bricks {@link Brick} and collect PowerUps {@link Item}
+ * This is the pinball the player needs to play with, it will destroy {@link Brick} and collect PowerUp {@link Item}
  */
 public class Pinball {
-    private final boolean hasHit;
+    private final GameView gameView;
     //Initiating Position
     private final Position position;
     private final double size;
+    private final double rotation;
+    private final double width;
+    private final double height;
+    private final int ammount;
+    private double speedInPixel;
+    private boolean flyFromLeftToRight;
     //x Position of the ball
     private double x;
     //y Position of the ball
     private double y;
-    private int ammount;
-    private double speedInPixel;
-    private String color;
 
     /**
-     * Pinball needs pre Constructed parameters as the size and if it already has hit something
+     * Creates a new pinball
+     *
+     * @param gameView this is for Initialising the ball
+     * @see GameView
      */
-    public Pinball() {
-        this(5, false);
+    public Pinball(GameView gameView) {
+        this.gameView = gameView;
+        this.position = new Position(100, 100);
+        this.size = 2;
+        this.flyFromLeftToRight = true;
+        this.rotation = 0;
+        this.width = 20;
+        this.height = 20;
+        this.x = position.x;
+        this.y = position.y;
+        this.ammount = 0;
+        this.speedInPixel = 3;
     }
 
     /**
-     * Constructer with Initialisation
-     *
-     * @param size   for the size of the ball
-     * @param hasHit if true, has hit an Object
+     * Draws the Pinball to the canvas.
      */
-    public Pinball(double size, boolean hasHit) {
-        this.size = size;
-        this.hasHit = hasHit;
-        position = new Position(this.x, this.y);
-
+    public void addToCanvas() {
+        gameView.addImageToCanvas("Pinball.png", position.x, position.y, size, rotation);
     }
 
     /**
      * Takes Input to determine where the ball gets respawned
-     * <p>
      * {@link Position}
      *
      * @param x as Position x
@@ -63,6 +73,14 @@ public class Pinball {
     }
 
     /**
+     * Outputs the Speed in pixel for the Items
+     * @return Speed of the Ball in Pixel
+     */
+    public double getSpeedInPixel() {
+        return speedInPixel;
+    }
+
+    /**
      * Declares the Speed of the Ball if it gets manipulated by an item
      *
      * @param speedInPixel How fast the ball moves
@@ -72,21 +90,12 @@ public class Pinball {
     }
 
     /**
-     * The ball will change color for a brief second to signalise the picked up item
-     *
-     * @param color what color the ball has
-     */
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    /**
      * If the Ball hits something, this turns to true and triggers the Hit
      *
      * @return if the Ball has Hit anything
      */
     public boolean hasHit() {
-        return hasHit;
+        return flyFromLeftToRight;
     }
 
     /**
@@ -119,60 +128,39 @@ public class Pinball {
 
 
     /**
-     * Adjusting movement to the speed of the ball
-     *
-     * @param direction if  direction has been called, move in that direction
-     *                  (this has the sole purpose of testing the movement and will be removed)
+     * Updating Visual Movement of the ball
      */
-    private void updatePosition(String direction) {
-        //Initating pinball movement
-        switch (direction) {
-            case "LEFT":
-                position.left(this.speedInPixel);
-                this.x = this.x + position.x;
-                this.y = this.y + position.y;
-                break;
-            case "RIGHT":
-                position.right(this.speedInPixel);
-                this.x = this.x + position.x;
-                this.y = this.y + position.y;
-                break;
-            case "UP":
-                position.up(this.speedInPixel);
-                this.x = this.x + position.x;
-                this.y = this.y + position.y;
-                break;
-            case "DOWN":
-                position.down(this.speedInPixel);
-                this.x = this.x + position.x;
-                this.y = this.y + position.y;
-                break;
+    public void updatePosition() {
+        if (position.x >= GameView.WIDTH - width || position.x >= (860) - width) {
+            this.flyFromLeftToRight = false;
+        } else if (position.x <= (GameView.WIDTH - GameView.WIDTH) - width || position.x <= 25 - width) { // 20 is the not yet inputted Object of the Player
+            this.flyFromLeftToRight = true;
+        }
+        if (this.flyFromLeftToRight == true) {
+            position.right(speedInPixel);
+            this.x = position.x;
+        } else if (this.flyFromLeftToRight == false) {
+            position.left(speedInPixel);
+            this.x = position.x;
         }
     }
 
 
     /**
      * detemines if pinball hits something to call bounce
-     *
-     * @param hit if true, bounce
      */
-    private void damage(boolean hit) {
-        if (hit = true) {
-            bounce(hit);
+    private void damage() {
+        if (this.flyFromLeftToRight = true) {
+            bounce();
         }
     }
 
     /**
      * ball bounces of hitted element.
-     *
-     * @param hit if true, bounce
      */
-    private void bounce(boolean hit) {
-        if (hit = true) {
-            // Change Direction (WIP)
-        }
-    }
+    private void bounce() {
 
+    }
 
     @Override
 

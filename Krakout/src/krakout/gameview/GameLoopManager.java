@@ -1,5 +1,10 @@
 package krakout.gameview;
 
+import krakout.nonplayerobject.Background;
+import krakout.nonplayerobject.Brick;
+import krakout.nonplayerobject.Item;
+import krakout.nonplayerobject.Pinball;
+
 import java.awt.*;
 
 /**
@@ -7,151 +12,59 @@ import java.awt.*;
  */
 public class GameLoopManager {
     private final GameView gameView;
-    private final String background;
-    private final String house;
+    private final Pinball ball;
+    private final Background background;
+    private final Brick brick;
+    private final Item item;
 
     /**
-     * Flag Color for the Background as Krakout backgrounds are often Colorful
+     * Creates the main loop
      */
     public GameLoopManager() {
-
         this.gameView = new GameView();
         this.gameView.setWindowTitle("Krakout");
         this.gameView.setStatusText("Amir(mHiko), Amuri - Java Programmierung SS 2021");
         this.gameView.setWindowIcon("Target.png");
-        this.background = "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n"
-                + "BZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZ\n"
-                + "ZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZBZB\n";
+        this.ball = new Pinball(gameView);
+        this.background = new Background(gameView);
+        this.brick = new Brick(gameView);
+        this.item = new Item(gameView);
+        this.item.setPosition(brick.getPosition());
+        this.item.setFallSpeedInPixel(ball.getSpeedInPixel());
 
-
-        this.house = "   W \n"
-                + "  WOW \n"
-                + " WOOOW \n"
-                + "WOOOOOW\n"
-                + "WWWWWWW\n"
-                + "WOOOOOW\n"
-                + "WOOOOOW\n"
-                + "WOOOOOW\n"
-                + "WWWWWWW\n";
     }
 
     /**
      * Initialisation of the game and Building Game screen {@link GameView}
      */
     public void startGame() {
-        //Tex top left
-        gameView.addTextToCanvas("Oben links", 0, 0, 18, Color.YELLOW, 0);
 
-        //Text top right
-        gameView.addTextToCanvas("Unten rechts", GameView.WIDTH - 12 * 18, GameView.HEIGHT - 18, 18, Color.YELLOW, 0);
-
-        //Top red line
-        gameView.addLineToCanvas(0, 50, GameView.WIDTH, 50, 5, Color.RED);
-
-        //Bottom red line
-        gameView.addLineToCanvas(0, GameView.HEIGHT - 50, GameView.WIDTH, GameView.HEIGHT - 50, 5, Color.RED);
-
-        //Half circle on the eft
-        gameView.addOvalToCanvas(0, 100, 50, 50, 5, true, Color.BLUE);
-
-        //Empty oval next to the half circle.
-        gameView.addOvalToCanvas(200, 100, 200, 50, 15, false, Color.GREEN);
-
-        //Rectangle next to the oval
-        gameView.addRectangleToCanvas(400, 75, 100, 50, 5, false, Color.YELLOW);
-
-        //Green big "w"
-        gameView.addPolyLineToCanvas(new double[]{550, 650, 750, 850, 950}, new double[]{100, 150, 100, 150, 100}, 10, Color.GREEN);
-
-        //Big pyramid in the middle
-        gameView.addPolygonToCanvas(new double[]{0, GameView.WIDTH / 2d, GameView.WIDTH}, new double[]{200, 150, 200}, 3, true, Color.CYAN);
-
-        //House under pyramid
-        //Large House
-        gameView.addBlockImageToCanvas(house, 20, 250, 15, 0);
-        //Medium House standing straight
-        gameView.addBlockImageToCanvas(house, 150, 250, 10, 0);
-        //Medium House slightly tilted to the side
-        gameView.addBlockImageToCanvas(house, 250, 250, 10, 45);
-        //Medium House tilted to the side
-        gameView.addBlockImageToCanvas(house, 350, 250, 10, 90);
-        //small House right
-        gameView.addBlockImageToCanvas(house, 450, 250, 5, 0);
-
-        //Hearts under Houses
-        //Normal Heart
-        gameView.addImageToCanvas("Herz.png", 200, 400, 1.3, 0);
-        //Small tilted Heart
-        gameView.addImageToCanvas("Herz.png", 300, 400, 0.7, 90);
-
-        //Background
-        gameView.addBlockImageToCanvas(background, 550, GameView.HEIGHT - 330, 4.65, 0);
-        //Border of the Background
-        gameView.addRectangleToCanvas(550, GameView.HEIGHT - 330, 400, 270, 2, false, Color.WHITE);
-        //Player
-        gameView.addImageToCanvas("Player.png", 640, 300, 1.2, 90);
-        //Ball
-        gameView.addImageToCanvas("Pinball.png", 670, 280, 1.5, 0);
-        //Brick
-        gameView.addImageToCanvas("Brick.png", 700, 260, 1, -90);
-
-        //Printing to Screen
-        gameView.printCanvas();
+        while (true) { // Der "Game-Loop"
+            //Update Position ball
+            ball.updatePosition();
+            //Update Background();
+            background.updatePosition();
+            //Print Background
+            background.addToCanvas();
+            //Print Item
+            item.addToCanvas();
+            //Print ball
+            ball.addToCanvas();
+            //Print Brick
+            brick.addToCanvas();
+            //Print Player
+            gameView.addImageToCanvas("Player.png", -20, 100, 2, 90);
+            //Placeholder
+            gameView.addTextToCanvas("Placeholder", GameView.WIDTH - 11 * 18, 0, 18, Color.YELLOW, 0);
+            //Placeholder
+            gameView.addTextToCanvas("Placeholder", GameView.WIDTH - 11 * 18, GameView.HEIGHT - 18, 18, Color.YELLOW, 0);
+            //Top red line
+            gameView.addLineToCanvas(0, 50, GameView.WIDTH, 50, 5, Color.RED);
+            //Bottom red line
+            gameView.addLineToCanvas(0, GameView.HEIGHT - 50, GameView.WIDTH, GameView.HEIGHT - 50, 5, Color.RED);
+            //Printing to Screen
+            gameView.printCanvas();
+        }
 
     }
 }

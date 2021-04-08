@@ -1,5 +1,6 @@
 package krakout.nonplayerobject;
 
+import krakout.gameview.GameView;
 import krakout.movement.Position;
 
 /**
@@ -8,74 +9,56 @@ import krakout.movement.Position;
 public class Item {
     private final boolean isHit;
     private final int live;
+    private final GameView gameView;
+    private final int rotation;
+    private final double width;
+    private final double height;
     //initiating Position
-    private final Position position;
+    private Position position;
     //declares what kind of item it is
     private int status;
     private double fallSpeedInPixel;
     //Ammount of items
     private int maxAmmount;
     private double size;
-    private String color;
     //Position of the item
     private double x;
     private double y;
+    private boolean fallFromUptoDown;
 
     /**
-     * Item needs pre Constructed parameters as the live and if it already has been hit
+     * Constructor for filling in parameters and Building gameView
+     *
+     * @param gameView
      */
-    public Item() {
-        this(2, false);
+    public Item(GameView gameView) {
+        this.isHit = false;
+        this.live = 2;
+        this.status = 3;
+        this.size = 3;
+        this.gameView = gameView;
+        this.rotation = 0;
+        this.fallFromUptoDown = false;
+        this.width = 6;
+        this.height = 6;
+        this.position = new Position(300, 100);
+        this.x = position.x;
+        this.y = position.y;
     }
 
     /**
-     * Constructer with Initialisation
-     *
-     * @param live  as how damaged the item is
-     * @param isHit if it has been hit, true means live reduced
+     * Draws the Pinball to the canvas.
      */
-    public Item(int live, boolean isHit) {
-        this.live = live;
-        this.isHit = isHit;
-        position = new Position(this.x, this.y);
+    public void addToCanvas() {
+        gameView.addImageToCanvas("Herz.png", position.x, position.y, size, rotation);
     }
 
     /**
-     * The Item falls at the same speed as the ball flies.
-     *
-     * @param fallSpeedInPixel Speed of the Item
+     * Max Ammount of Items per game compared to {@link Brick}
+     * @param brickAmmount the ammount of {@link Brick} in the Game
      */
-    public void setfallSpeedInPixel(double fallSpeedInPixel) {
-        this.fallSpeedInPixel = fallSpeedInPixel;
-    }
-
-    /**
-     * Items will change color for a brief second when hit.
-     *
-     * @param color of the item
-     */
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    /**
-     * Sets first Position{@link Position}, will be identical to the Pos of the brick
-     *
-     * @param x Position x of Brick
-     * @see Position
-     */
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    /**
-     * Sets first Position{@link Position}, will be identical to the Pos of the brick
-     *
-     * @param y Position y of Brick
-     * @see Position
-     */
-    public void setY(double y) {
-        this.y = y;
+    public void setMaxAmmount(int brickAmmount) {
+        this.maxAmmount = brickAmmount / 5;
     }
 
     /**
@@ -106,21 +89,20 @@ public class Item {
     }
 
     /**
-     * gets the Max Ammount of Items there are in the game
-     *
-     * @return Max Ammount of Items
-     */
-    public int getMaxAmmount() {
-        return maxAmmount;
-    }
-
-    /**
      * gets the remaining Live points of the Item
      *
      * @return Live as a Number
      */
     public int getLive() {
         return live;
+    }
+
+    /**
+     * necessary to catch How fast the {@link Pinball} flies to adjust to its speed
+     * @param fallSpeedInPixel as How fast the ball falls to the player
+     */
+    public void setFallSpeedInPixel(double fallSpeedInPixel) {
+        this.fallSpeedInPixel = fallSpeedInPixel;
     }
 
     /**
@@ -143,6 +125,14 @@ public class Item {
     }
 
     /**
+     * necessary to use the {@link Position} of the destroyed {@link Brick}
+     * @param position as position of the {@link Brick}
+     */
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    /**
      * For determining which kind of Item it is
      *
      * @param status takes the Status and looks for it in the switch
@@ -156,6 +146,8 @@ public class Item {
                 return "PowerDown";
             case 2:
                 return "Enemy";
+            case 3:
+                return "Health UP";
             default:
                 return "none";
 
@@ -163,34 +155,20 @@ public class Item {
     }
 
     /**
-     * Movement of the Item
-     *
-     * @param direction the way the Item decides to move
-     *                  (this has the sole purpose of testing the movement and will be removed)
+     * Updating Visual Movement of the Item
      */
-    private void updatePosition(String direction) {
-        //Initating PowerUp movement
-        switch (direction) {
-            case "LEFT":
-                position.left(this.fallSpeedInPixel);
-                this.x = this.x + position.x;
-                this.y = this.y + position.y;
-                break;
-            case "RIGHT":
-                position.right(this.fallSpeedInPixel);
-                this.x = this.x + position.x;
-                this.y = this.y + position.y;
-                break;
-            case "UP":
-                position.up(this.fallSpeedInPixel);
-                this.x = this.x + position.x;
-                this.y = this.y + position.y;
-                break;
-            case "DOWN":
-                position.down(this.fallSpeedInPixel);
-                this.x = this.x + position.x;
-                this.y = this.y + position.y;
-                break;
+    private void updatePosition() {
+        if (position.x >= 860 - width) {
+            this.fallFromUptoDown = false;
+        } else if (position.x <= 25 - width) {
+            this.fallFromUptoDown = true;
+        }
+        if (this.fallFromUptoDown == true) {
+            position.right(fallSpeedInPixel);
+            this.x = position.x;
+        } else if (this.fallFromUptoDown == false) {
+            position.left(fallSpeedInPixel);
+            this.x = position.x;
         }
     }
 
