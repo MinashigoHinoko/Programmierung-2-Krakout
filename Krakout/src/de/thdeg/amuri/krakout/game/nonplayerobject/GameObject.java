@@ -7,7 +7,7 @@ import de.thdeg.amuri.krakout.movement.Position;
  * Super of {@link de.thdeg.amuri.krakout.game.nonplayerobject.Pinball}, {@link de.thdeg.amuri.krakout.game.nonplayerobject.Background}, {@link de.thdeg.amuri.krakout.game.nonplayerobject.Brick} and {@link de.thdeg.amuri.krakout.game.nonplayerobject.Item}
  * acts as extension of these Classes to include the shared Informations
  */
-  class GameObject {
+ public class GameObject {
     protected final  GameView gameView;
     protected  Position position;
     protected double size;
@@ -21,7 +21,7 @@ import de.thdeg.amuri.krakout.movement.Position;
      * Following extend this class:{@link de.thdeg.amuri.krakout.game.nonplayerobject.Pinball}, {@link de.thdeg.amuri.krakout.game.nonplayerobject.Background}, {@link de.thdeg.amuri.krakout.game.nonplayerobject.Brick} and {@link de.thdeg.amuri.krakout.game.nonplayerobject.Item}
      * @param gameview this is for Initialising the game object
      */
-     GameObject(GameView gameview) {
+    public GameObject(GameView gameview) {
         this.gameView = gameview;
         this.position = new Position(0,0);
         this.size = 0;
