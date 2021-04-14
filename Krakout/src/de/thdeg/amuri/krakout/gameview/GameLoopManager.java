@@ -1,9 +1,10 @@
 package de.thdeg.amuri.krakout.gameview;
 
-import de.thdeg.amuri.krakout.nonplayerobject.Background;
-import de.thdeg.amuri.krakout.nonplayerobject.Brick;
-import de.thdeg.amuri.krakout.nonplayerobject.Item;
-import de.thdeg.amuri.krakout.nonplayerobject.Pinball;
+import de.thdeg.amuri.krakout.game.nonplayerobject.Background;
+import de.thdeg.amuri.krakout.game.nonplayerobject.Brick;
+import de.thdeg.amuri.krakout.game.nonplayerobject.Item;
+import de.thdeg.amuri.krakout.game.nonplayerobject.Pinball;
+
 
 import java.awt.*;
 
@@ -29,8 +30,8 @@ public class GameLoopManager {
         this.background = new Background(gameView);
         this.brick = new Brick(gameView);
         this.item = new Item(gameView);
-        this.item.setPosition(brick.getPosition());
-        this.item.setFallSpeedInPixel(ball.getSpeedInPixel());
+        this.item.setPosition(this.brick.getPosition());
+        this.item.setSpeedInPixel(ball.getSpeedInPixel());
 
     }
 
@@ -40,6 +41,8 @@ public class GameLoopManager {
     public void startGame() {
 
         while (true) { // Der "Game-Loop"
+            //Update Health Up
+            item.updatePosition();
             //Update Position ball
             ball.updatePosition();
             //Update Background();
@@ -54,10 +57,20 @@ public class GameLoopManager {
             brick.addToCanvas();
             //Print Player
             gameView.addImageToCanvas("Player.png", -20, 100, 2, 90);
-            //Placeholder
-            gameView.addTextToCanvas("Placeholder", GameView.WIDTH - 11 * 18, 0, 18, Color.YELLOW, 0);
-            //Placeholder
-            gameView.addTextToCanvas("Placeholder", GameView.WIDTH - 11 * 18, GameView.HEIGHT - 18, 18, Color.YELLOW, 0);
+            //Score Top Right
+            gameView.addTextToCanvas("100", GameView.WIDTH - 3 * 18, 0, 18, Color.WHITE, 0);
+            //Live Border 1
+            gameView.addImageToCanvas("Herzrahmen.png",30, 0, 3,0);
+            //Remaining Live 1
+            gameView.addImageToCanvas("Leben.png",30, 0, 3,0);
+            //Live Border 2
+            gameView.addImageToCanvas("Herzrahmen.png",55, 0, 3,0);
+            //Remaining Live 2
+            gameView.addImageToCanvas("Leben.png",55, 0, 3,0);
+            //Live Border 3
+            gameView.addImageToCanvas("Herzrahmen.png",80, 0, 3,0);
+            //Remaining Live 3
+            gameView.addImageToCanvas("Leben.png",80, 0, 3,0);
             //Top red line
             gameView.addLineToCanvas(0, 50, GameView.WIDTH, 50, 5, Color.RED);
             //Bottom red line

@@ -4,6 +4,7 @@
     <root id="archive" name="Krakout.jar">
       <element id="module-output" name="Krakout" />
       <element id="dir-copy" path="$PROJECT_DIR$/Krakout/src/resources" />
+      <element id="module-source" name="Krakout" />
     </root>
   </artifact>
 </component>

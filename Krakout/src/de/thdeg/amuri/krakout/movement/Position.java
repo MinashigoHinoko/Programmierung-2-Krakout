@@ -16,9 +16,9 @@ public class Position {
     /**
      * Main Output of Position, every object that has to move interacts with this.
      *
-     * @see de.thdeg.amuri.krakout.nonplayerobject.Pinball
-     * @see de.thdeg.amuri.krakout.nonplayerobject.Item
-     * @see de.thdeg.amuri.krakout.nonplayerobject.Brick
+     * @see de.thdeg.amuri.krakout.game.nonplayerobject.Pinball
+     * @see de.thdeg.amuri.krakout.game.nonplayerobject.Item
+     * @see de.thdeg.amuri.krakout.game.nonplayerobject.Brick
      */
     public Position() {
         this(0, 0);

@@ -1,4 +1,5 @@
-package de.thdeg.amuri.krakout.nonplayerobject;
+package de.thdeg.amuri.krakout.game.nonplayerobject;
+
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.movement.Position;
@@ -7,20 +8,9 @@ import de.thdeg.amuri.krakout.movement.Position;
  * This is the Brick the player has to hit with his {@link Pinball}.
  * Every Brick has to be destroyed to finish the game
  */
-public class Brick {
+public class Brick extends GameObject {
     private final boolean isHit;
     private final int live;
-    private final double size;
-    private final double rotation;
-    private final double width;
-    private final double height;
-    private final GameView gameView;
-    //initiating Position
-    private Position position;
-    //x Position of the Brick
-    private double x;
-    //y Position of the Brick
-    private double y;
     //Ammount of Bricks for Win condition
     private int ammount;
     private String color;
@@ -34,11 +24,10 @@ public class Brick {
      * @see GameView
      */
     public Brick(GameView gameView) {
+        super(gameView);
         this.isHit = false;
         this.position = new Position(860, 100);
         this.live = 2;
-        this.x = position.x;
-        this.y = position.y;
         this.ammount = 1;
         this.size = 2;
         this.color = "RED";
@@ -46,16 +35,6 @@ public class Brick {
         this.rotation = 90;
         this.width = 5;
         this.height = 2;
-        this.gameView = gameView;
-    }
-
-    /**
-     * This is for accessing the Position in {@link Item} and in {@link Pinball}
-     *
-     * @return position of Brick
-     */
-    public Position getPosition() {
-        return position;
     }
 
     /**
@@ -64,7 +43,8 @@ public class Brick {
      * @param position as  Position of the Brick
      */
     public void setPosition(Position position) {
-        this.position = position;
+        this.position.x = position.x;
+        this.position.y = position.y;
     }
 
 
@@ -109,16 +89,18 @@ public class Brick {
      *
      * @return if true, has PowerUp
      */
-    public boolean hasPowerUp() {
+    private boolean hasPowerUp() {
         return powerUp;
     }
 
     private void destroy() {
     }
 
-    /**
-     * drawing to Canvas
-     */
+    @Override
+    public void updatePosition(){
+    }
+
+    @Override
     public void addToCanvas() {
         switch (this.color) {
             case "RED":

@@ -1,4 +1,5 @@
-package de.thdeg.amuri.krakout.nonplayerobject;
+package de.thdeg.amuri.krakout.game.nonplayerobject;
+
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.movement.Position;
@@ -6,25 +7,13 @@ import de.thdeg.amuri.krakout.movement.Position;
 /**
  * This Object will be used to create Items, these Items can be enemies,PowerUps or PowerDowns
  */
-public class Item {
+public class Item extends GameObject {
     private final boolean isHit;
     private final int live;
-    private final GameView gameView;
-    private final int rotation;
-    private final double width;
-    private final double height;
-    //initiating Position
-    private Position position;
     //declares what kind of item it is
     private int status;
-    private double fallSpeedInPixel;
     //Ammount of items
     private int maxAmmount;
-    private double size;
-    //Position of the item
-    private double x;
-    private double y;
-    private boolean fallFromUptoDown;
 
     /**
      * Constructor for filling in parameters and Building gameView
@@ -32,18 +21,13 @@ public class Item {
      * @param gameView
      */
     public Item(GameView gameView) {
+        super(gameView);
         this.isHit = false;
         this.live = 2;
         this.status = 3;
         this.size = 3;
-        this.gameView = gameView;
-        this.rotation = 0;
-        this.fallFromUptoDown = false;
         this.width = 6;
         this.height = 6;
-        this.position = new Position(300, 100);
-        this.x = position.x;
-        this.y = position.y;
     }
 
 
@@ -95,10 +79,10 @@ public class Item {
     /**
      * necessary to catch How fast the {@link Pinball} flies to adjust to its speed
      *
-     * @param fallSpeedInPixel as How fast the ball falls to the player
+     * @param speedInPixel as How fast the ball falls to the player
      */
-    public void setFallSpeedInPixel(double fallSpeedInPixel) {
-        this.fallSpeedInPixel = fallSpeedInPixel;
+    public void setSpeedInPixel(double speedInPixel) {
+        this.speedInPixel = speedInPixel * 0.8;
     }
 
     /**
@@ -111,22 +95,13 @@ public class Item {
     }
 
     /**
-     * Get the Position of the Item to determine if being Hit
-     *
-     * @return Position {@link Position} of Item as String Position ("X","Y")
-     * @see Position
-     */
-    public Position getPosition() {
-        return position;
-    }
-
-    /**
      * necessary to use the {@link Position} of the destroyed {@link Brick}
      *
      * @param position as position of the {@link Brick}
      */
     public void setPosition(Position position) {
-        this.position = position;
+        this.position.x = position.x;
+        this.position.y = position.y;
     }
 
     /**
@@ -150,28 +125,14 @@ public class Item {
 
         }
     }
-
-    /**
-     * Updating Visual Movement of the Item
-     */
-    private void updatePosition() {
-        if (position.x >= 860 - width) {
-            this.fallFromUptoDown = false;
-        } else if (position.x <= 25 - width) {
-            this.fallFromUptoDown = true;
-        }
-        if (this.fallFromUptoDown == true) {
-            position.right(fallSpeedInPixel);
-            this.x = position.x;
-        } else if (this.fallFromUptoDown == false) {
-            position.left(fallSpeedInPixel);
-            this.x = position.x;
-        }
+    private void giveItem(int status){
+    }
+    @Override
+    public void updatePosition() {
+            position.left(speedInPixel);
     }
 
-    /**
-     * Draws the Pinball to the canvas.
-     */
+    @Override
     public void addToCanvas() {
         gameView.addImageToCanvas("Herz.png", position.x, position.y, size, rotation);
     }
