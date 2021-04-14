@@ -46,15 +46,10 @@ public class Item {
         this.y = position.y;
     }
 
-    /**
-     * Draws the Pinball to the canvas.
-     */
-    public void addToCanvas() {
-        gameView.addImageToCanvas("Herz.png", position.x, position.y, size, rotation);
-    }
 
     /**
      * Max Ammount of Items per game compared to {@link Brick}
+     *
      * @param brickAmmount the ammount of {@link Brick} in the Game
      */
     public void setMaxAmmount(int brickAmmount) {
@@ -99,6 +94,7 @@ public class Item {
 
     /**
      * necessary to catch How fast the {@link Pinball} flies to adjust to its speed
+     *
      * @param fallSpeedInPixel as How fast the ball falls to the player
      */
     public void setFallSpeedInPixel(double fallSpeedInPixel) {
@@ -126,6 +122,7 @@ public class Item {
 
     /**
      * necessary to use the {@link Position} of the destroyed {@link Brick}
+     *
      * @param position as position of the {@link Brick}
      */
     public void setPosition(Position position) {
@@ -170,6 +167,13 @@ public class Item {
             position.left(fallSpeedInPixel);
             this.x = position.x;
         }
+    }
+
+    /**
+     * Draws the Pinball to the canvas.
+     */
+    public void addToCanvas() {
+        gameView.addImageToCanvas("Herz.png", position.x, position.y, size, rotation);
     }
 
     @Override

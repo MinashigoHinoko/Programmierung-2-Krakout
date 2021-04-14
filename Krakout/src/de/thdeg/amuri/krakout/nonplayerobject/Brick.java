@@ -67,16 +67,6 @@ public class Brick {
         this.position = position;
     }
 
-    /**
-     * drawing to Canvas
-     */
-    public void addToCanvas() {
-        switch (this.color) {
-            case "RED":
-                gameView.addImageToCanvas("RED.png", position.x, position.y, size, rotation);
-                break;
-        }
-    }
 
     /**
      * Determines if the Brick has a PowerUp Stored
@@ -122,5 +112,18 @@ public class Brick {
     public boolean hasPowerUp() {
         return powerUp;
     }
-    private void destroy(){ }
+
+    private void destroy() {
+    }
+
+    /**
+     * drawing to Canvas
+     */
+    public void addToCanvas() {
+        switch (this.color) {
+            case "RED":
+                gameView.addImageToCanvas("RED.png", position.x, position.y, size, rotation);
+                break;
+        }
+    }
 }

@@ -1,12 +1,13 @@
 package de.thdeg.amuri.krakout.nonplayerobject;
 
+import de.thdeg.amuri.krakout.game.GameObject;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.movement.Position;
 
 /**
  * This is the pinball the player needs to play with, it will destroy {@link Brick} and collect PowerUp {@link Item}
  */
-public class Pinball {
+public class Pinball extends GameObject {
     private final GameView gameView;
     //Initiating Position
     private final Position position;
@@ -29,6 +30,7 @@ public class Pinball {
      * @see GameView
      */
     public Pinball(GameView gameView) {
+        super(gameView);
         this.gameView = gameView;
         this.position = new Position(100, 100);
         this.size = 2;
@@ -40,13 +42,6 @@ public class Pinball {
         this.y = position.y;
         this.ammount = 0;
         this.speedInPixel = 3;
-    }
-
-    /**
-     * Draws the Pinball to the canvas.
-     */
-    public void addToCanvas() {
-        gameView.addImageToCanvas("Pinball.png", position.x, position.y, size, rotation);
     }
 
     /**
@@ -74,6 +69,7 @@ public class Pinball {
 
     /**
      * Outputs the Speed in pixel for the Items
+     *
      * @return Speed of the Ball in Pixel
      */
     public double getSpeedInPixel() {
@@ -128,6 +124,21 @@ public class Pinball {
 
 
     /**
+     * detemines if pinball hits something to call bounce
+     */
+    private void damage() {
+        if (this.flyFromLeftToRight = true) {
+            bounce();
+        }
+    }
+
+    /**
+     * ball bounces of hitted element.
+     */
+    private void bounce() {
+    }
+
+    /**
      * Updating Visual Movement of the ball
      */
     public void updatePosition() {
@@ -145,21 +156,11 @@ public class Pinball {
         }
     }
 
-
     /**
-     * detemines if pinball hits something to call bounce
+     * Draws the Pinball to the canvas.
      */
-    private void damage() {
-        if (this.flyFromLeftToRight = true) {
-            bounce();
-        }
-    }
-
-    /**
-     * ball bounces of hitted element.
-     */
-    private void bounce() {
-
+    public void addToCanvas() {
+        gameView.addImageToCanvas("Pinball.png", position.x, position.y, size, rotation);
     }
 
     @Override
