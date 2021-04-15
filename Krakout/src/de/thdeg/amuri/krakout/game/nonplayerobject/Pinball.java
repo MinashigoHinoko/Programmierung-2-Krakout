@@ -9,6 +9,8 @@ import de.thdeg.amuri.krakout.movement.Position;
 public class Pinball extends GameObject {
     private final int ammount;
     private boolean flyFromLeftToRight;
+    private Brick brick;
+    private Position brickPos;
 
     /**
      * Creates a new pinball
@@ -16,7 +18,7 @@ public class Pinball extends GameObject {
      * @param gameView this is for Initialising the ball
      * @see GameView
      */
-    public Pinball(GameView gameView) {
+    public Pinball(GameView gameView, Position brickPos) {
         super(gameView);
         this.position = new Position(100, 100);
         this.size = 2;
@@ -25,6 +27,7 @@ public class Pinball extends GameObject {
         this.height = 20;
         this.ammount = 0;
         this.speedInPixel = 3;
+        this.brickPos = brickPos;
     }
 
     /**
@@ -91,7 +94,7 @@ public class Pinball extends GameObject {
 
     @Override
     public void updatePosition() {
-        if (position.x >= GameView.WIDTH - width || position.x >= (860) - width) {
+        if (position.x >= GameView.WIDTH - width || position.x >=  brickPos.x - width) {
             this.flyFromLeftToRight = false;
         } else if (position.x <= (GameView.WIDTH - GameView.WIDTH) - width || position.x <= 25 - width) { // 25 is the not yet inputted Object of the Player
             this.flyFromLeftToRight = true;

@@ -25,9 +25,9 @@ public class GameLoopManager {
         this.gameView.setWindowTitle("Krakout");
         this.gameView.setStatusText("Amir(mHiko), Amuri - Java Programmierung SS 2021");
         this.gameView.setWindowIcon("Target.png");
-        this.ball = new Pinball(gameView);
-        this.background = new Background(gameView);
         this.brick = new Brick(gameView);
+        this.ball = new Pinball(gameView,this.brick.getPosition());
+        this.background = new Background(gameView);
         this.item = new Item(gameView);
         this.item.setPosition(this.brick.getPosition());
         this.item.setSpeedInPixel(ball.getSpeedInPixel());
@@ -69,7 +69,7 @@ public class GameLoopManager {
             //Live Border 3
             gameView.addImageToCanvas("Herzrahmen.png", 80, 0, 3, 0);
             //Remaining Live 3
-            gameView.addImageToCanvas("Leben.png", 80, 0, 3, 0);
+            //gameView.addImageToCanvas("Leben.png", 80, 0, 3, 0);
             //Top red line
             gameView.addLineToCanvas(0, 50, GameView.WIDTH, 50, 5, Color.RED);
             //Bottom red line
