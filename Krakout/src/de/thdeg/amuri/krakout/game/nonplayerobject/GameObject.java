@@ -4,7 +4,7 @@ import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.movement.Position;
 
 /**
- * Super of {@link de.thdeg.amuri.krakout.game.nonplayerobject.Pinball}, {@link de.thdeg.amuri.krakout.game.nonplayerobject.Background}, {@link de.thdeg.amuri.krakout.game.nonplayerobject.Brick} and {@link de.thdeg.amuri.krakout.game.nonplayerobject.Item}
+ * Super of {@link Pinball}, {@link Background}, {@link Brick} and {@link Item}
  * acts as extension of these Classes to include the shared Informations
  */
   class GameObject {
@@ -18,7 +18,7 @@ import de.thdeg.amuri.krakout.movement.Position;
 
     /**
      * This is the extension constructor, here you can find prebuild parameters.
-     * Following extend this class:{@link de.thdeg.amuri.krakout.game.nonplayerobject.Pinball}, {@link de.thdeg.amuri.krakout.game.nonplayerobject.Background}, {@link de.thdeg.amuri.krakout.game.nonplayerobject.Brick} and {@link de.thdeg.amuri.krakout.game.nonplayerobject.Item}
+     * Following extend this class:{@link Pinball}, {@link Background}, {@link Brick} and {@link Item}
      * @param gameView this is for Initialising the game object
      */
      GameObject(GameView gameView) {
@@ -42,6 +42,7 @@ import de.thdeg.amuri.krakout.movement.Position;
     /**
      * Gets the Position of the game object, is used for adjusting the Position of a game object to another
      * @return position of the game object
+     * @see Position
      */
     public Position getPosition() {
         return position;
