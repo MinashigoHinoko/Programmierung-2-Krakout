@@ -21,9 +21,9 @@ public class Background extends GameObject {
      */
     public Background(GameView gameView) {
         super(gameView);
-        this.backgroundColor= BACKGROUND_COLOR_1;
+        this.backgroundColor = BACKGROUND_COLOR_1;
         this.width = GameView.WIDTH;
-        this.height = GameView.HEIGHT-105;
+        this.height = GameView.HEIGHT - 105;
         this.position = new Position(GameView.WIDTH - GameView.WIDTH, GameView.HEIGHT / 10);
         this.size = 5;
     }
@@ -31,19 +31,19 @@ public class Background extends GameObject {
 
     @Override
     public void updatePosition() {
-        if (changeBackground==true){
-            backgroundColor=BACKGROUND_COLOR_2;
-            changeBackground=false;
-        }else if(changeBackground==false){
-            backgroundColor=BACKGROUND_COLOR_1;
-            changeBackground=true;
+        if (changeBackground == true) {
+            backgroundColor = BACKGROUND_COLOR_2;
+            changeBackground = false;
+        } else if (changeBackground == false) {
+            backgroundColor = BACKGROUND_COLOR_1;
+            changeBackground = true;
         }
     }
 
 
     @Override
     public void addToCanvas() {
-        gameView.addRectangleToCanvas(position.x,position.y,width, height,1,true,Color.BLUE.darker());
+        gameView.addRectangleToCanvas(position.x, position.y, width, height, 1, true, Color.BLUE.darker());
         gameView.addBlockImageToCanvas(backgroundColor, position.x, position.y, size, rotation);
     }
 }

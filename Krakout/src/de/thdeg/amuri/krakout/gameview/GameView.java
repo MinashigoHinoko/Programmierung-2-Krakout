@@ -24,9 +24,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class GameView {
 
     private static class Version {
-        private final static String VERSION = "2021.05";
+        private final static String VERSION = "2021.1";
         private final static String VERSION_SHORT = VERSION.substring(0, 6);
-        private final static LocalDate DATE = LocalDate.parse("2021-02-28");
+        private final static LocalDate DATE = LocalDate.parse("2021-04-08");
         private final static String STANDARD_TITLE = "GameView";
         private final static String SIGNATURE = "Prof. Dr. Andreas Berl - TH Deggendorf";
 
@@ -313,9 +313,11 @@ public class GameView {
                                            double rotation) {
         int xInt = (int) Math.round(x);
         int yInt = (int) Math.round(y);
-        int CenterX = xInt + image.getWidth() / 2;
-        int CenterY = yInt + image.getHeight() / 2;
-        int size = (int) Math.round((image.getWidth() * scaleFactor + image.getHeight() * scaleFactor) / 2);
+        int width = (int) (image.getWidth() * scaleFactor);
+        int height = (int) (image.getHeight() * scaleFactor);
+        int CenterX = xInt + width / 2;
+        int CenterY = yInt + height / 2;
+        int size = (int) Math.round((width + height) / 2d);
         if (intersectsGameViewBounds(CenterX - size, CenterY - size, 2 * size, 2 * size, 0)) {
             canvas.addImageToCanvas(image, xInt, yInt, scaleFactor, rotation);
         }
@@ -1427,7 +1429,7 @@ public class GameView {
             colorMap.put('r', Color.RED.darker());
             colorMap.put('G', Color.GREEN);
             colorMap.put('g', Color.GREEN.darker());
-            colorMap.put('B', Color.BLUE.darker());
+            colorMap.put('B', Color.BLUE);
             colorMap.put('b', Color.BLUE.darker());
             colorMap.put('Y', Color.YELLOW);
             colorMap.put('y', Color.YELLOW.darker());
@@ -1441,7 +1443,6 @@ public class GameView {
             colorMap.put('o', Color.ORANGE.darker());
             colorMap.put('W', Color.WHITE);
             colorMap.put('L', Color.BLACK);
-            colorMap.put('Z', Color.DARK_GRAY.darker());
         }
 
         // Anzeige
