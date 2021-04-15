@@ -19,10 +19,10 @@ import de.thdeg.amuri.krakout.movement.Position;
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      * Following extend this class:{@link de.thdeg.amuri.krakout.game.nonplayerobject.Pinball}, {@link de.thdeg.amuri.krakout.game.nonplayerobject.Background}, {@link de.thdeg.amuri.krakout.game.nonplayerobject.Brick} and {@link de.thdeg.amuri.krakout.game.nonplayerobject.Item}
-     * @param gameview this is for Initialising the game object
+     * @param gameView this is for Initialising the game object
      */
-     GameObject(GameView gameview) {
-        this.gameView = gameview;
+     GameObject(GameView gameView) {
+        this.gameView = gameView;
         this.position = new Position(0,0);
         this.size = 0;
         this.speedInPixel = 0;
