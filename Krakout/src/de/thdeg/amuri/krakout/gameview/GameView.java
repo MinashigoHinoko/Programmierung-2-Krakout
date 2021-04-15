@@ -1429,7 +1429,7 @@ public class GameView {
             colorMap.put('r', Color.RED.darker());
             colorMap.put('G', Color.GREEN);
             colorMap.put('g', Color.GREEN.darker());
-            colorMap.put('B', Color.BLUE.darker());
+            colorMap.put('B', Color.BLUE);
             colorMap.put('b', Color.BLUE.darker());
             colorMap.put('Y', Color.YELLOW);
             colorMap.put('y', Color.YELLOW.darker());
