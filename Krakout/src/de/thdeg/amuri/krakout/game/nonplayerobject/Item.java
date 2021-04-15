@@ -125,11 +125,13 @@ public class Item extends GameObject {
 
         }
     }
-    private void giveItem(int status){
+
+    private void giveItem(int status) {
     }
+
     @Override
     public void updatePosition() {
-            position.left(speedInPixel);
+        position.left(speedInPixel);
     }
 
     @Override

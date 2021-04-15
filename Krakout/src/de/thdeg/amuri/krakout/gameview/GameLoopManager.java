@@ -5,7 +5,6 @@ import de.thdeg.amuri.krakout.game.nonplayerobject.Brick;
 import de.thdeg.amuri.krakout.game.nonplayerobject.Item;
 import de.thdeg.amuri.krakout.game.nonplayerobject.Pinball;
 
-
 import java.awt.*;
 
 /**
@@ -60,17 +59,17 @@ public class GameLoopManager {
             //Score Top Right
             gameView.addTextToCanvas("100", GameView.WIDTH - 3 * 18, 0, 18, Color.WHITE, 0);
             //Live Border 1
-            gameView.addImageToCanvas("Herzrahmen.png",30, 0, 3,0);
+            gameView.addImageToCanvas("Herzrahmen.png", 30, 0, 3, 0);
             //Remaining Live 1
-            gameView.addImageToCanvas("Leben.png",30, 0, 3,0);
+            gameView.addImageToCanvas("Leben.png", 30, 0, 3, 0);
             //Live Border 2
-            gameView.addImageToCanvas("Herzrahmen.png",55, 0, 3,0);
+            gameView.addImageToCanvas("Herzrahmen.png", 55, 0, 3, 0);
             //Remaining Live 2
-            gameView.addImageToCanvas("Leben.png",55, 0, 3,0);
+            gameView.addImageToCanvas("Leben.png", 55, 0, 3, 0);
             //Live Border 3
-            gameView.addImageToCanvas("Herzrahmen.png",80, 0, 3,0);
+            gameView.addImageToCanvas("Herzrahmen.png", 80, 0, 3, 0);
             //Remaining Live 3
-            gameView.addImageToCanvas("Leben.png",80, 0, 3,0);
+            gameView.addImageToCanvas("Leben.png", 80, 0, 3, 0);
             //Top red line
             gameView.addLineToCanvas(0, 50, GameView.WIDTH, 50, 5, Color.RED);
             //Bottom red line

@@ -97,7 +97,7 @@ public class Brick extends GameObject {
     }
 
     @Override
-    public void updatePosition(){
+    public void updatePosition() {
     }
 
     @Override
