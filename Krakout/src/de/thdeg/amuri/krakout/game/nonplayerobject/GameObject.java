@@ -7,7 +7,7 @@ import de.thdeg.amuri.krakout.movement.Position;
  * Super of {@link Pinball}, {@link Background}, {@link Brick} and {@link Item}
  * acts as extension of these Classes to include the shared Informations
  */
-public class GameObject {
+class GameObject {
     protected final GameView gameView;
     protected Position position;
     protected double size;
