@@ -1,7 +1,5 @@
 package de.thdeg.amuri.krakout.game;
 
-import de.thdeg.amuri.krakout.gameview.GameLoopManager;
-
 /**
  * Here all begins
  */

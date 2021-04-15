@@ -1,4 +1,4 @@
-package de.thdeg.amuri.krakout.game.nonplayerobject;
+package de.thdeg.amuri.krakout.graphics;
 
 
 import de.thdeg.amuri.krakout.gameview.GameView;
