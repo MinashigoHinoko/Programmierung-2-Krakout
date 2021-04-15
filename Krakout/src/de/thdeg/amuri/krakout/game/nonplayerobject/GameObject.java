@@ -18,7 +18,6 @@ import de.thdeg.amuri.krakout.movement.Position;
 
     /**
      * This is the extension constructor, here you can find prebuild parameters.
-     * Following extend this class:{@link Pinball}, {@link Background}, {@link Brick} and {@link Item}
      * @param gameView this is for Initialising the game object
      */
      GameObject(GameView gameView) {
