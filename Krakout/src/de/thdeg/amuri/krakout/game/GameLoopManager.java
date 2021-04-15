@@ -1,22 +1,22 @@
 package de.thdeg.amuri.krakout.game;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.Background;
-import de.thdeg.amuri.krakout.graphics.Brick;
-import de.thdeg.amuri.krakout.graphics.Item;
-import de.thdeg.amuri.krakout.graphics.Pinball;
+import de.thdeg.amuri.krakout.graphics.*;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * This is the GameLoopManager, here we will Input what the player sees. This includes animations and the game itself
  */
- class GameLoopManager {
+class GameLoopManager {
     private final GameView gameView;
     private final Pinball ball;
     private final Background background;
     private final Brick brick;
     private final Item item;
+    private final Player player;
+    private boolean diagonalMovement;
 
     /**
      * Creates the main loop
@@ -32,15 +32,43 @@ import java.awt.*;
         this.item = new Item(gameView);
         this.item.setPosition(this.brick.getPosition());
         this.item.setSpeedInPixel(ball.getSpeedInPixel());
+        this.player = new Player(gameView);
+        this.diagonalMovement = false;
 
     }
+    void updateUserInputs() {
+        Integer[] gedruekteTasten = gameView.getKeyCodesOfCurrentlyPressedKeys();
+        for (int keyCode : gedruekteTasten) {
+            if (diagonalMovement == true) {
+                if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
+                    player.up();
+                }
+                if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
+                    player.down();
+                }
+                if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
+                    player.left();
+                }
+                if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
+                    player.right();
+                }
+                if (keyCode == KeyEvent.VK_SPACE) {
+                    player.shoot();
+                }
+            } else {
+            }
+        }
+    }
+
 
     /**
      * Initialisation of the game and Building Game screen {@link GameView}
      */
     public void startGame() {
 
-        while (true) { // Der "Game-Loop"
+        while (true) { // The "Game-Loop"
+            //Controlls of the Game
+            updateUserInputs();
             //Update Health Up
             item.updatePosition();
             //Update Position ball
@@ -51,12 +79,12 @@ import java.awt.*;
             background.addToCanvas();
             //Print Item
             item.addToCanvas();
-            //Print ball
+            //Print Ball
             ball.addToCanvas();
             //Print Brick
             brick.addToCanvas();
             //Print Player
-            gameView.addImageToCanvas("Player.png", -20, 100, 2, 90);
+            player.addToCanvas();
             //Score Top Right
             gameView.addTextToCanvas("100", GameView.WIDTH - 3 * 18, 0, 18, Color.WHITE, 0);
             //Live Border 1
