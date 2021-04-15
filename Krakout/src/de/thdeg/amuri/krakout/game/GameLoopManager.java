@@ -1,16 +1,17 @@
-package de.thdeg.amuri.krakout.gameview;
+package de.thdeg.amuri.krakout.game;
 
-import de.thdeg.amuri.krakout.game.nonplayerobject.Background;
-import de.thdeg.amuri.krakout.game.nonplayerobject.Brick;
-import de.thdeg.amuri.krakout.game.nonplayerobject.Item;
-import de.thdeg.amuri.krakout.game.nonplayerobject.Pinball;
+import de.thdeg.amuri.krakout.gameview.GameView;
+import de.thdeg.amuri.krakout.graphics.Background;
+import de.thdeg.amuri.krakout.graphics.Brick;
+import de.thdeg.amuri.krakout.graphics.Item;
+import de.thdeg.amuri.krakout.graphics.Pinball;
 
 import java.awt.*;
 
 /**
  * This is the GameLoopManager, here we will Input what the player sees. This includes animations and the game itself
  */
-public class GameLoopManager {
+ class GameLoopManager {
     private final GameView gameView;
     private final Pinball ball;
     private final Background background;
@@ -20,7 +21,7 @@ public class GameLoopManager {
     /**
      * Creates the main loop
      */
-    public GameLoopManager() {
+    protected GameLoopManager() {
         this.gameView = new GameView();
         this.gameView.setWindowTitle("Krakout");
         this.gameView.setStatusText("Amir(mHiko), Amuri - Java Programmierung SS 2021");
@@ -45,7 +46,7 @@ public class GameLoopManager {
             //Update Position ball
             ball.updatePosition();
             //Update Background();
-           // background.updatePosition();
+            //background.updatePosition();
             //Print Background
             background.addToCanvas();
             //Print Item

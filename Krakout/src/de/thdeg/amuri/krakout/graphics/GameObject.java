@@ -1,4 +1,4 @@
-package de.thdeg.amuri.krakout.game.nonplayerobject;
+package de.thdeg.amuri.krakout.graphics;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.movement.Position;
@@ -7,7 +7,7 @@ import de.thdeg.amuri.krakout.movement.Position;
  * Super of {@link Pinball}, {@link Background}, {@link Brick} and {@link Item}
  * acts as extension of these Classes to include the shared Informations
  */
-class GameObject {
+public class GameObject {
     protected final GameView gameView;
     protected Position position;
     protected double size;
