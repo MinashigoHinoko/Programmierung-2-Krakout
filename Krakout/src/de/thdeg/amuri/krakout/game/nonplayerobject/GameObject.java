@@ -7,7 +7,7 @@ import de.thdeg.amuri.krakout.movement.Position;
  * Super of {@link Pinball}, {@link Background}, {@link Brick} and {@link Item}
  * acts as extension of these Classes to include the shared Informations
  */
-class GameObject {
+public class GameObject {
     protected final GameView gameView;
     protected Position position;
     protected double size;
@@ -21,7 +21,7 @@ class GameObject {
      *
      * @param gameView this is for Initialising the game object
      */
-    GameObject(GameView gameView) {
+    protected GameObject(GameView gameView) {
         this.gameView = gameView;
         this.position = new Position(0, 0);
         this.size = 0;
@@ -44,7 +44,7 @@ class GameObject {
     }
 
     /**
-     * Gets the Position of the game object, is used for adjusting the Position of a game object to another
+     * Gets the {@link Position} of the game object, is used for adjusting the Position of a game object to another
      *
      * @return position of the game object
      * @see Position

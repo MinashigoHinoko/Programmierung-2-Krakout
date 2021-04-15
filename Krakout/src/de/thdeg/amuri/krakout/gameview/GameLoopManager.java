@@ -45,7 +45,7 @@ public class GameLoopManager {
             //Update Position ball
             ball.updatePosition();
             //Update Background();
-            background.updatePosition();
+           // background.updatePosition();
             //Print Background
             background.addToCanvas();
             //Print Item
