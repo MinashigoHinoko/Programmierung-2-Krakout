@@ -26,7 +26,7 @@ public class GameLoopManager {
         this.gameView.setStatusText("Amir(mHiko), Amuri - Java Programmierung SS 2021");
         this.gameView.setWindowIcon("Target.png");
         this.brick = new Brick(gameView);
-        this.ball = new Pinball(gameView, this.brick.getPosition());
+        this.ball = new Pinball(gameView);
         this.background = new Background(gameView);
         this.item = new Item(gameView);
         this.item.setPosition(this.brick.getPosition());
