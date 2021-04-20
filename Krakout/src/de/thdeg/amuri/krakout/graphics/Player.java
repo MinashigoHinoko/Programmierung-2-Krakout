@@ -7,13 +7,13 @@ import java.awt.*;
 
 public class Player extends GameObject {
     private static String PLAYEROBJECT = "X";
-    public boolean diagonalMovement;
+    public final boolean diagonalMovement;
+    private final boolean playerGraphic;
     private int oldlive;
     private int live;
     private boolean bounceBall;
     private boolean hasPowerUp;
     private boolean shooting;
-    private boolean playerGraphic;
 
 
     /**
