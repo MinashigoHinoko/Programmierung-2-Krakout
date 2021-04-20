@@ -36,25 +36,26 @@ class GameLoopManager {
         this.face = new Face(gameView);
 
     }
+
     void updateUserInputs() {
         Integer[] gedruekteTasten = gameView.getKeyCodesOfCurrentlyPressedKeys();
         for (int keyCode : gedruekteTasten) {
-                if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
-                    player.up();
-                }
+            if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
+                player.up();
+            }
             if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
-                    player.down();
-                }
-                if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
-                    player.left();
-                }
-                if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
-                    player.right();
-                }
-                if (keyCode == KeyEvent.VK_SPACE) {
-                    player.shoot();
-                }
-            if (!player.diagonalMovement){
+                player.down();
+            }
+            if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
+                player.left();
+            }
+            if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
+                player.right();
+            }
+            if (keyCode == KeyEvent.VK_SPACE) {
+                player.shoot();
+            }
+            if (!player.diagonalMovement) {
                 break;
             }
         }

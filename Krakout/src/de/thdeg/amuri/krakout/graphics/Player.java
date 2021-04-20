@@ -52,10 +52,6 @@ public class Player extends GameObject {
         this.position.down(speedInPixel);
     }
 
-    public void hasShot(boolean shooting) {
-        this.shooting = shooting;
-    }
-
     public void shoot() {
         shooting = true;
     }
