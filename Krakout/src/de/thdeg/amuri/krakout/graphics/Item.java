@@ -117,8 +117,6 @@ public class Item extends GameObject {
             case 1:
                 return "PowerDown";
             case 2:
-                return "Enemy";
-            case 3:
                 return "Health UP";
             default:
                 return "none";

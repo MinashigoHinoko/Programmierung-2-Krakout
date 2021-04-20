@@ -16,7 +16,7 @@ class GameLoopManager {
     private final Brick brick;
     private final Item item;
     private final Player player;
-    private boolean diagonalMovement;
+    private final Face face;
 
     /**
      * Creates the main loop
@@ -33,13 +33,12 @@ class GameLoopManager {
         this.item.setPosition(this.brick.getPosition());
         this.item.setSpeedInPixel(ball.getSpeedInPixel());
         this.player = new Player(gameView);
-        this.diagonalMovement = false;
+        this.face = new Face(gameView);
 
     }
     void updateUserInputs() {
         Integer[] gedruekteTasten = gameView.getKeyCodesOfCurrentlyPressedKeys();
         for (int keyCode : gedruekteTasten) {
-            if (diagonalMovement == true) {
                 if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
                     player.up();
                 }
@@ -55,7 +54,8 @@ class GameLoopManager {
                 if (keyCode == KeyEvent.VK_SPACE) {
                     player.shoot();
                 }
-            } else {
+            if (!player.diagonalMovement){
+                break;
             }
         }
     }
@@ -73,7 +73,8 @@ class GameLoopManager {
             item.updatePosition();
             //Update Position ball
             ball.updatePosition();
-            //Update Background();
+            //Update Position Face
+            face.updatePosition();
             //background.updatePosition();
             //Print Background
             background.addToCanvas();
@@ -85,6 +86,8 @@ class GameLoopManager {
             brick.addToCanvas();
             //Print Player
             player.addToCanvas();
+            //Print Face
+            face.addToCanvas();
             //Score Top Right
             gameView.addTextToCanvas("100", GameView.WIDTH - 3 * 18, 0, 18, Color.WHITE, 0);
             //Live Border 1
