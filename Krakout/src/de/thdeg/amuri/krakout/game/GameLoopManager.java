@@ -42,7 +42,7 @@ class GameLoopManager {
                 if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
                     player.up();
                 }
-                if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
+            if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
                     player.down();
                 }
                 if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {

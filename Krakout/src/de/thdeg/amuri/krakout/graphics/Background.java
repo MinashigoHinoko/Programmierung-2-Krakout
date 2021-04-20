@@ -26,7 +26,7 @@ public class Background extends GameObject {
         this.height = GameView.HEIGHT - 105;
         this.position = new Position(GameView.WIDTH - GameView.WIDTH, GameView.HEIGHT / 10);
         this.size = 5;
-        gameView.setColorForBlockImage('B',Color.BLUE.darker());
+        gameView.setColorForBlockImage('B', Color.BLUE.darker());
     }
 
 

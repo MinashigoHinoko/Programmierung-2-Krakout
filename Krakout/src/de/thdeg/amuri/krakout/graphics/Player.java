@@ -7,13 +7,13 @@ import java.awt.*;
 
 public class Player extends GameObject {
     private static String PLAYEROBJECT = "X";
+    public boolean diagonalMovement;
     private int oldlive;
     private int live;
     private boolean bounceBall;
     private boolean hasPowerUp;
     private boolean shooting;
     private boolean playerGraphic;
-    public boolean diagonalMovement;
 
 
     /**
@@ -31,7 +31,7 @@ public class Player extends GameObject {
         this.bounceBall = false;
         this.hasPowerUp = false;
         this.speedInPixel = 3.5;
-        this.playerGraphic=true;
+        this.playerGraphic = true;
         this.diagonalMovement = true;
         this.position = new Position(GameView.WIDTH / 2, GameView.HEIGHT / 2);
     }
@@ -66,7 +66,7 @@ public class Player extends GameObject {
 
     @Override
     public void addToCanvas() {
-        if (playerGraphic==false) {
+        if (playerGraphic == false) {
             if (shooting) {
                 this.PLAYEROBJECT = "O";
                 this.gameView.addTextToCanvas(this.PLAYEROBJECT, this.position.x, this.position.y, this.size, Color.WHITE, this.rotation);
@@ -75,12 +75,12 @@ public class Player extends GameObject {
                 this.PLAYEROBJECT = "X";
                 this.gameView.addTextToCanvas(this.PLAYEROBJECT, this.position.x, this.position.y, this.size, Color.WHITE, this.rotation);
             }
-        }else{
+        } else {
             this.width = 35;
             this.height = 12;
             this.size = 2;
             this.rotation = 90;
-            gameView.addImageToCanvas("Player.png",this.position.x, this.position.y,this.size, this.rotation);
+            gameView.addImageToCanvas("Player.png", this.position.x, this.position.y, this.size, this.rotation);
         }
     }
 }

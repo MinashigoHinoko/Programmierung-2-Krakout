@@ -20,7 +20,7 @@ public class Face extends GameObject {
         this.height = 1;
         this.size = 2;
         this.speedInPixel = 3.5;
-        this.position = new Position(860,160);
+        this.position = new Position(860, 160);
         this.isHit = false;
     }
 
