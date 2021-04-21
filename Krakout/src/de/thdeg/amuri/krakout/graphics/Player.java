@@ -5,6 +5,9 @@ import de.thdeg.amuri.krakout.movement.Position;
 
 import java.awt.*;
 
+/**
+ * This is the Player Figure, that the Player controls. He uses it to manipulate the {@link Pinball} to break {@link Brick}
+ */
 public class Player extends GameObject {
     private String playerObject = "X";
     public final boolean diagonalMovement;
@@ -31,7 +34,7 @@ public class Player extends GameObject {
         this.bounceBall = false;
         this.hasPowerUp = false;
         this.speedInPixel = 3.5;
-        this.playerGraphic = true;
+        this.playerGraphic = false;
         this.diagonalMovement = true;
         this.position = new Position(GameView.WIDTH / 2, GameView.HEIGHT / 2);
     }
@@ -65,12 +68,11 @@ public class Player extends GameObject {
         if (playerGraphic == false) {
             if (shooting) {
                 this.playerObject = "O";
-                this.gameView.addTextToCanvas(this.playerObject, this.position.x, this.position.y, this.size, Color.WHITE, this.rotation);
                 shooting = false;
             } else {
                 this.playerObject = "X";
-                this.gameView.addTextToCanvas(this.playerObject, this.position.x, this.position.y, this.size, Color.WHITE, this.rotation);
             }
+            this.gameView.addTextToCanvas(this.playerObject, this.position.x, this.position.y, this.size, Color.WHITE, this.rotation);
         } else {
             this.size = 1.5;
             this.width = 35;
