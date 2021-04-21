@@ -45,7 +45,6 @@ public class Brick extends Live {
         this.position.y = position.y;
     }
 
-
     /**
      * Determines if the Brick has a PowerUp Stored
      *

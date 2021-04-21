@@ -37,6 +37,8 @@ class GameLoopManager {
         this.bat = new Bat(gameView);
         this.face = new Face(gameView);
         this.diagonalMovement = true;
+        this.ball.setBouncePosition(bat.getPosition());
+        this.ball.setBounceBrickPosition(brick.getPosition());
 
     }
 
