@@ -9,6 +9,8 @@ import de.thdeg.amuri.krakout.movement.Position;
 public class Pinball extends GameObject {
     private final int ammount;
     private boolean flyFromLeftToRight;
+    private Position bouncePosition;
+    private Position bounceBrickPosition;
 
     /**
      * Creates a new pinball
@@ -19,12 +21,22 @@ public class Pinball extends GameObject {
     public Pinball(GameView gameView) {
         super(gameView);
         this.position = new Position(100, 100);
+        this.bouncePosition = new Position(0, 0);
+        this.bounceBrickPosition = new Position(0, 0);
         this.size = 2;
         this.flyFromLeftToRight = true;
         super.width = 12;
         this.height = 35;
         this.ammount = 0;
         this.speedInPixel = 3;
+    }
+
+    public void setBouncePosition(Position bouncePosition) {
+        this.bouncePosition = bouncePosition;
+    }
+
+    public void setBounceBrickPosition(Position bounceBrickPosition) {
+        this.bounceBrickPosition = bounceBrickPosition;
     }
 
     /**
@@ -91,14 +103,22 @@ public class Pinball extends GameObject {
 
     @Override
     public void updatePosition() {
-        if (this.position.x >= GameView.WIDTH - this.width * this.size || this.position.x >= 860 - this.width * this.size) {
+        /* WIP
+        if (this.position.x >= GameView.WIDTH - this.width * this.size || (this.position.y == this.bouncePosition.y && this.position.x >= this.bouncePosition.x - this.width * this.size) || this.position.x >= this.bounceBrickPosition.x + this.width * this.size) {
             this.flyFromLeftToRight = false;
-        } else if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) + this.width * this.size || this.position.x <= 25 + this.width * this.size) { // 25 is the not yet inputted Object of the Player
+        } else if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) - this.width * this.size || (this.position.y == this.bouncePosition.y && this.position.x <= this.bouncePosition.x - this.width * this.size) || this.position.x <= this.bounceBrickPosition.x - this.width * this.size) {
+            this.flyFromLeftToRight = true;
+        }
+         */
+
+        if (this.position.x >= GameView.WIDTH - this.width * this.size){
+            this.flyFromLeftToRight = false;
+        } else if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) - this.width * this.size){
             this.flyFromLeftToRight = true;
         }
         if (this.flyFromLeftToRight == true) {
             this.position.right(this.speedInPixel);
-        } else if (this.flyFromLeftToRight == false) {
+        }else if (this.flyFromLeftToRight == false) {
             this.position.left(this.speedInPixel);
         }
     }
