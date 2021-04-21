@@ -8,8 +8,6 @@ import de.thdeg.amuri.krakout.movement.Position;
  * This Object will be used to create Items, these Items can be enemies,PowerUps or PowerDowns
  */
 public class Item extends GameObject {
-    private final boolean isHit;
-    private final int live;
     //declares what kind of item it is
     private int status;
     //Ammount of items
@@ -22,8 +20,6 @@ public class Item extends GameObject {
      */
     public Item(GameView gameView) {
         super(gameView);
-        this.isHit = false;
-        this.live = 2;
         this.status = 3;
         this.size = 3;
         this.width = 6;
@@ -56,24 +52,6 @@ public class Item extends GameObject {
      */
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    /**
-     * Determines if the Item is Hit and calculates dmg
-     *
-     * @return true if hit and false if not
-     */
-    public boolean isHit() {
-        return isHit;
-    }
-
-    /**
-     * gets the remaining Live points of the Item
-     *
-     * @return Live as a Number
-     */
-    public int getLive() {
-        return live;
     }
 
     /**

@@ -1,7 +1,7 @@
 package de.thdeg.amuri.krakout.graphics.alien;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.GameObject;
+import de.thdeg.amuri.krakout.graphics.Live;
 
 /**
  * All aliens will not move for 30 seconds
@@ -18,7 +18,7 @@ import de.thdeg.amuri.krakout.graphics.GameObject;
  * @see TimeOut
  * @see TwinBall
  */
-public class TimeOut extends GameObject {
+public class TimeOut extends Live {
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      *

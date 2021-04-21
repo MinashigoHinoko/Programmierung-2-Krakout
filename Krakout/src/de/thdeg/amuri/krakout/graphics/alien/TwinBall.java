@@ -1,12 +1,12 @@
 package de.thdeg.amuri.krakout.graphics.alien;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.GameObject;
+import de.thdeg.amuri.krakout.graphics.Live;
 
 /**
  * On collision with {@link de.thdeg.amuri.krakout.graphics.Pinball}, second {@link de.thdeg.amuri.krakout.graphics.Pinball} will be activated.
  */
-public class TwinBall extends GameObject {
+public class TwinBall extends Live {
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      *

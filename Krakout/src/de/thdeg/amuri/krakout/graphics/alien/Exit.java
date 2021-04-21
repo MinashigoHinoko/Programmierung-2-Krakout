@@ -1,12 +1,12 @@
 package de.thdeg.amuri.krakout.graphics.alien;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.GameObject;
+import de.thdeg.amuri.krakout.graphics.Live;
 
 /**
  * SKIP Level on collision
  */
-public class Exit extends GameObject {
+public class Exit extends Live {
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      *
