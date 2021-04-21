@@ -16,7 +16,7 @@ class GameLoopManager {
     private final Brick brick;
     private final Item item;
     private final Player player;
-    private final Face face;
+    private final AlienFace alienFace;
     private final boolean diagonalMovement;
 
     /**
@@ -34,7 +34,7 @@ class GameLoopManager {
         this.item.setPosition(this.brick.getPosition());
         this.item.setSpeedInPixel(ball.getSpeedInPixel());
         this.player = new Player(gameView);
-        this.face = new Face(gameView);
+        this.alienFace = new AlienFace(gameView);
         this.diagonalMovement = true;
 
     }
@@ -77,7 +77,7 @@ class GameLoopManager {
             //Update Position ball
             ball.updatePosition();
             //Update Position Face
-            face.updatePosition();
+            alienFace.updatePosition();
             //background.updatePosition();
             //Print Background
             background.addToCanvas();
@@ -90,7 +90,7 @@ class GameLoopManager {
             //Print Player
             player.addToCanvas();
             //Print Face
-            face.addToCanvas();
+            alienFace.addToCanvas();
             //Score Top Right
             gameView.addTextToCanvas("100", GameView.WIDTH - 3 * 18, 0, 18, Color.WHITE, 0);
             //Live Border 1

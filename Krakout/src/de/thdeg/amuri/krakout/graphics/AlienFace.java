@@ -10,7 +10,7 @@ import de.thdeg.amuri.krakout.movement.Position;
  *
  * @see Position
  */
-public class Face extends GameObject {
+public class AlienFace extends GameObject {
     private int live;
     private boolean isHit;
     private double x;
@@ -24,7 +24,7 @@ public class Face extends GameObject {
      *
      * @param gameView this is for Initialising the game object
      */
-    public Face(GameView gameView) {
+    public AlienFace(GameView gameView) {
         super(gameView);
         this.live = 2;
         this.width = 23;
