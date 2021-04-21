@@ -12,6 +12,7 @@ public class Bat extends GameObject {
     private final boolean playerGraphic;
     private String playerObject;
     private int oldlive;
+    private int live;
     private boolean bounceBall;
     private boolean hasPowerUp;
     private boolean shooting;
