@@ -2,6 +2,7 @@ package de.thdeg.amuri.krakout.game;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.*;
+import de.thdeg.amuri.krakout.graphics.alien.Face;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -15,8 +16,8 @@ class GameLoopManager {
     private final Background background;
     private final Brick brick;
     private final Item item;
-    private final Player player;
-    private final AlienFace alienFace;
+    private final Bat bat;
+    private final Face face;
     private final boolean diagonalMovement;
 
     /**
@@ -33,8 +34,8 @@ class GameLoopManager {
         this.item = new Item(gameView);
         this.item.setPosition(this.brick.getPosition());
         this.item.setSpeedInPixel(ball.getSpeedInPixel());
-        this.player = new Player(gameView);
-        this.alienFace = new AlienFace(gameView);
+        this.bat = new Bat(gameView);
+        this.face = new Face(gameView);
         this.diagonalMovement = true;
 
     }
@@ -43,19 +44,19 @@ class GameLoopManager {
         Integer[] gedruekteTasten = gameView.getKeyCodesOfCurrentlyPressedKeys();
         for (int keyCode : gedruekteTasten) {
             if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
-                player.up();
+                bat.up();
             }
             if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
-                player.down();
+                bat.down();
             }
             if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
-                player.left();
+                bat.left();
             }
             if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
-                player.right();
+                bat.right();
             }
             if (keyCode == KeyEvent.VK_SPACE) {
-                player.shoot();
+                bat.shoot();
             }
             if (!diagonalMovement) {
                 break;
@@ -77,7 +78,7 @@ class GameLoopManager {
             //Update Position ball
             ball.updatePosition();
             //Update Position Face
-            alienFace.updatePosition();
+            face.updatePosition();
             //background.updatePosition();
             //Print Background
             background.addToCanvas();
@@ -88,9 +89,9 @@ class GameLoopManager {
             //Print Brick
             brick.addToCanvas();
             //Print Player
-            player.addToCanvas();
+            bat.addToCanvas();
             //Print Face
-            alienFace.addToCanvas();
+            face.addToCanvas();
             //Score Top Right
             gameView.addTextToCanvas("100", GameView.WIDTH - 3 * 18, 0, 18, Color.WHITE, 0);
             //Live Border 1

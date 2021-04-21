@@ -113,11 +113,23 @@ public class Item extends GameObject {
     private String itemStatus(int status) {
         switch (status) {
             case 0:
-                return "PowerUp";
+                return "Bomb";      //Destroy surrounding bricks
             case 1:
-                return "PowerDown";
+                return "Double";    //Second Bat
             case 2:
-                return "Health UP";
+                return "Expand";    //Big Bat
+            case 3:
+                return "Glue";      //Ball sticks to Bat
+            case 4:
+                return "Missile";   //Bat can shoot missiles
+            case 5:
+                return "Shield";    //Wall behind bat
+            case 6:
+                return "multiply";  //Doubles Points
+            case 7:
+                return "HealthUp";  //eXtra Life
+            case 8:
+                return "SlowBall";  //Slows Ball down
             default:
                 return "none";
 
