@@ -17,6 +17,7 @@ class GameLoopManager {
     private final Item item;
     private final Player player;
     private final Face face;
+    private final boolean diagonalMovement;
 
     /**
      * Creates the main loop
@@ -34,6 +35,7 @@ class GameLoopManager {
         this.item.setSpeedInPixel(ball.getSpeedInPixel());
         this.player = new Player(gameView);
         this.face = new Face(gameView);
+        this.diagonalMovement = true;
 
     }
 
@@ -55,7 +57,7 @@ class GameLoopManager {
             if (keyCode == KeyEvent.VK_SPACE) {
                 player.shoot();
             }
-            if (!player.diagonalMovement) {
+            if (!diagonalMovement) {
                 break;
             }
         }
