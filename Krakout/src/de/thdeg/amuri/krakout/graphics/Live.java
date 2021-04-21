@@ -2,6 +2,9 @@ package de.thdeg.amuri.krakout.graphics;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 
+/**
+ * Acts as a Parent for classes that need a live system
+ */
 public class Live extends GameObject{
     protected boolean isHit;
     protected int live;
@@ -16,6 +19,10 @@ public class Live extends GameObject{
         this.live = 3;
     }
 
+    /**
+     * determines if got hit
+     * @param hit if true, got hit
+     */
     public void setHit(boolean hit) {
         isHit = hit;
     }

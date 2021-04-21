@@ -31,10 +31,18 @@ public class Pinball extends GameObject {
         this.speedInPixel = 3;
     }
 
+    /**
+     * needed for tracking Position of the {@link Bat}
+     * @param bouncePosition as the Position (x,y) of the {@link Bat} so the ball bounces off
+     */
     public void setBouncePosition(Position bouncePosition) {
         this.bouncePosition = bouncePosition;
     }
 
+    /**
+     * needed for tracking Position of the {@link Brick
+     * @param bounceBrickPosition as the Position (x,y) of the {@link Brick} so the ball bounces off
+     */
     public void setBounceBrickPosition(Position bounceBrickPosition) {
         this.bounceBrickPosition = bounceBrickPosition;
     }
