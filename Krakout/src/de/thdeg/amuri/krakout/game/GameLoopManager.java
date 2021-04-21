@@ -2,6 +2,7 @@ package de.thdeg.amuri.krakout.game;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.*;
+import de.thdeg.amuri.krakout.graphics.alien.Face;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -15,8 +16,9 @@ class GameLoopManager {
     private final Background background;
     private final Brick brick;
     private final Item item;
-    private final Player player;
+    private final Bat bat;
     private final Face face;
+    private final boolean diagonalMovement;
 
     /**
      * Creates the main loop
@@ -32,8 +34,9 @@ class GameLoopManager {
         this.item = new Item(gameView);
         this.item.setPosition(this.brick.getPosition());
         this.item.setSpeedInPixel(ball.getSpeedInPixel());
-        this.player = new Player(gameView);
+        this.bat = new Bat(gameView);
         this.face = new Face(gameView);
+        this.diagonalMovement = true;
 
     }
 
@@ -41,21 +44,21 @@ class GameLoopManager {
         Integer[] gedruekteTasten = gameView.getKeyCodesOfCurrentlyPressedKeys();
         for (int keyCode : gedruekteTasten) {
             if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
-                player.up();
+                bat.up();
             }
             if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
-                player.down();
+                bat.down();
             }
             if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
-                player.left();
+                bat.left();
             }
             if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
-                player.right();
+                bat.right();
             }
             if (keyCode == KeyEvent.VK_SPACE) {
-                player.shoot();
+                bat.shoot();
             }
-            if (!player.diagonalMovement) {
+            if (!diagonalMovement) {
                 break;
             }
         }
@@ -86,7 +89,7 @@ class GameLoopManager {
             //Print Brick
             brick.addToCanvas();
             //Print Player
-            player.addToCanvas();
+            bat.addToCanvas();
             //Print Face
             face.addToCanvas();
             //Score Top Right

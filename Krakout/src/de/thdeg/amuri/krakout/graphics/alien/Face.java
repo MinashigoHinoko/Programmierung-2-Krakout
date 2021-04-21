@@ -1,6 +1,7 @@
-package de.thdeg.amuri.krakout.graphics;
+package de.thdeg.amuri.krakout.graphics.alien;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
+import de.thdeg.amuri.krakout.graphics.Live;
 import de.thdeg.amuri.krakout.movement.Position;
 
 
@@ -10,9 +11,7 @@ import de.thdeg.amuri.krakout.movement.Position;
  *
  * @see Position
  */
-public class Face extends GameObject {
-    private int live;
-    private boolean isHit;
+public class Face extends Live {
     private double x;
     private boolean endOfScreenRight;
     private boolean endOfScreenLeft;

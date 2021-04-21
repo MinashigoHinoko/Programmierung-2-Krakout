@@ -8,8 +8,6 @@ import de.thdeg.amuri.krakout.movement.Position;
  * This Object will be used to create Items, these Items can be enemies,PowerUps or PowerDowns
  */
 public class Item extends GameObject {
-    private final boolean isHit;
-    private final int live;
     //declares what kind of item it is
     private int status;
     //Ammount of items
@@ -22,8 +20,6 @@ public class Item extends GameObject {
      */
     public Item(GameView gameView) {
         super(gameView);
-        this.isHit = false;
-        this.live = 2;
         this.status = 3;
         this.size = 3;
         this.width = 6;
@@ -56,24 +52,6 @@ public class Item extends GameObject {
      */
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    /**
-     * Determines if the Item is Hit and calculates dmg
-     *
-     * @return true if hit and false if not
-     */
-    public boolean isHit() {
-        return isHit;
-    }
-
-    /**
-     * gets the remaining Live points of the Item
-     *
-     * @return Live as a Number
-     */
-    public int getLive() {
-        return live;
     }
 
     /**
@@ -113,11 +91,23 @@ public class Item extends GameObject {
     private String itemStatus(int status) {
         switch (status) {
             case 0:
-                return "PowerUp";
+                return "Bomb";      //Destroy surrounding bricks
             case 1:
-                return "PowerDown";
+                return "Double";    //Second Bat
             case 2:
-                return "Health UP";
+                return "Expand";    //Big Bat
+            case 3:
+                return "Glue";      //Ball sticks to Bat
+            case 4:
+                return "Missile";   //Bat can shoot missiles
+            case 5:
+                return "Shield";    //Wall behind bat
+            case 6:
+                return "multiply";  //Doubles Points
+            case 7:
+                return "HealthUp";  //eXtra Life
+            case 8:
+                return "SlowBall";  //Slows Ball down
             default:
                 return "none";
 

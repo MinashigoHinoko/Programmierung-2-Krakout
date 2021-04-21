@@ -8,9 +8,7 @@ import de.thdeg.amuri.krakout.movement.Position;
  * This is the Brick the player has to hit with his {@link Pinball}.
  * Every Brick has to be destroyed to finish the game
  */
-public class Brick extends GameObject {
-    private final boolean isHit;
-    private final int live;
+public class Brick extends Live {
     //Ammount of Bricks for Win condition
     private int ammount;
     private String color;

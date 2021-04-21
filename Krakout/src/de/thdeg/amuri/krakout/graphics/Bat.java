@@ -8,12 +8,10 @@ import java.awt.*;
 /**
  * This is the Player Figure, that the Player controls. He uses it to manipulate the {@link Pinball} to break {@link Brick}
  */
-public class Player extends GameObject {
-    public final boolean diagonalMovement;
+public class Bat extends Live {
     private final boolean playerGraphic;
-    private String playerObject = "X";
+    private String playerObject;
     private int oldlive;
-    private int live;
     private boolean bounceBall;
     private boolean hasPowerUp;
     private boolean shooting;
@@ -24,7 +22,7 @@ public class Player extends GameObject {
      *
      * @param gameView this is for Initialising the game object
      */
-    public Player(GameView gameView) {
+    public Bat(GameView gameView) {
         super(gameView);
         this.oldlive = 3;
         this.live = oldlive;
@@ -34,8 +32,7 @@ public class Player extends GameObject {
         this.bounceBall = false;
         this.hasPowerUp = false;
         this.speedInPixel = 3.5;
-        this.playerGraphic = false;
-        this.diagonalMovement = true;
+        this.playerGraphic = true;
         this.position = new Position(GameView.WIDTH / 2, GameView.HEIGHT / 2);
     }
 
