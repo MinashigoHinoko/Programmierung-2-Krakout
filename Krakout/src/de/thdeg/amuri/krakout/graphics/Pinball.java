@@ -21,8 +21,8 @@ public class Pinball extends GameObject {
         this.position = new Position(100, 100);
         this.size = 2;
         this.flyFromLeftToRight = true;
-        super.width = 20;
-        this.height = 20;
+        super.width = 12;
+        this.height = 35;
         this.ammount = 0;
         this.speedInPixel = 3;
     }
@@ -33,7 +33,7 @@ public class Pinball extends GameObject {
      * @return Speed of the Ball in Pixel
      */
     public double getSpeedInPixel() {
-        return speedInPixel;
+        return this.speedInPixel;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Pinball extends GameObject {
      * @return if the Ball has Hit anything
      */
     public boolean hasHit() {
-        return flyFromLeftToRight;
+        return this.flyFromLeftToRight;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Pinball extends GameObject {
      * @return how many balls there are at the same time
      */
     public int getAmmount() {
-        return ammount;
+        return this.ammount;
     }
 
     /**
@@ -69,7 +69,7 @@ public class Pinball extends GameObject {
      * @return size of ball
      */
     public double getSize() {
-        return size;
+        return this.size;
     }
 
 
@@ -91,27 +91,27 @@ public class Pinball extends GameObject {
 
     @Override
     public void updatePosition() {
-        if (position.x >= GameView.WIDTH - width || position.x >= 860 - width) {
+        if (this.position.x >= GameView.WIDTH - this.width * this.size || this.position.x >= 860 - this.width * this.size) {
             this.flyFromLeftToRight = false;
-        } else if (position.x <= (GameView.WIDTH - GameView.WIDTH) - width || position.x <= 25 - width) { // 25 is the not yet inputted Object of the Player
+        } else if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) + this.width * this.size || this.position.x <= 25 + this.width * this.size) { // 25 is the not yet inputted Object of the Player
             this.flyFromLeftToRight = true;
         }
         if (this.flyFromLeftToRight == true) {
-            position.right(speedInPixel);
+            this.position.right(this.speedInPixel);
         } else if (this.flyFromLeftToRight == false) {
-            position.left(speedInPixel);
+            this.position.left(this.speedInPixel);
         }
     }
 
 
     @Override
     public void addToCanvas() {
-        gameView.addImageToCanvas("Pinball.png", position.x, position.y, size, rotation);
+        this.gameView.addImageToCanvas("Pinball.png", this.position.x, this.position.y, this.size, this.rotation);
     }
 
     @Override
 
     public String toString() {
-        return "Pinball: " + position;
+        return "Pinball: " + this.position;
     }
 }

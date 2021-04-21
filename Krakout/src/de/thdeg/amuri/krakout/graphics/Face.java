@@ -4,10 +4,20 @@ import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.movement.Position;
 
 
+/**
+ * This is an Enemy Face that will give you Bonus points and destroys itself if living too long.
+ * It moves into random directions
+ *
+ * @see Position
+ */
 public class Face extends GameObject {
     private int live;
     private boolean isHit;
     private double x;
+    private boolean endOfScreenRight;
+    private boolean endOfScreenLeft;
+    private boolean endOfScreenUp;
+    private boolean endOfScreenDown;
 
     /**
      * This is the extension constructor, here you can find prebuild parameters.
@@ -17,57 +27,70 @@ public class Face extends GameObject {
     public Face(GameView gameView) {
         super(gameView);
         this.live = 2;
-        this.width = 46;
-        this.height = 20;
-        this.size = 2;
-        this.speedInPixel = 10;
-        //this.position = new Position(860, 160);
-        this.position = new Position(GameView.WIDTH / 2, GameView.HEIGHT / 2);
+        this.width = 23;
+        this.height = 23;
+        this.size = 1.5;
+        this.speedInPixel = 3.5;
+        this.position = new Position(860, 160);
         this.isHit = false;
     }
 
     @Override
     public void updatePosition() {
         x = Math.random() * 10;
-        switch ((int) x % 10) {
+        while ((int) x == 0) {
+            x = Math.random() * 10;
+            if ((int) x != 0) {
+                x = (10 % (int) x);
+            }
+        }
+        switch ((int) x) {
             case 1:
-                if (position.x <= GameView.WIDTH - width) {
-                    this.position.right(speedInPixel);
-                    System.out.println((int) x + " penis2");
+                if (this.position.x >= GameView.WIDTH - this.width * this.size) {
+                    this.endOfScreenRight = true;
+                    this.endOfScreenLeft = false;
+                }
+                if (this.endOfScreenRight == true) {
+                    this.position.left(this.speedInPixel);
                     break;
                 } else {
-                    System.out.println((int) x);
-                    this.position.left(speedInPixel);
+                    this.position.right(this.speedInPixel);
                     break;
                 }
             case 2:
-                if (position.x >= (GameView.WIDTH - GameView.WIDTH) + width) {
-                    this.position.left(speedInPixel);
-                    System.out.println((int) x + " penis2");
+                if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) + this.width * this.size) {
+                    this.endOfScreenLeft = true;
+                    this.endOfScreenRight = false;
+                }
+                if (this.endOfScreenLeft == true) {
+                    this.position.right(this.speedInPixel);
                     break;
                 } else {
-                    System.out.println((int) x);
-                    this.position.right(speedInPixel);
+                    this.position.left(this.speedInPixel);
                     break;
                 }
             case 3:
-                if (position.y <= (50) + height) {
-                    this.position.down(speedInPixel);
-                    System.out.println((int) x + " penis");
+                if (this.position.y <= (50) + (this.height * this.size)) {
+                    this.endOfScreenUp = true;
+                    this.endOfScreenDown = false;
+                }
+                if (this.endOfScreenUp == true) {
+                    this.position.down(this.speedInPixel);
                     break;
                 } else {
-                    this.position.up(speedInPixel);
-                    System.out.println((int) x);
+                    this.position.up(this.speedInPixel);
                     break;
                 }
             case 4:
-                if (position.y >= ((GameView.HEIGHT - 50) - height)) {
-                    System.out.println((int) x + " penis");
-                    this.position.up(speedInPixel);
+                if (this.position.y >= (GameView.HEIGHT - 50 - (this.height * this.size))) {
+                    this.endOfScreenDown = true;
+                    this.endOfScreenUp = false;
+                }
+                if (this.endOfScreenDown == true) {
+                    this.position.up((this.speedInPixel));
                     break;
                 } else {
-                    this.position.down(speedInPixel);
-                    System.out.println((int) x);
+                    this.position.down(this.speedInPixel);
                     break;
                 }
         }

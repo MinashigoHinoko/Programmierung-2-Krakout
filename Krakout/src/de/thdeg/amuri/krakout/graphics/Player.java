@@ -5,10 +5,13 @@ import de.thdeg.amuri.krakout.movement.Position;
 
 import java.awt.*;
 
+/**
+ * This is the Player Figure, that the Player controls. He uses it to manipulate the {@link Pinball} to break {@link Brick}
+ */
 public class Player extends GameObject {
-    private static String PLAYEROBJECT = "X";
     public final boolean diagonalMovement;
     private final boolean playerGraphic;
+    private String playerObject = "X";
     private int oldlive;
     private int live;
     private boolean bounceBall;
@@ -31,27 +34,42 @@ public class Player extends GameObject {
         this.bounceBall = false;
         this.hasPowerUp = false;
         this.speedInPixel = 3.5;
-        this.playerGraphic = true;
+        this.playerGraphic = false;
         this.diagonalMovement = true;
         this.position = new Position(GameView.WIDTH / 2, GameView.HEIGHT / 2);
     }
 
+    /**
+     * interacts with {@link Position} to move left when called
+     */
     public void left() {
         this.position.left(speedInPixel);
     }
 
+    /**
+     * interacts with {@link Position} to move right when called
+     */
     public void right() {
         this.position.right(speedInPixel);
     }
 
+    /**
+     * interacts with {@link Position} to move up when called
+     */
     public void up() {
         this.position.up(speedInPixel);
     }
 
+    /**
+     * interacts with {@link Position} to move down when called
+     */
     public void down() {
         this.position.down(speedInPixel);
     }
 
+    /**
+     * Manipulates the Output of the playerObject for the task
+     */
     public void shoot() {
         shooting = true;
     }
@@ -64,17 +82,16 @@ public class Player extends GameObject {
     public void addToCanvas() {
         if (playerGraphic == false) {
             if (shooting) {
-                this.PLAYEROBJECT = "O";
-                this.gameView.addTextToCanvas(this.PLAYEROBJECT, this.position.x, this.position.y, this.size, Color.WHITE, this.rotation);
+                this.playerObject = "O";
                 shooting = false;
             } else {
-                this.PLAYEROBJECT = "X";
-                this.gameView.addTextToCanvas(this.PLAYEROBJECT, this.position.x, this.position.y, this.size, Color.WHITE, this.rotation);
+                this.playerObject = "X";
             }
+            this.gameView.addTextToCanvas(this.playerObject, this.position.x, this.position.y, this.size, Color.WHITE, this.rotation);
         } else {
+            this.size = 1.5;
             this.width = 35;
             this.height = 12;
-            this.size = 2;
             this.rotation = 90;
             gameView.addImageToCanvas("Player.png", this.position.x, this.position.y, this.size, this.rotation);
         }
