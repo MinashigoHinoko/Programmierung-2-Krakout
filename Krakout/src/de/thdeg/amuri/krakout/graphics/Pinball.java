@@ -91,9 +91,9 @@ public class Pinball extends GameObject {
 
     @Override
     public void updatePosition() {
-        if (this.position.x >= GameView.WIDTH - this.width *this.size || this.position.x >= 860 - this.width * this.size) {
+        if (this.position.x >= GameView.WIDTH - this.width * this.size || this.position.x >= 860 - this.width * this.size) {
             this.flyFromLeftToRight = false;
-        } else if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) +this.width *this.size || this.position.x <= 25 + this.width * this.size) { // 25 is the not yet inputted Object of the Player
+        } else if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) + this.width * this.size || this.position.x <= 25 + this.width * this.size) { // 25 is the not yet inputted Object of the Player
             this.flyFromLeftToRight = true;
         }
         if (this.flyFromLeftToRight == true) {

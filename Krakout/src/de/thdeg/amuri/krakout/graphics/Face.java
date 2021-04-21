@@ -7,6 +7,7 @@ import de.thdeg.amuri.krakout.movement.Position;
 /**
  * This is an Enemy Face that will give you Bonus points and destroys itself if living too long.
  * It moves into random directions
+ *
  * @see Position
  */
 public class Face extends GameObject {
@@ -37,13 +38,13 @@ public class Face extends GameObject {
     @Override
     public void updatePosition() {
         x = Math.random() * 10;
-        while((int) x == 0){
-            x= Math.random() *10;
-            if ((int)x !=0) {
+        while ((int) x == 0) {
+            x = Math.random() * 10;
+            if ((int) x != 0) {
                 x = (10 % (int) x);
-        }
             }
-        switch ((int)x) {
+        }
+        switch ((int) x) {
             case 1:
                 if (this.position.x >= GameView.WIDTH - this.width * this.size) {
                     this.endOfScreenRight = true;

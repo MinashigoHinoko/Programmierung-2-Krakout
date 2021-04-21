@@ -9,9 +9,9 @@ import java.awt.*;
  * This is the Player Figure, that the Player controls. He uses it to manipulate the {@link Pinball} to break {@link Brick}
  */
 public class Player extends GameObject {
-    private String playerObject = "X";
     public final boolean diagonalMovement;
     private final boolean playerGraphic;
+    private String playerObject = "X";
     private int oldlive;
     private int live;
     private boolean bounceBall;
@@ -39,22 +39,37 @@ public class Player extends GameObject {
         this.position = new Position(GameView.WIDTH / 2, GameView.HEIGHT / 2);
     }
 
+    /**
+     * interacts with {@link Position} to move left when called
+     */
     public void left() {
         this.position.left(speedInPixel);
     }
 
+    /**
+     * interacts with {@link Position} to move right when called
+     */
     public void right() {
         this.position.right(speedInPixel);
     }
 
+    /**
+     * interacts with {@link Position} to move up when called
+     */
     public void up() {
         this.position.up(speedInPixel);
     }
 
+    /**
+     * interacts with {@link Position} to move down when called
+     */
     public void down() {
         this.position.down(speedInPixel);
     }
 
+    /**
+     * Manipulates the Output of the playerObject for the task
+     */
     public void shoot() {
         shooting = true;
     }
