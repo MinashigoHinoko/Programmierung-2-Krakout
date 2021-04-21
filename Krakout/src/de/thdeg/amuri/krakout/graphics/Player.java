@@ -6,7 +6,7 @@ import de.thdeg.amuri.krakout.movement.Position;
 import java.awt.*;
 
 public class Player extends GameObject {
-    private static String PLAYEROBJECT = "X";
+    private String playerObject = "X";
     public final boolean diagonalMovement;
     private final boolean playerGraphic;
     private int oldlive;
@@ -64,17 +64,17 @@ public class Player extends GameObject {
     public void addToCanvas() {
         if (playerGraphic == false) {
             if (shooting) {
-                this.PLAYEROBJECT = "O";
-                this.gameView.addTextToCanvas(this.PLAYEROBJECT, this.position.x, this.position.y, this.size, Color.WHITE, this.rotation);
+                this.playerObject = "O";
+                this.gameView.addTextToCanvas(this.playerObject, this.position.x, this.position.y, this.size, Color.WHITE, this.rotation);
                 shooting = false;
             } else {
-                this.PLAYEROBJECT = "X";
-                this.gameView.addTextToCanvas(this.PLAYEROBJECT, this.position.x, this.position.y, this.size, Color.WHITE, this.rotation);
+                this.playerObject = "X";
+                this.gameView.addTextToCanvas(this.playerObject, this.position.x, this.position.y, this.size, Color.WHITE, this.rotation);
             }
         } else {
+            this.size = 1.5;
             this.width = 35;
             this.height = 12;
-            this.size = 2;
             this.rotation = 90;
             gameView.addImageToCanvas("Player.png", this.position.x, this.position.y, this.size, this.rotation);
         }
