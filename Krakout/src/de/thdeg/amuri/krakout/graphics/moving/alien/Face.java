@@ -31,7 +31,7 @@ public class Face extends LiveObject {
         this.size = 1.5;
         this.speedInPixel = 3.5;
         this.position = new Position(860, 160);
-        this.isHit = false;
+        this.hit = false;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package de.thdeg.amuri.krakout.graphics.moving;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.LiveObject;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
 import de.thdeg.amuri.krakout.movement.Position;
@@ -75,7 +74,7 @@ public class Bat extends LiveObject {
      * Manipulates the Output of the playerObject for the task
      */
     public void shoot() {
-        shooting = true;
+        this.shooting = true;
     }
 
     @Override

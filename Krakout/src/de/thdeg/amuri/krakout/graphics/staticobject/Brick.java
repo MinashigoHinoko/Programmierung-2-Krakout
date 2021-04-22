@@ -25,7 +25,7 @@ public class Brick extends LiveObject {
      */
     public Brick(GameView gameView) {
         super(gameView);
-        this.isHit = false;
+        this.hit = false;
         this.position = new Position(860, 100);
         this.live = 2;
         this.ammount = 1;
@@ -62,7 +62,7 @@ public class Brick extends LiveObject {
      * @return if being Hit, true = Damage
      */
     public boolean isHit() {
-        return this.isHit;
+        return this.hit;
     }
 
     /**

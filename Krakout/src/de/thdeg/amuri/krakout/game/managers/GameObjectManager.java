@@ -51,6 +51,8 @@ public class GameObjectManager {
         ball.updatePosition();
         //Update Position Face
         face.updatePosition();
+        //Update Live
+        playerLive.updatePosition();
         //background.updatePosition();
         //Print Background
         background.addToCanvas();
@@ -60,11 +62,11 @@ public class GameObjectManager {
         ball.addToCanvas();
         //Print Brick
         brick.addToCanvas();
-        //Print Player
+        //Print Bat
         bat.addToCanvas();
         //Print Face
         face.addToCanvas();
-        //Print Live and Liveborder
+        //Print Liveborder
         playerLive.addToCanvas();
         //Score Top Right
         gameView.addTextToCanvas("100", GameView.WIDTH - 3 * 18, 0, 18, Color.WHITE, 0);

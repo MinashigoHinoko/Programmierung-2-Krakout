@@ -2,6 +2,7 @@ package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
+import de.thdeg.amuri.krakout.graphics.staticobject.PlayerLive;
 
 import java.awt.event.KeyEvent;
 
@@ -12,12 +13,14 @@ public class InputManager {
     private final GameView gameView;
     private final Bat bat;
     private final boolean diagonalMovement;
+    private final PlayerLive playerlive;
 
 
     protected InputManager(GameView gameView, Bat bat) {
         this.gameView = gameView;
         this.bat = bat;
         this.diagonalMovement = true;
+        playerlive = new PlayerLive(gameView);
     }
 
     void updateUserInputs() {
@@ -37,6 +40,8 @@ public class InputManager {
             }
             if (keyCode == KeyEvent.VK_SPACE) {
                 bat.shoot();
+                playerlive.hasHit();
+                System.out.println("pew");
             }
             if (!diagonalMovement) {
                 break;
