@@ -11,10 +11,10 @@ import java.awt.*;
 public class Bat extends GameObject {
     private final boolean playerGraphic;
     private String playerObject;
-    private int oldlive;
-    private int live;
-    private boolean bounceBall;
-    private boolean hasPowerUp;
+    private final int oldlive;
+    private final int live;
+    private final boolean bounceBall;
+    private final boolean hasPowerUp;
     private boolean shooting;
 
 
@@ -33,7 +33,7 @@ public class Bat extends GameObject {
         this.bounceBall = false;
         this.hasPowerUp = false;
         this.speedInPixel = 3.5;
-        this.playerGraphic = true;
+        this.playerGraphic = false;
         this.position = new Position(GameView.WIDTH / 2, GameView.HEIGHT / 2);
     }
 

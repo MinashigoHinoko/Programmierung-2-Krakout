@@ -25,14 +25,15 @@ public class Pinball extends GameObject {
         this.bounceBrickPosition = new Position(0, 0);
         this.size = 2;
         this.flyFromLeftToRight = true;
-        super.width = 12;
-        this.height = 35;
+        super.width = 10;
+        this.height = 10;
         this.ammount = 0;
         this.speedInPixel = 3;
     }
 
     /**
      * needed for tracking Position of the {@link Bat}
+     *
      * @param bouncePosition as the Position (x,y) of the {@link Bat} so the ball bounces off
      */
     public void setBouncePosition(Position bouncePosition) {
@@ -41,6 +42,7 @@ public class Pinball extends GameObject {
 
     /**
      * needed for tracking Position of the {@link Brick
+     *
      * @param bounceBrickPosition as the Position (x,y) of the {@link Brick} so the ball bounces off
      */
     public void setBounceBrickPosition(Position bounceBrickPosition) {
@@ -119,14 +121,14 @@ public class Pinball extends GameObject {
         }
          */
 
-        if (this.position.x >= GameView.WIDTH - this.width * this.size){
+        if (this.position.x >= GameView.WIDTH - this.width * this.size) {
             this.flyFromLeftToRight = false;
-        } else if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) - this.width * this.size){
+        } else if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) + this.width * this.size) {
             this.flyFromLeftToRight = true;
         }
         if (this.flyFromLeftToRight == true) {
             this.position.right(this.speedInPixel);
-        }else if (this.flyFromLeftToRight == false) {
+        } else if (this.flyFromLeftToRight == false) {
             this.position.left(this.speedInPixel);
         }
     }

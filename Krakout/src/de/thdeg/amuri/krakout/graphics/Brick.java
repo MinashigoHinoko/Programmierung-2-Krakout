@@ -10,8 +10,8 @@ import de.thdeg.amuri.krakout.movement.Position;
  */
 public class Brick extends Live {
     //Ammount of Bricks for Win condition
-    private int ammount;
-    private String color;
+    private final int ammount;
+    private final String color;
     //Has PowerUP?
     private boolean powerUp;
 
