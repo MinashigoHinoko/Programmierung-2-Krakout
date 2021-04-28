@@ -22,6 +22,9 @@ public class LiveObject extends GameObject {
         this.live = 3;
     }
 
+    /**
+     * @param live as the current Live of the Object
+     */
     public void setLive(int live) {
         this.live = live;
     }

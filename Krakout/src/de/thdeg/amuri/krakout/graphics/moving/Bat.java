@@ -13,7 +13,6 @@ import java.awt.*;
 public class Bat extends LiveObject {
     private final boolean playerGraphic;
     private String playerObject;
-    private final int oldlive;
     private final boolean bounceBall;
     private final boolean hasPowerUp;
     private boolean shooting;
@@ -26,8 +25,7 @@ public class Bat extends LiveObject {
      */
     public Bat(GameView gameView) {
         super(gameView);
-        this.oldlive = 3;
-        this.live = oldlive;
+        this.live = oldLive;
         this.width = 50;
         this.height = 50;
         this.size = 50;
@@ -36,10 +34,6 @@ public class Bat extends LiveObject {
         this.speedInPixel = 3.5;
         this.playerGraphic = true;
         this.position = new Position(GameView.WIDTH / 2, GameView.HEIGHT / 2);
-    }
-
-    public int getOldlive() {
-        return oldlive;
     }
 
     /**

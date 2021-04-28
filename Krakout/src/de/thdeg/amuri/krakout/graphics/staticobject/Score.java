@@ -28,36 +28,51 @@ public class Score extends GameObject {
     private int score;
     private int scoreValue;
     private String scoreOutput;
+    private String highScoreOutput;
     private boolean plusScore;
     private boolean minusScore;
     private final Color color;
-
+    /**
+     * This is the extension constructor, here you can find prebuild parameters.
+     *
+     * @param gameView this is for Initialising the game object
+     */
     public Score(GameView gameView) {
         super(gameView);
         this.baseScore = 0;
         this.score = this.baseScore;
+        this.highScore = 10000;
         this.scoreOutput = String.valueOf(score);
+        this.highScoreOutput = "Highscore: "+ highScore;
         this.size = 18;
         this.position = new Position(GameView.WIDTH-scoreOutput.length()*size,0);
         this.color = Color.WHITE;
     }
 
+    /**
+     * @param plusScore if score needs to be added
+     */
     public void isPlusScore(boolean plusScore) {
         this.plusScore = plusScore;
     }
 
+    /**
+     * @param minusScore if score needs to be removed
+     */
     public void isMinusScore(boolean minusScore) {
         this.minusScore = minusScore;
     }
 
-    public int getScore() {
-        return score;
-    }
-
+    /**
+     * @param score as Score to be removed or added
+     */
     public void setScoreValue(int score) {
         this.scoreValue = score;
     }
 
+    /**
+     * @param highScore for Outputting Highscore
+     */
     public void setHighScore(int highScore) {
         this.highScore = highScore;
     }
@@ -76,5 +91,6 @@ public class Score extends GameObject {
     public void addToCanvas() {
         this.scoreOutput = String.valueOf(score);
         this.gameView.addTextToCanvas(scoreOutput,position.x,position.y,size, color,rotation);
+        this.gameView.addTextToCanvas(highScoreOutput,GameView.WIDTH-highScoreOutput.length()*size,GameView.HEIGHT-size,size,Color.YELLOW,rotation);
     }
 }
