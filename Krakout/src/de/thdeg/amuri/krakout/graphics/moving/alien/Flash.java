@@ -6,8 +6,6 @@ import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
 import de.thdeg.amuri.krakout.movement.Position;
 
-import java.util.LinkedList;
-
 /**
  * Pierces {@link Brick} on collision with {@link Pinball}
  */

@@ -31,7 +31,6 @@ public class LiveObject extends GameObject {
 
     /**
      * determines if got hit
-     *
      */
     public void hasHit() {
         this.hit = true;

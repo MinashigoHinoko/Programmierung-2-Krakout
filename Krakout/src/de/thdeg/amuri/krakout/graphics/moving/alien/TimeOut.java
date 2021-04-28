@@ -4,8 +4,6 @@ import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.movement.Position;
 
-import java.util.LinkedList;
-
 /**
  * All aliens will not move for 30 seconds
  *

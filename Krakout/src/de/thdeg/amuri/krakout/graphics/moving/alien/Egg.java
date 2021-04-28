@@ -5,8 +5,6 @@ import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
 import de.thdeg.amuri.krakout.movement.Position;
 
-import java.util.LinkedList;
-
 /**
  * On contact with {@link Brick}, will damage them
  */

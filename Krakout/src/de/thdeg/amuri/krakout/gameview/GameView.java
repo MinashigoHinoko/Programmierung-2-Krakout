@@ -23,33 +23,17 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class GameView {
 
-    private static class Version {
-        private final static String VERSION = "2021.1";
-        private final static String VERSION_SHORT = VERSION.substring(0, 6);
-        private final static LocalDate DATE = LocalDate.parse("2021-04-08");
-        private final static String STANDARD_TITLE = "GameView";
-        private final static String SIGNATURE = "Prof. Dr. Andreas Berl - TH Deggendorf";
-
-        private static String getStatusSignature() {
-            return "   " + STANDARD_TITLE + " " + VERSION_SHORT + " - " + SIGNATURE + " ";
-        }
-
-        private static String getStandardTitle() {
-            return STANDARD_TITLE + " " + DATE.getYear();
-        }
-    }
-
-    // Auflösung
     /**
      * Breite der Leinwand in Pixeln.
      */
     public static final int WIDTH = 960;
+
+    // Auflösung
     /**
      * Höhe der Leinwand in Pixeln.
      */
     public static final int HEIGHT = 540;
     public static final java.awt.Rectangle BOUNDS = new java.awt.Rectangle(0, 0, GameView.WIDTH, GameView.HEIGHT);
-
     // Klassen
     private final GameTime gameTime;
     private final Canvas canvas;
@@ -123,7 +107,6 @@ public class GameView {
     public void setBackgroundColor(Color backgroundColor) {
         canvas.setBackgroundColor(backgroundColor);
     }
-
 
     /**
      * Fügt eine neue Farbe zur Farbtabelle für Block-Grafiken hinzu oder Überschreibt eine vorhandene Farbe mit neuen
@@ -375,7 +358,6 @@ public class GameView {
         }
     }
 
-
     /**
      * Diese Methode kann eine farbige Linie auf die Leinwand (Canvas) zeichnen, ohne die bisherigen Inhalte zu
      * löschen.
@@ -422,7 +404,6 @@ public class GameView {
             canvas.addPolyLineToCanvas(xs, ys, (int) Math.round(lineWeight), color);
         }
     }
-
 
     /**
      * Diese Methode kann ein farbiges Polygon auf die Leinwand (Canvas) zeichnen, ohne die bisherigen Inhalte zu
@@ -471,7 +452,6 @@ public class GameView {
         }
         return converted;
     }
-
 
     /**
      * Zeigt den aktuellen Inhalt der Leinwand (Canvas) im Fenster an. Nach der Ausgabe wird der Inhalt der Leinwand
@@ -823,6 +803,22 @@ public class GameView {
         window.closeWindow(terminateEverything);
     }
 
+    private static class Version {
+        private final static String VERSION = "2021.1";
+        private final static String VERSION_SHORT = VERSION.substring(0, 6);
+        private final static LocalDate DATE = LocalDate.parse("2021-04-08");
+        private final static String STANDARD_TITLE = "GameView";
+        private final static String SIGNATURE = "Prof. Dr. Andreas Berl - TH Deggendorf";
+
+        private static String getStatusSignature() {
+            return "   " + STANDARD_TITLE + " " + VERSION_SHORT + " - " + SIGNATURE + " ";
+        }
+
+        private static String getStandardTitle() {
+            return STANDARD_TITLE + " " + DATE.getYear();
+        }
+    }
+
     private static class GameTime {
 
         private final long startTimeInMilliseconds;
@@ -952,20 +948,20 @@ public class GameView {
     }
 
     private static class Canvas implements Cloneable {
-        private Color backgroundColor;
         private final ArrayList<PrintObject> printObjects;
+        private Color backgroundColor;
 
         Canvas() {
             this.backgroundColor = Color.black;
             this.printObjects = new ArrayList<>(30000);
         }
 
-        void setBackgroundColor(Color backgroundColor) {
-            this.backgroundColor = backgroundColor;
-        }
-
         Color getBackgroundColor() {
             return backgroundColor;
+        }
+
+        void setBackgroundColor(Color backgroundColor) {
+            this.backgroundColor = backgroundColor;
         }
 
         ArrayList<PrintObject> getPrintObjects() {
@@ -1006,17 +1002,10 @@ public class GameView {
 
     private static class Frame extends JFrame {
 
+        private final JPanel statusBar;
         private Mouse mouse;
         private Keyboard keyboard;
-
-        private final JPanel statusBar;
         private JLabel statusLabelLinks;
-
-        void registerListeners(Mouse mouse, Keyboard keyboard) {
-            // Klassen
-            this.mouse = mouse;
-            this.keyboard = keyboard;
-        }
 
         Frame(PaintingPanel paintingPanel) {
 
@@ -1164,6 +1153,12 @@ public class GameView {
             setVisible(true);
         }
 
+        void registerListeners(Mouse mouse, Keyboard keyboard) {
+            // Klassen
+            this.mouse = mouse;
+            this.keyboard = keyboard;
+        }
+
         JLabel getStatusLabelLinks() {
             return statusLabelLinks;
         }
@@ -1174,10 +1169,9 @@ public class GameView {
     }
 
     private static class Keyboard {
+        private final static int KEY_EVENT_BUFFER_SIZE = 25;
         private final ArrayBlockingQueue<KeyEvent> keyboardEvents;
         private final ArrayBlockingQueue<Integer> keyCodesOfCurrentlyPressedKeys;
-
-        private final static int KEY_EVENT_BUFFER_SIZE = 25;
 
         Keyboard() {
             keyboardEvents = new ArrayBlockingQueue<>(KEY_EVENT_BUFFER_SIZE, true);
@@ -1216,15 +1210,12 @@ public class GameView {
     }
 
     private static class Mouse implements ActionListener {
+        private final static int MOUSE_EVENT_BUFFER_SIZE = 25;
         private final SwingAdapter swingAdapter;
-
+        private final Timer invisibleMouseTimer;
+        private final ArrayBlockingQueue<MouseEvent> mousePointerEvents;
         private boolean invisibleMouseCursor;
         private boolean invisibleMouseCursorMoved;
-        private final Timer invisibleMouseTimer;
-
-        private final static int MOUSE_EVENT_BUFFER_SIZE = 25;
-        private final ArrayBlockingQueue<MouseEvent> mousePointerEvents;
-
         private boolean useMouse;
 
         Mouse(SwingAdapter swingAdapter) {
@@ -1314,8 +1305,8 @@ public class GameView {
     }
 
     private static class Sound {
-        private final ConcurrentHashMap<Integer, Optional<Clip>> clips;
         private static int soundCounter;
+        private final ConcurrentHashMap<Integer, Optional<Clip>> clips;
 
         Sound() {
             this.clips = new ConcurrentHashMap<>();
@@ -1381,19 +1372,19 @@ public class GameView {
 
     private static class SwingAdapter {
 
+        private final static int IMAGE_MAP_LIMIT_IN_MB = 1000;
         private final PaintingPanel paintingPanel;
         private final Frame frame;
+        private final Font font;
+        private final BufferedImage[] bufferedImages;
+        private final HashMap<Integer, BufferedImage> imageMap;
         private Sound sound;
         private Mouse mouse;
-        private final Font font;
         private BufferedImage bufferedImage;
-        private final BufferedImage[] bufferedImages;
         private int currentBufferedImage;
         private Graphics2D g2D;
         private HashMap<Character, Color> colorMap;
-        private final HashMap<Integer, BufferedImage> imageMap;
         private double sizeOfImageMapInMB;
-        private final static int IMAGE_MAP_LIMIT_IN_MB = 1000;
 
         SwingAdapter() {
             this.paintingPanel = new PaintingPanel();
@@ -1689,10 +1680,10 @@ public class GameView {
 
     private static class Window {
 
-        private final SwingAdapter swingAdapter;
-        private long lastPrintTimeInNanos;
         private final static int FRAMES_PER_SECOND = 120;
         private final static int NANOS_PER_FRAME = 1_000_000_000 / FRAMES_PER_SECOND;
+        private final SwingAdapter swingAdapter;
+        private long lastPrintTimeInNanos;
 
         Window(SwingAdapter swingAdapter) {
             this.swingAdapter = swingAdapter;
@@ -1755,9 +1746,8 @@ public class GameView {
         private final java.awt.Rectangle enterBox;
 
         private final int yLowerLine;
-
-        private boolean startScreenClosed;
         private final boolean useMouseBackup;
+        private boolean startScreenClosed;
 
 
         StartScreenWithChooseBox(GameView gameView, String title, String description, String selectionTitle,
@@ -1878,24 +1868,21 @@ public class GameView {
             private final String title;
             private final String[] items;
             private final int fontSize;
-            private int selectedItem;
             private final Color markerFont;
             private final Color markerHighlight;
             private final Color markerRectangle;
             private final Color frameAndTitle;
-
             private final int lineWeight;
             private final int titleHeight;
             private final int heightOfMarkerField;
             private final int heightOfMarkerBox;
             private final int height;
-            private int widthOfMarkerField;
             private final int width;
-
             private final java.awt.Rectangle[] markerBounds;
             private final java.awt.Rectangle upBounds;
             private final java.awt.Rectangle downBounds;
-
+            private int selectedItem;
+            private int widthOfMarkerField;
             private int x;
             private int xLine;
             private int y;
@@ -2179,9 +2166,9 @@ public class GameView {
 
     private static class SimpleBox extends java.awt.Rectangle {
         public final String text;
+        private final int fontSize;
         public boolean isHighlighted;
         public boolean isQuitBox;
-        private final int fontSize;
 
         private SimpleBox(String text, int x, int y, int width, int height, boolean isQuitBox) {
             super(x, y, width, height);

@@ -5,8 +5,6 @@ import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
 import de.thdeg.amuri.krakout.movement.Position;
 
-import java.util.LinkedList;
-
 /**
  * Will glue the {@link Bat}, so it cant move
  */
@@ -17,17 +15,17 @@ public class Bee extends AlienObject {
      * @param gameView this is for Initialising the game object
      */
     public Bee(GameView gameView) {
-            super(gameView);
-            this.live = 1;
-            this.width = 35;
-            this.height = 31;
-            this.size = 1.5;
-            this.position = new Position(650, 200);
-            this.hit = false;
-        }
+        super(gameView);
+        this.live = 1;
+        this.width = 35;
+        this.height = 31;
+        this.size = 1.5;
+        this.position = new Position(650, 200);
+        this.hit = false;
+    }
 
-        @Override
-        public void addToCanvas() {
-            this.gameView.addImageToCanvas("Bee.png", this.position.x, this.position.y, this.size, this.rotation);
-        }
+    @Override
+    public void addToCanvas() {
+        this.gameView.addImageToCanvas("Bee.png", this.position.x, this.position.y, this.size, this.rotation);
+    }
 }

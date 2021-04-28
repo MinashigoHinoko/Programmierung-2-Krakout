@@ -34,22 +34,22 @@ class GameObjectManager {
     private final TwinBall twinBall;
     private final Score score;
 
-    private LinkedList<GameObject> gameObjects;
-    private LinkedList<Item> items;
-    private LinkedList<Pinball> balls;
-    private LinkedList<Astronaut> astronauts;
-    private LinkedList<Bee> bees;
-    private LinkedList<BeeHive> beeHives;
-    private LinkedList<BonusShip> bonusShips;
-    private LinkedList<Cannibal> cannibals;
-    private LinkedList<Egg> eggs;
-    private LinkedList<Exit> exits;
-    private LinkedList<Face> faces;
-    private LinkedList<Flash> flashes;
-    private LinkedList<TimeOut> timeOuts;
-    private LinkedList<TwinBall> twinBalls;
-    private LinkedList<PlayerLive> playerLives;
-    private LinkedList<Brick> bricks;
+    private final LinkedList<GameObject> gameObjects;
+    private final LinkedList<Item> items;
+    private final LinkedList<Pinball> balls;
+    private final LinkedList<Astronaut> astronauts;
+    private final LinkedList<Bee> bees;
+    private final LinkedList<BeeHive> beeHives;
+    private final LinkedList<BonusShip> bonusShips;
+    private final LinkedList<Cannibal> cannibals;
+    private final LinkedList<Egg> eggs;
+    private final LinkedList<Exit> exits;
+    private final LinkedList<Face> faces;
+    private final LinkedList<Flash> flashes;
+    private final LinkedList<TimeOut> timeOuts;
+    private final LinkedList<TwinBall> twinBalls;
+    private final LinkedList<PlayerLive> playerLives;
+    private final LinkedList<Brick> bricks;
 
     protected GameObjectManager(GameView gameView) {
         this.gameObjects = new LinkedList<>();
@@ -113,6 +113,7 @@ class GameObjectManager {
     protected Bat getBat() {
         return bat;
     }
+
     protected void updateGameObjects() {
         this.gameObjects.clear();
         this.gameObjects.add(item);
@@ -147,69 +148,118 @@ class GameObjectManager {
             gameObject.addToCanvas();
             gameObject.updatePosition();
             gameObject.updateStatus();
+
         }
     }
 
+    /**
+     * @return LinkedList getter for {@link GameObject}
+     */
     public LinkedList<GameObject> getGameObjects() {
         return gameObjects;
     }
 
+    /**
+     * @return LinkedList getter for {@link Item}
+     */
     public LinkedList<Item> getItems() {
         return items;
     }
 
+    /**
+     * @return LinkedList getter for {@link Pinball}
+     */
     public LinkedList<Pinball> getBalls() {
         return balls;
     }
 
+    /**
+     * @return LinkedList getter for {@link Astronaut}
+     */
     public LinkedList<Astronaut> getAstronauts() {
         return astronauts;
     }
 
+    /**
+     * @return LinkedList getter for {@link Bee}
+     */
     public LinkedList<Bee> getBees() {
         return bees;
     }
 
+    /**
+     * @return LinkedList for {@link BeeHive}
+     */
     public LinkedList<BeeHive> getBeeHives() {
         return beeHives;
     }
 
+    /**
+     * @return LinkedList getter for {@link BonusShip}
+     */
     public LinkedList<BonusShip> getBonusShips() {
         return bonusShips;
     }
 
+    /**
+     * @return LinkedList getter for {@link Cannibal}
+     */
     public LinkedList<Cannibal> getCannibals() {
         return cannibals;
     }
 
+    /**
+     * @return LinkedList getter for {@link Egg}
+     */
     public LinkedList<Egg> getEggs() {
         return eggs;
     }
 
+    /**
+     * @return LinkedList getter for {@link Exit}
+     */
     public LinkedList<Exit> getExits() {
         return exits;
     }
 
+    /**
+     * @return LinkedList getter for {@link Face}
+     */
     public LinkedList<Face> getFaces() {
         return faces;
     }
 
+    /**
+     * @return LinkedList getter for {@link Flash}
+     */
     public LinkedList<Flash> getFlashes() {
         return flashes;
     }
 
+    /**
+     * @return LinkedList getter for {@link TimeOut}
+     */
     public LinkedList<TimeOut> getTimeOuts() {
         return timeOuts;
     }
 
+    /**
+     * @return LinkedList getter for {@link TwinBall}
+     */
     public LinkedList<TwinBall> getTwinBalls() {
         return twinBalls;
     }
 
+    /**
+     * @return LinkedList getter for {@link PlayerLive}
+     */
     public LinkedList<PlayerLive> getPlayerLives() {
         return playerLives;
     }
 
+    /**
+     * @return LinkedList getter for {@link Brick}
+     */
     public LinkedList<Brick> getBricks() {
         return bricks;
     }

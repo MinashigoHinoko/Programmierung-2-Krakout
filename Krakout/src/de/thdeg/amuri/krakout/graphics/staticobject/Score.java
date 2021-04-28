@@ -29,7 +29,7 @@ public class Score extends GameObject {
     private int score;
     private int scoreValue;
     private String scoreOutput;
-    private String highScoreOutput;
+    private final String highScoreOutput;
     private boolean plusScore;
     private boolean minusScore;
 

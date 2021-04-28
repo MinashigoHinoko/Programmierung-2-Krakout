@@ -5,7 +5,7 @@ import de.thdeg.amuri.krakout.gameview.GameView;
 /**
  * Object for every Alien class
  */
-public class AlienObject extends LiveObject{
+public class AlienObject extends LiveObject {
     private double x;
     private boolean endOfScreenRight;
     private boolean endOfScreenLeft;

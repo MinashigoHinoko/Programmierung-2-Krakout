@@ -6,8 +6,6 @@ import de.thdeg.amuri.krakout.graphics.moving.Bat;
 import de.thdeg.amuri.krakout.graphics.staticobject.Item;
 import de.thdeg.amuri.krakout.movement.Position;
 
-import java.util.LinkedList;
-
 /**
  * When colides with {@link Bat}, will give one of following: 10.000 Points, Shield, Transmutating Bricks (which will possibly give them {@link Item}) or Bomb
  */

@@ -1,9 +1,9 @@
 package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
-import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
+import de.thdeg.amuri.krakout.graphics.moving.Pinball;
+import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
 import de.thdeg.amuri.krakout.graphics.staticobject.Background;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
 import de.thdeg.amuri.krakout.graphics.staticobject.Item;
