@@ -23,33 +23,17 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class GameView {
 
-    private static class Version {
-        private final static String VERSION = "2021.1";
-        private final static String VERSION_SHORT = VERSION.substring(0, 6);
-        private final static LocalDate DATE = LocalDate.parse("2021-04-08");
-        private final static String STANDARD_TITLE = "GameView";
-        private final static String SIGNATURE = "Prof. Dr. Andreas Berl - TH Deggendorf";
-
-        private static String getStatusSignature() {
-            return "   " + STANDARD_TITLE + " " + VERSION_SHORT + " - " + SIGNATURE + " ";
-        }
-
-        private static String getStandardTitle() {
-            return STANDARD_TITLE + " " + DATE.getYear();
-        }
-    }
-
-    // Auflösung
     /**
      * Breite der Leinwand in Pixeln.
      */
     public static final int WIDTH = 960;
+
+    // Auflösung
     /**
      * Höhe der Leinwand in Pixeln.
      */
     public static final int HEIGHT = 540;
     public static final java.awt.Rectangle BOUNDS = new java.awt.Rectangle(0, 0, GameView.WIDTH, GameView.HEIGHT);
-
     // Klassen
     private final GameTime gameTime;
     private final Canvas canvas;
@@ -124,7 +108,6 @@ public class GameView {
         canvas.setBackgroundColor(backgroundColor);
     }
 
-
     /**
      * Fügt eine neue Farbe zur Farbtabelle für Block-Grafiken hinzu oder Überschreibt eine vorhandene Farbe mit neuen
      * Werten.
@@ -174,8 +157,8 @@ public class GameView {
     public int showStartScreenWithChooseBox(String title, String description, String selectionTitle,
                                             String[] selectionItems, int selectedItem) {
         StartScreenWithChooseBox startScreenWithChooseBox = new StartScreenWithChooseBox(this, title, description,
-                                                                                         selectionTitle,
-                                                                                         selectionItems, selectedItem);
+                selectionTitle,
+                selectionItems, selectedItem);
         pollKeyEvents();
         startScreenWithChooseBox.printStartScreen();
         return startScreenWithChooseBox.getSelectedItem();
@@ -345,7 +328,7 @@ public class GameView {
         int heightInt = (int) Math.round(height);
         if (intersectsGameViewBounds(xInt, yInt, widthInt, heightInt, lineWeight)) {
             canvas.addOvalToCanvas((int) Math.round(xCenter), (int) Math.round(yCenter), widthInt,
-                                   heightInt, (int) Math.round(lineWeight), filled, color);
+                    heightInt, (int) Math.round(lineWeight), filled, color);
         }
     }
 
@@ -374,7 +357,6 @@ public class GameView {
             canvas.addRectangleToCanvas(xInt, yInt, widthInt, heightInt, (int) Math.round(lineWeight), filled, color);
         }
     }
-
 
     /**
      * Diese Methode kann eine farbige Linie auf die Leinwand (Canvas) zeichnen, ohne die bisherigen Inhalte zu
@@ -423,7 +405,6 @@ public class GameView {
         }
     }
 
-
     /**
      * Diese Methode kann ein farbiges Polygon auf die Leinwand (Canvas) zeichnen, ohne die bisherigen Inhalte zu
      * löschen. Dazu müssen alle Punkte des Polygons angegeben werden. Der Letzte angegebene Punkt wird mit dem ersten
@@ -451,16 +432,16 @@ public class GameView {
         IntSummaryStatistics statX = Arrays.stream(xs).summaryStatistics();
         IntSummaryStatistics statY = Arrays.stream(ys).summaryStatistics();
         return intersectsGameViewBounds(statX.getMin(), statY.getMin(), statX.getMax() - statX.getMin(),
-                                        statY.getMax() - statY.getMin(), lineWeight);
+                statY.getMax() - statY.getMin(), lineWeight);
 
     }
 
     private boolean intersectsGameViewBounds(int x, int y, int width, int height, double lineWeight) {
         int halfLineWeight = (int) Math.round(lineWeight / 2);
         java.awt.Rectangle rect = new java.awt.Rectangle(x - halfLineWeight,
-                                                         y - halfLineWeight,
-                                                         width + halfLineWeight,
-                                                         height + halfLineWeight);
+                y - halfLineWeight,
+                width + halfLineWeight,
+                height + halfLineWeight);
         return rect.intersects(BOUNDS);
     }
 
@@ -471,7 +452,6 @@ public class GameView {
         }
         return converted;
     }
-
 
     /**
      * Zeigt den aktuellen Inhalt der Leinwand (Canvas) im Fenster an. Nach der Ausgabe wird der Inhalt der Leinwand
@@ -823,6 +803,22 @@ public class GameView {
         window.closeWindow(terminateEverything);
     }
 
+    private static class Version {
+        private final static String VERSION = "2021.1";
+        private final static String VERSION_SHORT = VERSION.substring(0, 6);
+        private final static LocalDate DATE = LocalDate.parse("2021-04-08");
+        private final static String STANDARD_TITLE = "GameView";
+        private final static String SIGNATURE = "Prof. Dr. Andreas Berl - TH Deggendorf";
+
+        private static String getStatusSignature() {
+            return "   " + STANDARD_TITLE + " " + VERSION_SHORT + " - " + SIGNATURE + " ";
+        }
+
+        private static String getStandardTitle() {
+            return STANDARD_TITLE + " " + DATE.getYear();
+        }
+    }
+
     private static class GameTime {
 
         private final long startTimeInMilliseconds;
@@ -952,20 +948,20 @@ public class GameView {
     }
 
     private static class Canvas implements Cloneable {
-        private Color backgroundColor;
         private final ArrayList<PrintObject> printObjects;
+        private Color backgroundColor;
 
         Canvas() {
             this.backgroundColor = Color.black;
             this.printObjects = new ArrayList<>(30000);
         }
 
-        void setBackgroundColor(Color backgroundColor) {
-            this.backgroundColor = backgroundColor;
-        }
-
         Color getBackgroundColor() {
             return backgroundColor;
+        }
+
+        void setBackgroundColor(Color backgroundColor) {
+            this.backgroundColor = backgroundColor;
         }
 
         ArrayList<PrintObject> getPrintObjects() {
@@ -1006,17 +1002,10 @@ public class GameView {
 
     private static class Frame extends JFrame {
 
+        private final JPanel statusBar;
         private Mouse mouse;
         private Keyboard keyboard;
-
-        private final JPanel statusBar;
         private JLabel statusLabelLinks;
-
-        void registerListeners(Mouse mouse, Keyboard keyboard) {
-            // Klassen
-            this.mouse = mouse;
-            this.keyboard = keyboard;
-        }
 
         Frame(PaintingPanel paintingPanel) {
 
@@ -1131,7 +1120,7 @@ public class GameView {
                 public void componentResized(ComponentEvent e) {
                     super.componentResized(e);
                     double scalingFactor = Math.min(paintingPanel.getParent().getWidth() * 1d / GameView.WIDTH,
-                                                    paintingPanel.getParent().getHeight() * 1d / GameView.HEIGHT);
+                            paintingPanel.getParent().getHeight() * 1d / GameView.HEIGHT);
                     int newWidth = (int) Math.round(GameView.WIDTH * scalingFactor);
                     int newHeight = (int) Math.round(GameView.HEIGHT * scalingFactor);
                     paintingPanel.setPreferredSize(new Dimension(newWidth, newHeight));
@@ -1164,6 +1153,12 @@ public class GameView {
             setVisible(true);
         }
 
+        void registerListeners(Mouse mouse, Keyboard keyboard) {
+            // Klassen
+            this.mouse = mouse;
+            this.keyboard = keyboard;
+        }
+
         JLabel getStatusLabelLinks() {
             return statusLabelLinks;
         }
@@ -1174,10 +1169,9 @@ public class GameView {
     }
 
     private static class Keyboard {
+        private final static int KEY_EVENT_BUFFER_SIZE = 25;
         private final ArrayBlockingQueue<KeyEvent> keyboardEvents;
         private final ArrayBlockingQueue<Integer> keyCodesOfCurrentlyPressedKeys;
-
-        private final static int KEY_EVENT_BUFFER_SIZE = 25;
 
         Keyboard() {
             keyboardEvents = new ArrayBlockingQueue<>(KEY_EVENT_BUFFER_SIZE, true);
@@ -1216,15 +1210,12 @@ public class GameView {
     }
 
     private static class Mouse implements ActionListener {
+        private final static int MOUSE_EVENT_BUFFER_SIZE = 25;
         private final SwingAdapter swingAdapter;
-
+        private final Timer invisibleMouseTimer;
+        private final ArrayBlockingQueue<MouseEvent> mousePointerEvents;
         private boolean invisibleMouseCursor;
         private boolean invisibleMouseCursorMoved;
-        private final Timer invisibleMouseTimer;
-
-        private final static int MOUSE_EVENT_BUFFER_SIZE = 25;
-        private final ArrayBlockingQueue<MouseEvent> mousePointerEvents;
-
         private boolean useMouse;
 
         Mouse(SwingAdapter swingAdapter) {
@@ -1291,9 +1282,9 @@ public class GameView {
                 int mouseEventY = GameView.HEIGHT * mouseEvent.getY() / swingAdapter.getTextDisplaySize().height;
                 int mouseEventX = GameView.WIDTH * mouseEvent.getX() / swingAdapter.getTextDisplaySize().width;
                 MouseEvent fixedMouseEvent = new MouseEvent(mouseEvent.getComponent(), mouseEvent.getID(),
-                                                            mouseEvent.getWhen(), mouseEvent.getModifiersEx(),
-                                                            mouseEventX, mouseEventY, mouseEvent.getClickCount(),
-                                                            mouseEvent.isPopupTrigger(), mouseEvent.getButton());
+                        mouseEvent.getWhen(), mouseEvent.getModifiersEx(),
+                        mouseEventX, mouseEventY, mouseEvent.getClickCount(),
+                        mouseEvent.isPopupTrigger(), mouseEvent.getButton());
                 if (mousePointerEvents.size() == MOUSE_EVENT_BUFFER_SIZE) {
                     mousePointerEvents.remove();
                 }
@@ -1314,8 +1305,8 @@ public class GameView {
     }
 
     private static class Sound {
-        private final ConcurrentHashMap<Integer, Optional<Clip>> clips;
         private static int soundCounter;
+        private final ConcurrentHashMap<Integer, Optional<Clip>> clips;
 
         Sound() {
             this.clips = new ConcurrentHashMap<>();
@@ -1381,19 +1372,19 @@ public class GameView {
 
     private static class SwingAdapter {
 
+        private final static int IMAGE_MAP_LIMIT_IN_MB = 1000;
         private final PaintingPanel paintingPanel;
         private final Frame frame;
+        private final Font font;
+        private final BufferedImage[] bufferedImages;
+        private final HashMap<Integer, BufferedImage> imageMap;
         private Sound sound;
         private Mouse mouse;
-        private final Font font;
         private BufferedImage bufferedImage;
-        private final BufferedImage[] bufferedImages;
         private int currentBufferedImage;
         private Graphics2D g2D;
         private HashMap<Character, Color> colorMap;
-        private final HashMap<Integer, BufferedImage> imageMap;
         private double sizeOfImageMapInMB;
-        private final static int IMAGE_MAP_LIMIT_IN_MB = 1000;
 
         SwingAdapter() {
             this.paintingPanel = new PaintingPanel();
@@ -1443,7 +1434,7 @@ public class GameView {
             colorMap.put('o', Color.ORANGE.darker());
             colorMap.put('W', Color.WHITE);
             colorMap.put('L', Color.BLACK);
-            colorMap.put('Z',Color.DARK_GRAY.darker());
+            colorMap.put('Z', Color.DARK_GRAY.darker());
         }
 
         // Anzeige
@@ -1490,11 +1481,11 @@ public class GameView {
                         Rectangle rectangle = (Rectangle) p;
                         if (rectangle.filled) {
                             g2D.fillRect(rectangle.x, rectangle.y, rectangle.width + rectangle.lineWeight,
-                                         rectangle.height + rectangle.lineWeight);
+                                    rectangle.height + rectangle.lineWeight);
                         } else {
                             g2D.setStroke(new BasicStroke(rectangle.lineWeight));
                             g2D.drawRect(rectangle.x + rectangle.lineWeight / 2,
-                                         rectangle.y + rectangle.lineWeight / 2, rectangle.width, rectangle.height);
+                                    rectangle.y + rectangle.lineWeight / 2, rectangle.width, rectangle.height);
                         }
                     } else if (p.getClass() == Polygon.class) {
                         Polygon polygon = (Polygon) p;
@@ -1514,7 +1505,7 @@ public class GameView {
                         trans.translate(imageObject.x, imageObject.y);
                         trans.scale(imageObject.scaleFactor, imageObject.scaleFactor);
                         trans.rotate(Math.toRadians(imageObject.rotation), imageObject.image.getWidth() / 2.0,
-                                     imageObject.image.getHeight() / 2.0);
+                                imageObject.image.getHeight() / 2.0);
                         g2D.drawImage(imageObject.image, trans, null);
                     }
                 }
@@ -1581,8 +1572,8 @@ public class GameView {
                     chars = lines[i].toCharArray();
                     for (int c = 0; c < chars.length; c++) {
                         imageG2D.drawChars(chars, c, 1,
-                                           (fontSize * c) + (fontSize - imageFontMetrics.charWidth('W')) / 2,
-                                           (i * fontSize) + (fontSize + imageFontMetrics.getAscent() - imageFontMetrics.getDescent() - fontSize / 10) / 2);
+                                (fontSize * c) + (fontSize - imageFontMetrics.charWidth('W')) / 2,
+                                (i * fontSize) + (fontSize + imageFontMetrics.getAscent() - imageFontMetrics.getDescent() - fontSize / 10) / 2);
                     }
                 }
                 g2D.dispose();
@@ -1689,10 +1680,10 @@ public class GameView {
 
     private static class Window {
 
-        private final SwingAdapter swingAdapter;
-        private long lastPrintTimeInNanos;
         private final static int FRAMES_PER_SECOND = 120;
         private final static int NANOS_PER_FRAME = 1_000_000_000 / FRAMES_PER_SECOND;
+        private final SwingAdapter swingAdapter;
+        private long lastPrintTimeInNanos;
 
         Window(SwingAdapter swingAdapter) {
             this.swingAdapter = swingAdapter;
@@ -1755,9 +1746,8 @@ public class GameView {
         private final java.awt.Rectangle enterBox;
 
         private final int yLowerLine;
-
-        private boolean startScreenClosed;
         private final boolean useMouseBackup;
+        private boolean startScreenClosed;
 
 
         StartScreenWithChooseBox(GameView gameView, String title, String description, String selectionTitle,
@@ -1779,8 +1769,8 @@ public class GameView {
             int selectionFontSize = 20;
             this.selectionBoxLineWeight = (int) Math.rint(selectionFontSize / 8d);
             this.selectionBox = new SelectionBox(gameView, selectionTitle, selectionItems, selectedItem,
-                                                 selectionFontSize, selectionBoxLineWeight, font, Color.YELLOW,
-                                                 Color.BLACK, frameAndTitle);
+                    selectionFontSize, selectionBoxLineWeight, font, Color.YELLOW,
+                    Color.BLACK, frameAndTitle);
             this.xSelectionBox = gap;
             this.ySelectionBox = HEIGHT - selectionBox.getHeight() - gap;
 
@@ -1788,7 +1778,7 @@ public class GameView {
             this.enterBoxHeight = 4 * descriptionFontSize;
             int yEnterBox = HEIGHT - enterBoxHeight - gap;
             this.enterBox = new java.awt.Rectangle(WIDTH - enterBoxWidth - gap, yEnterBox, enterBoxWidth,
-                                                   enterBoxHeight);
+                    enterBoxHeight);
 
             this.yLowerLine = Math.min(ySelectionBox - gap, yEnterBox - gap);
             this.startScreenClosed = false;
@@ -1838,16 +1828,16 @@ public class GameView {
 
         private void addRectangles() {
             gameView.addRectangleToCanvas(lineWeight / 2d, lineWeight / 2d, WIDTH - 1 - lineWeight,
-                                          HEIGHT - 1 - lineWeight, lineWeight, false, font);
+                    HEIGHT - 1 - lineWeight, lineWeight, false, font);
             gameView.addRectangleToCanvas(lineWeight / 2d, lineWeight / 2d, WIDTH - 1 - lineWeight,
-                                          titleHeight - lineWeight, lineWeight, false, font);
+                    titleHeight - lineWeight, lineWeight, false, font);
             gameView.addRectangleToCanvas(lineWeight / 2d, yLowerLine + lineWeight / 2d, WIDTH - 1 - lineWeight,
-                                          HEIGHT - yLowerLine - lineWeight, lineWeight, false, font);
+                    HEIGHT - yLowerLine - lineWeight, lineWeight, false, font);
         }
 
         private void addTitle() {
             gameView.addTextToCanvas(title, (WIDTH - title.length() * titleFontSize) / 2d,
-                                     ((int) (titleFontSize * 1.5) - titleFontSize) / 2d, titleFontSize, frameAndTitle
+                    ((int) (titleFontSize * 1.5) - titleFontSize) / 2d, titleFontSize, frameAndTitle
                     , 0);
         }
 
@@ -1857,16 +1847,16 @@ public class GameView {
 
         private void addEnterField() {
             gameView.addRectangleToCanvas(enterBox.x, enterBox.y, enterBox.width, enterBox.height,
-                                          selectionBoxLineWeight, false, frameAndTitle);
+                    selectionBoxLineWeight, false, frameAndTitle);
             int gap = 2 * selectionBoxLineWeight;
             gameView.addRectangleToCanvas(enterBox.x + gap, enterBox.y + gap, enterBox.width - 2 * gap,
-                                          enterBox.height - 2 * gap, selectionBoxLineWeight, false, frameAndTitle);
+                    enterBox.height - 2 * gap, selectionBoxLineWeight, false, frameAndTitle);
             String text = "Press ENTER or\n" + "click to start";
             int titleWidth = 14 * descriptionFontSize;
             int titleHeight = 2 * descriptionFontSize;
             gameView.addTextToCanvas(text, enterBox.x + (enterBoxWidth - titleWidth) / 2d,
-                                     enterBox.y + (enterBoxHeight - titleHeight) / 2d, descriptionFontSize,
-                                     frameAndTitle, 0);
+                    enterBox.y + (enterBoxHeight - titleHeight) / 2d, descriptionFontSize,
+                    frameAndTitle, 0);
         }
 
         int getSelectedItem() {
@@ -1878,24 +1868,21 @@ public class GameView {
             private final String title;
             private final String[] items;
             private final int fontSize;
-            private int selectedItem;
             private final Color markerFont;
             private final Color markerHighlight;
             private final Color markerRectangle;
             private final Color frameAndTitle;
-
             private final int lineWeight;
             private final int titleHeight;
             private final int heightOfMarkerField;
             private final int heightOfMarkerBox;
             private final int height;
-            private int widthOfMarkerField;
             private final int width;
-
             private final java.awt.Rectangle[] markerBounds;
             private final java.awt.Rectangle upBounds;
             private final java.awt.Rectangle downBounds;
-
+            private int selectedItem;
+            private int widthOfMarkerField;
             private int x;
             private int xLine;
             private int y;
@@ -1953,14 +1940,14 @@ public class GameView {
 
             private void addTitleBox() {
                 gameView.addRectangleToCanvas(x, y, width - lineWeight, titleHeight - lineWeight, lineWeight, false,
-                                              frameAndTitle);
+                        frameAndTitle);
                 gameView.addTextToCanvas(title, xLine + (widthOfMarkerField - title.length() * fontSize) / 2d,
-                                         y + (titleHeight - fontSize) / 2d, fontSize, frameAndTitle, 0);
+                        y + (titleHeight - fontSize) / 2d, fontSize, frameAndTitle, 0);
             }
 
             private void addMarkerFields() {
                 gameView.addRectangleToCanvas(x, yMarkerBox, widthOfMarkerField + 2 * lineWeight - lineWeight,
-                                              heightOfMarkerBox - lineWeight, lineWeight, false, frameAndTitle);
+                        heightOfMarkerBox - lineWeight, lineWeight, false, frameAndTitle);
                 int yMarkerField = yMarkerBox + lineWeight / 2;
                 for (int i = 0; i < items.length; i++) {
                     boolean isSelected = (i == selectedItem);
@@ -1977,17 +1964,17 @@ public class GameView {
             private void addMarkerField(java.awt.Rectangle bounds, String name, boolean isMarked) {
                 if (isMarked) {
                     gameView.addRectangleToCanvas(bounds.x + lineWeight / 2d, bounds.y + lineWeight / 2d,
-                                                  bounds.width - lineWeight, bounds.height - lineWeight, lineWeight,
-                                                  true, markerHighlight);
+                            bounds.width - lineWeight, bounds.height - lineWeight, lineWeight,
+                            true, markerHighlight);
                     gameView.addRectangleToCanvas(bounds.x + lineWeight / 2d, bounds.y + lineWeight / 2d,
-                                                  bounds.width - lineWeight, bounds.height - lineWeight, 1, false,
-                                                  markerRectangle);
+                            bounds.width - lineWeight, bounds.height - lineWeight, 1, false,
+                            markerRectangle);
                 } else {
                     gameView.addRectangleToCanvas(bounds.x, bounds.y, bounds.width, bounds.height, 1, false,
-                                                  markerFont);
+                            markerFont);
                 }
                 gameView.addTextToCanvas(name, bounds.x + lineWeight, bounds.y + (bounds.height - fontSize) / 2d,
-                                         fontSize, markerFont, 0);
+                        fontSize, markerFont, 0);
             }
 
             private void addNavigationBox() {
@@ -1995,14 +1982,14 @@ public class GameView {
                 int yUp = yMarkerBox + lineWeight + fontSize / 2 + 2 * lineWeight;
                 int yDown = yMarkerBox + items.length * heightOfMarkerField - fontSize / 2 - 2 * lineWeight;
                 gameView.addRectangleToCanvas(xUpDown, yMarkerBox, 4 * lineWeight,
-                                              items.length * heightOfMarkerField + lineWeight, lineWeight, false,
-                                              frameAndTitle);
+                        items.length * heightOfMarkerField + lineWeight, lineWeight, false,
+                        frameAndTitle);
                 gameView.addPolygonToCanvas(new double[]{xUpDown + lineWeight, xUpDown + 3 * lineWeight,
                         xUpDown + 2 * lineWeight}, new double[]{yUp, yUp, yUp - fontSize / 2d}, 1, true, frameAndTitle);
                 gameView.addPolygonToCanvas(new double[]{xUpDown + lineWeight, xUpDown + 3 * lineWeight,
-                                                    xUpDown + 2 * lineWeight}, new double[]{yDown, yDown,
-                                                    yDown + fontSize / 2d}, 1, true,
-                                            frameAndTitle);
+                                xUpDown + 2 * lineWeight}, new double[]{yDown, yDown,
+                                yDown + fontSize / 2d}, 1, true,
+                        frameAndTitle);
             }
 
             void processMouseClick(int x, int y) {
@@ -2173,15 +2160,15 @@ public class GameView {
             Dimension textBounds = calculateBounds(title);
             int fontSize = calculateFontSizeForBounds(textBounds, titleHeight);
             gameView.addTextToCanvas(title, (WIDTH - (textBounds.width * fontSize)) / 2d,
-                                     (titleHeight - (textBounds.height * fontSize)) / 2d, fontSize, titleColor, 0);
+                    (titleHeight - (textBounds.height * fontSize)) / 2d, fontSize, titleColor, 0);
         }
     }
 
     private static class SimpleBox extends java.awt.Rectangle {
         public final String text;
+        private final int fontSize;
         public boolean isHighlighted;
         public boolean isQuitBox;
-        private final int fontSize;
 
         private SimpleBox(String text, int x, int y, int width, int height, boolean isQuitBox) {
             super(x, y, width, height);
@@ -2198,7 +2185,7 @@ public class GameView {
                 gameView.addRectangleToCanvas(x, y, width, height, 3, false, Color.WHITE);
             }
             gameView.addTextToCanvas(text, x + (width - text.length() * fontSize) / 2d, y + (height - fontSize) / 2d,
-                                     fontSize, Color.WHITE, 0);
+                    fontSize, Color.WHITE, 0);
         }
     }
 

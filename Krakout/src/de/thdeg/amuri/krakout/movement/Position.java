@@ -1,5 +1,9 @@
 package de.thdeg.amuri.krakout.movement;
 
+import de.thdeg.amuri.krakout.graphics.moving.Pinball;
+import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
+import de.thdeg.amuri.krakout.graphics.staticobject.Item;
+
 /**
  * Main Object for the Movement of other objects
  */
@@ -16,9 +20,9 @@ public class Position {
     /**
      * Main Output of Position, every object that has to move interacts with this.
      *
-     * @see de.thdeg.amuri.krakout.graphics.Pinball
-     * @see de.thdeg.amuri.krakout.graphics.Item
-     * @see de.thdeg.amuri.krakout.graphics.Brick
+     * @see Pinball
+     * @see Item
+     * @see Brick
      */
     public Position() {
         this(0, 0);
