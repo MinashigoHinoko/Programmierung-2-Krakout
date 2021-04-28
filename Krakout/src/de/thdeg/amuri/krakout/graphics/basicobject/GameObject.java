@@ -3,11 +3,8 @@ package de.thdeg.amuri.krakout.graphics.basicobject;
 import de.thdeg.amuri.krakout.game.managers.GamePlayManager;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
-import de.thdeg.amuri.krakout.graphics.moving.alien.*;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
 import de.thdeg.amuri.krakout.movement.Position;
-
-import java.util.LinkedList;
 
 /**
  * Super of {@link Pinball}, {@link Background}, {@link Brick} and {@link Item}
@@ -37,7 +34,6 @@ public class GameObject {
         this.width = 0;
         this.height = 0;
     }
-
     /**
      * Needed for Interaction into the Game
      *
@@ -58,7 +54,8 @@ public class GameObject {
      */
     public void addToCanvas() {
     }
-
+public void updateStatus(){
+}
     /**
      * Gets the {@link Position} of the game object, is used for adjusting the Position of a game object to another
      *

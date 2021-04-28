@@ -24,6 +24,7 @@ import java.awt.*;
  */
 public class Score extends GameObject {
     private final int baseScore;
+    private final Color color;
     private int highScore;
     private int score;
     private int scoreValue;
@@ -31,7 +32,7 @@ public class Score extends GameObject {
     private String highScoreOutput;
     private boolean plusScore;
     private boolean minusScore;
-    private final Color color;
+
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      *
@@ -43,9 +44,9 @@ public class Score extends GameObject {
         this.score = this.baseScore;
         this.highScore = 10000;
         this.scoreOutput = String.valueOf(score);
-        this.highScoreOutput = "Highscore: "+ highScore;
+        this.highScoreOutput = "Highscore: " + highScore;
         this.size = 18;
-        this.position = new Position(GameView.WIDTH-scoreOutput.length()*size,0);
+        this.position = new Position(GameView.WIDTH - scoreOutput.length() * size, 0);
         this.color = Color.WHITE;
     }
 
@@ -79,18 +80,18 @@ public class Score extends GameObject {
 
     @Override
     public void updatePosition() {
-        if (plusScore){
-            this.score+=scoreValue;
+        if (plusScore) {
+            this.score += scoreValue;
         }
-        if (minusScore){
-            this.score-=scoreValue;
+        if (minusScore) {
+            this.score -= scoreValue;
         }
     }
 
     @Override
     public void addToCanvas() {
         this.scoreOutput = String.valueOf(score);
-        this.gameView.addTextToCanvas(scoreOutput,position.x,position.y,size, color,rotation);
-        this.gameView.addTextToCanvas(highScoreOutput,GameView.WIDTH-highScoreOutput.length()*size,GameView.HEIGHT-size,size,Color.YELLOW,rotation);
+        this.gameView.addTextToCanvas(scoreOutput, position.x, position.y, size, color, rotation);
+        this.gameView.addTextToCanvas(highScoreOutput, GameView.WIDTH - highScoreOutput.length() * size, GameView.HEIGHT - size, size, Color.YELLOW, rotation);
     }
 }

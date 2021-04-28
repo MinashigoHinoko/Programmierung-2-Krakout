@@ -1,7 +1,6 @@
 package de.thdeg.amuri.krakout.graphics.basicobject;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.movement.Position;
 
 /**
  * Object for every Alien class

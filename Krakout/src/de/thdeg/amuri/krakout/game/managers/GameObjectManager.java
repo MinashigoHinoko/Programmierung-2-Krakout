@@ -2,9 +2,9 @@ package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
-import de.thdeg.amuri.krakout.graphics.moving.alien.*;
-import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
+import de.thdeg.amuri.krakout.graphics.moving.Pinball;
+import de.thdeg.amuri.krakout.graphics.moving.alien.*;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
 
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.util.LinkedList;
 /**
  * Manager of all Game Objects
  */
- class GameObjectManager {
+class GameObjectManager {
     private final Pinball ball;
     private final Background background;
     private final Brick brick;
@@ -33,34 +33,53 @@ import java.util.LinkedList;
     private final TimeOut timeOut;
     private final TwinBall twinBall;
     private final Score score;
-    LinkedList<GameObject> gameObjects;
-    LinkedList<Item> items;
-    LinkedList<Pinball> balls;
-    LinkedList<Astronaut>astronauts;
-    LinkedList<Bee> bees;
-    LinkedList<BeeHive> beeHives;
-    LinkedList<BonusShip> bonusShips;
-    LinkedList<Cannibal> cannibals;
-    LinkedList<Egg> eggs;
-    LinkedList<Exit> exits;
-    LinkedList<Face> faces;
-    LinkedList<Flash> flashes;
-    LinkedList<TimeOut> timeOuts;
-    LinkedList<TwinBall> twinBalls;
-    LinkedList<PlayerLive> playerLives;
+
+    private LinkedList<GameObject> gameObjects;
+    private LinkedList<Item> items;
+    private LinkedList<Pinball> balls;
+    private LinkedList<Astronaut> astronauts;
+    private LinkedList<Bee> bees;
+    private LinkedList<BeeHive> beeHives;
+    private LinkedList<BonusShip> bonusShips;
+    private LinkedList<Cannibal> cannibals;
+    private LinkedList<Egg> eggs;
+    private LinkedList<Exit> exits;
+    private LinkedList<Face> faces;
+    private LinkedList<Flash> flashes;
+    private LinkedList<TimeOut> timeOuts;
+    private LinkedList<TwinBall> twinBalls;
+    private LinkedList<PlayerLive> playerLives;
+    private LinkedList<Brick> bricks;
 
     protected GameObjectManager(GameView gameView) {
+        this.gameObjects = new LinkedList<>();
+        this.items = new LinkedList<>();
+        this.balls = new LinkedList<>();
+        this.astronauts = new LinkedList<>();
+        this.bees = new LinkedList<>();
+        this.beeHives = new LinkedList<>();
+        this.bonusShips = new LinkedList<>();
+        this.cannibals = new LinkedList<>();
+        this.eggs = new LinkedList<>();
+        this.exits = new LinkedList<>();
+        this.faces = new LinkedList<>();
+        this.flashes = new LinkedList<>();
+        this.timeOuts = new LinkedList<>();
+        this.twinBalls = new LinkedList<>();
+        this.playerLives = new LinkedList<>();
+        this.bricks = new LinkedList<>();
+
         this.gameView = gameView;
         this.brick = new Brick(gameView);
         this.ball = new Pinball(gameView);
         this.background = new Background(gameView);
         this.item = new Item(gameView);
         this.item.setPosition(this.brick.getPosition());
-        this.item.setSpeedInPixel(ball.getSpeedInPixel());
+        this.item.setSpeedInPixel(this.ball.getSpeedInPixel());
         this.bat = new Bat(gameView);
         this.face = new Face(gameView);
-        this.ball.setBouncePosition(bat.getPosition());
-        this.ball.setBounceBrickPosition(brick.getPosition());
+        this.ball.setBouncePosition(this.bat.getPosition());
+        this.ball.setBounceBrickPosition(this.brick.getPosition());
         this.playerLive = new PlayerLive(gameView);
         this.astronaut = new Astronaut(gameView);
         this.bee = new Bee(gameView);
@@ -73,14 +92,31 @@ import java.util.LinkedList;
         this.timeOut = new TimeOut(gameView);
         this.twinBall = new TwinBall(gameView);
         this.score = new Score(gameView);
+
+        this.items.add(this.item);
+        this.balls.add(this.ball);
+        this.astronauts.add(this.astronaut);
+        this.bees.add(this.bee);
+        this.beeHives.add(this.beeHive);
+        this.bonusShips.add(this.bonusShip);
+        this.cannibals.add(this.cannibal);
+        this.eggs.add(this.egg);
+        this.exits.add(this.exit);
+        this.faces.add(this.face);
+        this.flashes.add(this.flash);
+        this.timeOuts.add(this.timeOut);
+        this.twinBalls.add(this.twinBall);
+        this.playerLives.add(this.playerLive);
+        this.bricks.add(this.brick);
     }
 
     protected Bat getBat() {
         return bat;
     }
-
     protected void updateGameObjects() {
         this.gameObjects.clear();
+        this.gameObjects.add(item);
+        this.gameObjects.addAll(this.bricks);
         this.gameObjects.addAll(this.items);
         this.gameObjects.addAll(this.balls);
         this.gameObjects.addAll(this.astronauts);
@@ -95,70 +131,11 @@ import java.util.LinkedList;
         this.gameObjects.addAll(this.timeOuts);
         this.gameObjects.addAll(this.twinBalls);
         this.gameObjects.addAll(this.playerLives);
-        //Update Health Up
-        item.updatePosition();
-        //Update Position ball
-        ball.updatePosition();
-        //Update Astronaut
-        astronaut.updatePosition();
-        //Update Bee
-        bee.updatePosition();
-        //Update BeeHive
-        beeHive.updatePosition();
-        //Update BonusShip
-        bonusShip.updatePosition();
-        //Update Cannibal
-        cannibal.updatePosition();
-        //Update Egg
-        egg.updatePosition();
-        //Update Exit
-        exit.updatePosition();
-        //Update Position Face
-        face.updatePosition();
-        //Update Position Flash
-        flash.updatePosition();
-        //Update Position TimeOut
-        timeOut.updatePosition();
-        //Update Position TwinBall
-        twinBall.updatePosition();
-        //Update Live
-        playerLive.updatePosition();
+
         //Update Score
         score.updatePosition();
         //Print Background
         background.addToCanvas();
-        //Print Item
-        item.addToCanvas();
-        //Print Ball
-        ball.addToCanvas();
-        //Print Brick
-        brick.addToCanvas();
-        //Print Bat
-        bat.addToCanvas();
-        //Print Astronaut
-        astronaut.addToCanvas();
-        //print Bee
-        bee.addToCanvas();
-        //print BeeHive
-        beeHive.addToCanvas();
-        //print BonusShip
-        bonusShip.addToCanvas();
-        //print Cannibal
-        cannibal.addToCanvas();
-        //print Egg
-        egg.addToCanvas();
-        //print Exit
-        exit.addToCanvas();
-        //Print Face
-        face.addToCanvas();
-        //Print Flash
-        flash.addToCanvas();
-        //Print TimeOut
-        timeOut.addToCanvas();
-        //Print TwinBall
-        twinBall.addToCanvas();
-        //Print Live
-        playerLive.addToCanvas();
         //Print Score
         score.addToCanvas();
         //Top red line
@@ -166,5 +143,74 @@ import java.util.LinkedList;
         //Bottom red line
         gameView.addLineToCanvas(0, GameView.HEIGHT - 50, GameView.WIDTH, GameView.HEIGHT - 50, 5, Color.RED);
         //Printing to Screen
+        for (GameObject gameObject : gameObjects) {
+            gameObject.addToCanvas();
+            gameObject.updatePosition();
+            gameObject.updateStatus();
+        }
+    }
+
+    public LinkedList<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+
+    public LinkedList<Item> getItems() {
+        return items;
+    }
+
+    public LinkedList<Pinball> getBalls() {
+        return balls;
+    }
+
+    public LinkedList<Astronaut> getAstronauts() {
+        return astronauts;
+    }
+
+    public LinkedList<Bee> getBees() {
+        return bees;
+    }
+
+    public LinkedList<BeeHive> getBeeHives() {
+        return beeHives;
+    }
+
+    public LinkedList<BonusShip> getBonusShips() {
+        return bonusShips;
+    }
+
+    public LinkedList<Cannibal> getCannibals() {
+        return cannibals;
+    }
+
+    public LinkedList<Egg> getEggs() {
+        return eggs;
+    }
+
+    public LinkedList<Exit> getExits() {
+        return exits;
+    }
+
+    public LinkedList<Face> getFaces() {
+        return faces;
+    }
+
+    public LinkedList<Flash> getFlashes() {
+        return flashes;
+    }
+
+    public LinkedList<TimeOut> getTimeOuts() {
+        return timeOuts;
+    }
+
+    public LinkedList<TwinBall> getTwinBalls() {
+        return twinBalls;
+    }
+
+    public LinkedList<PlayerLive> getPlayerLives() {
+        return playerLives;
+    }
+
+    public LinkedList<Brick> getBricks() {
+        return bricks;
     }
 }

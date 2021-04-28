@@ -11,7 +11,7 @@ import java.util.LinkedList;
  * Flies around and blocks the {@link Pinball}, Not a real Danger
  */
 public class Astronaut extends AlienObject {
-
+    LinkedList<Astronaut> astronauts;
 
     /**
      * This is the extension constructor, here you can find prebuild parameters.
@@ -30,6 +30,6 @@ public class Astronaut extends AlienObject {
 
     @Override
     public void addToCanvas() {
-                this.gameView.addImageToCanvas("Astronaut.png", this.position.x, this.position.y, this.size, this.rotation);
+        this.gameView.addImageToCanvas("Astronaut.png", this.position.x, this.position.y, this.size, this.rotation);
     }
 }
