@@ -19,7 +19,7 @@ public class LiveObject extends GameObject {
         super(gameView);
         this.hit = false;
         this.oldLive = 3;
-        this.live = 2;
+        this.live = 3;
     }
 
     public void setLive(int live) {

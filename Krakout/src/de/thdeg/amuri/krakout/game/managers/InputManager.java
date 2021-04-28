@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 /**
  * Manager of all user inputs, interacts with {@link Bat}
  */
-public class InputManager {
+ class InputManager {
     private final GameView gameView;
     private final Bat bat;
     private final boolean diagonalMovement;

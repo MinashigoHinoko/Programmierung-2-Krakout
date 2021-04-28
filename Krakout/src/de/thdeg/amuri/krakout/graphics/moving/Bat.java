@@ -34,7 +34,7 @@ public class Bat extends LiveObject {
         this.bounceBall = false;
         this.hasPowerUp = false;
         this.speedInPixel = 3.5;
-        this.playerGraphic = false;
+        this.playerGraphic = true;
         this.position = new Position(GameView.WIDTH / 2, GameView.HEIGHT / 2);
     }
 

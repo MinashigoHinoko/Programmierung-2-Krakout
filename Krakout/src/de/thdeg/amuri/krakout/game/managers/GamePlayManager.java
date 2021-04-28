@@ -1,7 +1,6 @@
 package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.staticobject.PlayerLive;
 
 /**
  * Manager of the Game process

@@ -1,4 +1,80 @@
 package de.thdeg.amuri.krakout.graphics.staticobject;
 
-public class Score {
+import de.thdeg.amuri.krakout.gameview.GameView;
+import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
+import de.thdeg.amuri.krakout.movement.Position;
+
+import java.awt.*;
+
+/**
+ * Score Output and Calculation class, gets manipulated by {@link de.thdeg.amuri.krakout.graphics.moving.Pinball} hitting enemies.
+ *
+ * @see de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut
+ * @see de.thdeg.amuri.krakout.graphics.moving.alien.Bee
+ * @see de.thdeg.amuri.krakout.graphics.moving.alien.BeeHive
+ * @see de.thdeg.amuri.krakout.graphics.moving.alien.BonusShip
+ * @see de.thdeg.amuri.krakout.graphics.moving.alien.Cannibal
+ * @see de.thdeg.amuri.krakout.graphics.moving.alien.Egg
+ * @see de.thdeg.amuri.krakout.graphics.moving.alien.Exit
+ * @see de.thdeg.amuri.krakout.graphics.moving.alien.Face
+ * @see de.thdeg.amuri.krakout.graphics.moving.alien.TimeOut
+ * @see de.thdeg.amuri.krakout.graphics.moving.alien.TwinBall
+ * @see Item
+ * @see Brick
+ */
+public class Score extends GameObject {
+    private final int baseScore;
+    private int highScore;
+    private int score;
+    private int scoreValue;
+    private String scoreOutput;
+    private boolean plusScore;
+    private boolean minusScore;
+    private final Color color;
+
+    public Score(GameView gameView) {
+        super(gameView);
+        this.baseScore = 0;
+        this.score = this.baseScore;
+        this.scoreOutput = String.valueOf(score);
+        this.size = 18;
+        this.position = new Position(GameView.WIDTH-scoreOutput.length()*size,0);
+        this.color = Color.WHITE;
+    }
+
+    public void isPlusScore(boolean plusScore) {
+        this.plusScore = plusScore;
+    }
+
+    public void isMinusScore(boolean minusScore) {
+        this.minusScore = minusScore;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScoreValue(int score) {
+        this.scoreValue = score;
+    }
+
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
+    }
+
+    @Override
+    public void updatePosition() {
+        if (plusScore){
+            this.score+=scoreValue;
+        }
+        if (minusScore){
+            this.score-=scoreValue;
+        }
+    }
+
+    @Override
+    public void addToCanvas() {
+        this.scoreOutput = String.valueOf(score);
+        this.gameView.addTextToCanvas(scoreOutput,position.x,position.y,size, color,rotation);
+    }
 }
