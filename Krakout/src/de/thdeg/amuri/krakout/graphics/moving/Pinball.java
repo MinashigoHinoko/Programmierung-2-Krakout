@@ -3,6 +3,7 @@ package de.thdeg.amuri.krakout.graphics.moving;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
+import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
 import de.thdeg.amuri.krakout.graphics.staticobject.Item;
 import de.thdeg.amuri.krakout.movement.Position;
@@ -15,7 +16,6 @@ public class Pinball extends GameObject {
     private boolean flyFromLeftToRight;
     private Position bouncePosition;
     private Position bounceBrickPosition;
-
     /**
      * Creates a new pinball
      *

@@ -1,12 +1,14 @@
 package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
+import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
 import de.thdeg.amuri.krakout.graphics.moving.alien.*;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
 
 import java.awt.*;
+import java.util.LinkedList;
 
 /**
  * Manager of all Game Objects
@@ -31,6 +33,21 @@ import java.awt.*;
     private final TimeOut timeOut;
     private final TwinBall twinBall;
     private final Score score;
+    LinkedList<GameObject> gameObjects;
+    LinkedList<Item> items;
+    LinkedList<Pinball> balls;
+    LinkedList<Astronaut>astronauts;
+    LinkedList<Bee> bees;
+    LinkedList<BeeHive> beeHives;
+    LinkedList<BonusShip> bonusShips;
+    LinkedList<Cannibal> cannibals;
+    LinkedList<Egg> eggs;
+    LinkedList<Exit> exits;
+    LinkedList<Face> faces;
+    LinkedList<Flash> flashes;
+    LinkedList<TimeOut> timeOuts;
+    LinkedList<TwinBall> twinBalls;
+    LinkedList<PlayerLive> playerLives;
 
     protected GameObjectManager(GameView gameView) {
         this.gameView = gameView;
@@ -63,6 +80,21 @@ import java.awt.*;
     }
 
     protected void updateGameObjects() {
+        this.gameObjects.clear();
+        this.gameObjects.addAll(this.items);
+        this.gameObjects.addAll(this.balls);
+        this.gameObjects.addAll(this.astronauts);
+        this.gameObjects.addAll(this.bees);
+        this.gameObjects.addAll(this.beeHives);
+        this.gameObjects.addAll(this.bonusShips);
+        this.gameObjects.addAll(this.cannibals);
+        this.gameObjects.addAll(this.eggs);
+        this.gameObjects.addAll(this.exits);
+        this.gameObjects.addAll(this.faces);
+        this.gameObjects.addAll(this.flashes);
+        this.gameObjects.addAll(this.timeOuts);
+        this.gameObjects.addAll(this.twinBalls);
+        this.gameObjects.addAll(this.playerLives);
         //Update Health Up
         item.updatePosition();
         //Update Position ball

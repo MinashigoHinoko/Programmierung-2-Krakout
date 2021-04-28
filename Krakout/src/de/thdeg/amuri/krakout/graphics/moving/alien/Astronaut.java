@@ -5,10 +5,13 @@ import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.movement.Position;
 
+import java.util.LinkedList;
+
 /**
  * Flies around and blocks the {@link Pinball}, Not a real Danger
  */
 public class Astronaut extends AlienObject {
+
 
     /**
      * This is the extension constructor, here you can find prebuild parameters.

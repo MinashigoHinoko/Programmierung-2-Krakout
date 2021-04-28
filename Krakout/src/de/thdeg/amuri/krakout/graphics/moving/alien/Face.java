@@ -4,6 +4,8 @@ import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.movement.Position;
 
+import java.util.LinkedList;
+
 
 /**
  * This is an Enemy Face that will give you Bonus points and destroys itself if living too long.
@@ -12,7 +14,6 @@ import de.thdeg.amuri.krakout.movement.Position;
  * @see Position
  */
 public class Face extends AlienObject {
-
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      *

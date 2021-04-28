@@ -5,6 +5,8 @@ import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
 import de.thdeg.amuri.krakout.movement.Position;
 
+import java.util.LinkedList;
+
 /**
  * Will glue the {@link Bat}, so it cant move
  */

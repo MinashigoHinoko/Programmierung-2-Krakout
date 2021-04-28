@@ -4,7 +4,9 @@ package de.thdeg.amuri.krakout.graphics.staticobject;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
+import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
 import de.thdeg.amuri.krakout.movement.Position;
+
 
 /**
  * This Object will be used to create Items, these Items can be enemies,PowerUps or PowerDowns

@@ -4,7 +4,10 @@ package de.thdeg.amuri.krakout.graphics.staticobject;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.LiveObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
+import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
 import de.thdeg.amuri.krakout.movement.Position;
+
+import java.util.LinkedList;
 
 /**
  * This is the Brick the player has to hit with his {@link Pinball}.
@@ -16,7 +19,7 @@ public class Brick extends LiveObject {
     private final String color;
     //Has PowerUP?
     private boolean powerUp;
-
+    LinkedList<Brick> bricks;
     /**
      * Creates a new Brick
      *

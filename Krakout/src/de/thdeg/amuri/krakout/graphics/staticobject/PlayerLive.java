@@ -2,7 +2,9 @@ package de.thdeg.amuri.krakout.graphics.staticobject;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.LiveObject;
+import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
 import de.thdeg.amuri.krakout.movement.Position;
+
 
 /**
  * Visual of the remaining Live of the player. he controls the {@link de.thdeg.amuri.krakout.graphics.moving.Bat} */
