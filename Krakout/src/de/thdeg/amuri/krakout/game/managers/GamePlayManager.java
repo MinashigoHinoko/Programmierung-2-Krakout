@@ -25,21 +25,26 @@ public class GamePlayManager {
     }
     public void shootPinball(Position startPosition){
         boolean ballCoolDown = false;
-        if(this.gameObjectManager.getBalls().isEmpty()){
+        boolean ballCall=false;
+        int x = 2;
+        if(this.gameObjectManager.getBalls().isEmpty()&& x>=this.gameObjectManager.getBalls().size()) {
             this.ball = new Pinball(this.gameView);
             this.ball.getPosition().x = startPosition.x + this.ball.getWidth() * this.ball.getSize();
             this.ball.getPosition().y = startPosition.y;
             this.gameObjectManager.getBalls().add(this.ball);
+            ballCall = !ballCall;
         }
         if(this.gameView.timerExpired("ballCoolDown","GamePlayManager")) {
             this.gameView.setTimer("BallCoolDown", "GamePlayManager", 300);
             ballCoolDown = !ballCoolDown;
         }
-        if(!ballCoolDown){
-            this.ball = new Pinball(this.gameView);
-            this.ball.getPosition().x = startPosition.x + this.ball.getWidth() * this.ball.getSize();
-            this.ball.getPosition().y = startPosition.y;
-            this.gameObjectManager.getBalls().add(this.ball);
+            if (ballCoolDown) {
+                if (ballCall) {
+                this.ball = new Pinball(this.gameView);
+                this.ball.getPosition().x = startPosition.x + this.ball.getWidth() * this.ball.getSize();
+                this.ball.getPosition().y = startPosition.y;
+                this.gameObjectManager.getBalls().add(this.ball);
+            }
         }
     }
     public void destroy(Pinball ball){
@@ -59,8 +64,10 @@ public class GamePlayManager {
             this.gameView.setTimer("Destroy","GamePlayManager",5000);
             destroyFace=!destroyFace;
         }
-        if(gameView.getGameTimeInMilliseconds()==10000){
+        System.out.println(gameView.getGameTimeInMilliseconds()/1000);
+        if(gameView.getGameTimeInMilliseconds()/1000==10){
             listHasBeenDeleted = !listHasBeenDeleted;
+            System.out.println("cool");
         }
         if(spawnFace){
             this.gameObjectManager.getFaces().add(face);
