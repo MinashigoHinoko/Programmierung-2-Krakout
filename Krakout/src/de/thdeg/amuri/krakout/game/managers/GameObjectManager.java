@@ -116,7 +116,7 @@ class GameObjectManager {
 
     protected void updateGameObjects() {
         this.gameObjects.clear();
-        this.gameObjects.add(item);
+        this.gameObjects.add(background);
         this.gameObjects.addAll(this.bricks);
         this.gameObjects.addAll(this.items);
         this.gameObjects.addAll(this.balls);
@@ -132,15 +132,10 @@ class GameObjectManager {
         this.gameObjects.addAll(this.timeOuts);
         this.gameObjects.addAll(this.twinBalls);
         this.gameObjects.addAll(this.playerLives);
+        this.gameObjects.add(score);
+        this.gameObjects.add(bat);
+        this.gameObjects.add(score);
 
-        //Update Bat
-        bat.updatePosition();
-        //Update Score
-        score.updatePosition();
-        //Print Background
-        background.addToCanvas();
-        //Print Score
-        score.addToCanvas();
         //Top red line
         gameView.addLineToCanvas(0, 50, GameView.WIDTH, 50, 5, Color.RED);
         //Bottom red line
@@ -152,8 +147,6 @@ class GameObjectManager {
             gameObject.updateStatus();
 
         }
-        //Print Bat
-        bat.addToCanvas();
     }
 
     /**
