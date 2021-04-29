@@ -133,6 +133,8 @@ class GameObjectManager {
         this.gameObjects.addAll(this.twinBalls);
         this.gameObjects.addAll(this.playerLives);
 
+        //Update Bat
+        bat.updatePosition();
         //Update Score
         score.updatePosition();
         //Print Background
@@ -150,6 +152,8 @@ class GameObjectManager {
             gameObject.updateStatus();
 
         }
+        //Print Bat
+        bat.addToCanvas();
     }
 
     /**
