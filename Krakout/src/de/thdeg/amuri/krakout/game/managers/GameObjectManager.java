@@ -14,25 +14,6 @@ import java.util.LinkedList;
  * Manager of all Game Object Visuals
  */
 class GameObjectManager {
-    private final Pinball ball;
-    private final Background background;
-    private final Brick brick;
-    private final Item item;
-    private final Bat bat;
-    private final Face face;
-    private final PlayerLive playerLive;
-    private final GameView gameView;
-    private final Astronaut astronaut;
-    private final Bee bee;
-    private final BeeHive beeHive;
-    private final BonusShip bonusShip;
-    private final Cannibal cannibal;
-    private final Egg egg;
-    private final Exit exit;
-    private final Flash flash;
-    private final TimeOut timeOut;
-    private final TwinBall twinBall;
-    private final Score score;
 
     private final LinkedList<GameObject> gameObjects;
     private final LinkedList<Item> items;
@@ -92,22 +73,6 @@ class GameObjectManager {
         this.timeOut = new TimeOut(gameView);
         this.twinBall = new TwinBall(gameView);
         this.score = new Score(gameView);
-
-        this.items.add(this.item);
-        this.balls.add(this.ball);
-        this.astronauts.add(this.astronaut);
-        this.bees.add(this.bee);
-        this.beeHives.add(this.beeHive);
-        this.bonusShips.add(this.bonusShip);
-        this.cannibals.add(this.cannibal);
-        this.eggs.add(this.egg);
-        this.exits.add(this.exit);
-        this.faces.add(this.face);
-        this.flashes.add(this.flash);
-        this.timeOuts.add(this.timeOut);
-        this.twinBalls.add(this.twinBall);
-        this.playerLives.add(this.playerLive);
-        this.bricks.add(this.brick);
     }
 
     protected Bat getBat() {
