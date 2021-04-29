@@ -15,6 +15,7 @@ public class Item extends GameObject {
     private int status;
     //Ammount of items
     private int maxAmmount;
+    private String itemVisual;
 
     /**
      * Constructor for filling in parameters and Building gameView
@@ -24,9 +25,10 @@ public class Item extends GameObject {
     public Item(GameView gameView) {
         super(gameView);
         this.status = 3;
-        this.size = 3;
-        this.width = 6;
-        this.height = 6;
+        this.size = 2;
+        this.width = 11;
+        this.height = 24;
+        this.itemVisual = "Herz.png";
     }
 
 
@@ -122,12 +124,41 @@ public class Item extends GameObject {
 
     @Override
     public void updatePosition() {
-        position.left(speedInPixel);
+        switch(this.status) {
+            case 0:
+                this.itemVisual = "Bomb.png";      //Destroy surrounding bricks
+                break;
+            case 1:
+                this.itemVisual = "Double.png";    //Second Bat
+                break;
+            case 2:
+                this.itemVisual = "Expand.png";    //Big Bat
+                break;
+            case 3:
+                this.itemVisual = "Glue.png";      //Ball sticks to Bat
+                break;
+            case 4:
+                this.itemVisual = "Missile.png";   //Bat can shoot missiles
+                break;
+            case 5:
+                this.itemVisual = "Shield.png";    //Wall behind bat
+                break;
+            case 6:
+                this.itemVisual = "DoublePoints.png";  //Doubles Points
+                break;
+            case 7:
+                this.itemVisual = "eXtraLife";  //eXtra Life
+                break;
+            case 8:
+                this.itemVisual = "SlowBall.png";  //Slows Ball down
+                break;
+        }
+
     }
 
     @Override
     public void addToCanvas() {
-        gameView.addImageToCanvas("Herz.png", position.x, position.y, size, rotation);
+        gameView.addImageToCanvas(itemVisual, position.x, position.y, size, rotation);
     }
 
     @Override

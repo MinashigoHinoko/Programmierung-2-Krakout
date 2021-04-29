@@ -33,6 +33,7 @@ public class Background extends GameObject {
 
     @Override
     public void updatePosition() {
+        /*
         if (changeBackground == true) {
             backgroundColor = BACKGROUND_COLOR_2;
             changeBackground = false;
@@ -40,6 +41,8 @@ public class Background extends GameObject {
             backgroundColor = BACKGROUND_COLOR_1;
             changeBackground = true;
         }
+
+         */
     }
 
 

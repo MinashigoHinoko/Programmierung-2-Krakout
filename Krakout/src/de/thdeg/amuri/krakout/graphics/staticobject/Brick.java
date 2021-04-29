@@ -36,8 +36,8 @@ public class Brick extends LiveObject {
         this.color = "RED";
         this.powerUp = false;
         this.rotation = 90;
-        this.width = 5;
-        this.height = 2;
+        this.width = 25;
+        this.height = 12;
     }
 
     /**

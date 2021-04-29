@@ -7,7 +7,7 @@ import de.thdeg.amuri.krakout.graphics.staticobject.Item;
 import de.thdeg.amuri.krakout.movement.Position;
 
 /**
- * When colides with {@link Bat}, will give one of following: 10.000 Points, Shield, Transmutating Bricks (which will possibly give them {@link Item}) or Bomb
+ * When collides with {@link Bat}, will give one of following: 10.000 Points, Shield, Transmutating Bricks (which will possibly give them {@link Item}) or Bomb
  */
 public class BonusShip extends AlienObject {
     /**
