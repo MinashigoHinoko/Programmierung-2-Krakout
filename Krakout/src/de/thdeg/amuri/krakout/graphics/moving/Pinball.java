@@ -28,7 +28,7 @@ public class Pinball extends GameObject {
         this.bounceBrickPosition = new Position(0, 0);
         this.size = 2;
         this.flyFromLeftToRight = true;
-        super.width = 10;
+        this.width = 10;
         this.height = 10;
         this.ammount = 0;
         this.speedInPixel = 3;
@@ -136,6 +136,10 @@ public class Pinball extends GameObject {
         }
     }
 
+    @Override
+    public void updateStatus() {
+        gamePlayManager.destroy(this);
+    }
 
     @Override
     public void addToCanvas() {

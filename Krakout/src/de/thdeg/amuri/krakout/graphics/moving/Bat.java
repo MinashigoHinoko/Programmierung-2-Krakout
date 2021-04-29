@@ -32,43 +32,42 @@ public class Bat extends LiveObject {
         this.bounceBall = false;
         this.hasPowerUp = false;
         this.speedInPixel = 3.5;
-        this.playerGraphic = false;
-        this.position = new Position(GameView.WIDTH / 2, GameView.HEIGHT / 2);
+        this.playerGraphic = true;
     }
 
     /**
      * interacts with {@link Position} to move left when called
      */
     public void left() {
-        this.position.left(speedInPixel);
+        this.position.left(this.speedInPixel);
     }
 
     /**
      * interacts with {@link Position} to move right when called
      */
     public void right() {
-        this.position.right(speedInPixel);
+        this.position.right(this.speedInPixel);
     }
 
     /**
      * interacts with {@link Position} to move up when called
      */
     public void up() {
-        this.position.up(speedInPixel);
+        this.position.up(this.speedInPixel);
     }
 
     /**
      * interacts with {@link Position} to move down when called
      */
     public void down() {
-        this.position.down(speedInPixel);
+        this.position.down(this.speedInPixel);
     }
 
     /**
      * Manipulates the Output of the playerObject for the task
      */
     public void shoot() {
-        this.shooting = true;
+        gamePlayManager.shootPinball(this.position);
     }
 
     @Override
@@ -90,7 +89,7 @@ public class Bat extends LiveObject {
             this.width = 35;
             this.height = 12;
             this.rotation = 90;
-            gameView.addImageToCanvas("Player.png", this.position.x, this.position.y, this.size, this.rotation);
+            this.gameView.addImageToCanvas("Player.png", this.position.x, this.position.y, this.size, this.rotation);
         }
     }
 }

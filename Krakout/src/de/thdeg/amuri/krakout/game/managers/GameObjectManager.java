@@ -14,8 +14,11 @@ import java.util.LinkedList;
  * Manager of all Game Object Visuals
  */
 class GameObjectManager {
-
     private final GameView gameView;
+    private final Bat bat;
+    private final Background background;
+    private final Score score;
+
     private final LinkedList<GameObject> gameObjects;
     private final LinkedList<Item> items;
     private final LinkedList<Pinball> balls;
@@ -35,6 +38,10 @@ class GameObjectManager {
 
     protected GameObjectManager(GameView gameView) {
         this.gameView = gameView;
+        this.bat = new Bat(gameView);
+        this.background = new Background(gameView);
+        this.score = new Score(gameView);
+
         this.gameObjects = new LinkedList<>();
         this.items = new LinkedList<>();
         this.balls = new LinkedList<>();
@@ -61,25 +68,8 @@ class GameObjectManager {
     protected void updateGameObjects() {
         this.gameObjects.clear();
         this.gameObjects.add(background);
-        this.gameObjects.addAll(this.bricks);
-        this.gameObjects.addAll(this.items);
-        this.gameObjects.addAll(this.balls);
-        this.gameObjects.addAll(this.astronauts);
-        this.gameObjects.addAll(this.bees);
-        this.gameObjects.addAll(this.beeHives);
-        this.gameObjects.addAll(this.bonusShips);
-        this.gameObjects.addAll(this.cannibals);
-        this.gameObjects.addAll(this.eggs);
-        this.gameObjects.addAll(this.exits);
-        this.gameObjects.addAll(this.faces);
-        this.gameObjects.addAll(this.flashes);
-        this.gameObjects.addAll(this.timeOuts);
-        this.gameObjects.addAll(this.twinBalls);
-        this.gameObjects.addAll(this.playerLives);
-
         this.gameObjects.add(score);
         this.gameObjects.add(bat);
-        this.gameObjects.add(score);
 
         //Top red line
         gameView.addLineToCanvas(0, 50, GameView.WIDTH, 50, 5, Color.RED);

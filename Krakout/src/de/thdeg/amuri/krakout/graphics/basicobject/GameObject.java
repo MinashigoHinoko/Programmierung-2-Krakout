@@ -58,6 +58,14 @@ public class GameObject {
     public void addToCanvas() {
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     /**
      * Update Status for the Task
      */

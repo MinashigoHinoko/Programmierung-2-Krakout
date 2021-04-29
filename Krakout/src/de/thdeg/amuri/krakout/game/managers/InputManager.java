@@ -40,8 +40,6 @@ class InputManager {
             }
             if (keyCode == KeyEvent.VK_SPACE) {
                 bat.shoot();
-                playerlive.hasHit();
-                System.out.println("pew");
             }
             if (!diagonalMovement) {
                 break;
