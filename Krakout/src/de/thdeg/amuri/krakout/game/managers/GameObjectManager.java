@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.LinkedList;
 
 /**
- * Manager of all Game Objects
+ * Manager of all Game Object Visuals
  */
 class GameObjectManager {
     private final Pinball ball;

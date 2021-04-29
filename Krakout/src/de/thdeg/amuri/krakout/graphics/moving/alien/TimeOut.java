@@ -5,7 +5,7 @@ import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.movement.Position;
 
 /**
- * All aliens will not move for 30 seconds
+ * All aliens will not move for 30 seconds when Hit.
  *
  * @see Astronaut
  * @see Bee
