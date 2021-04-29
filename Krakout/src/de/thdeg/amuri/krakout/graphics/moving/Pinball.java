@@ -138,8 +138,8 @@ public class Pinball extends GameObject {
 
     @Override
     public void updateStatus() {
-        setGamePlayManager(this);
-        gamePlayManager.destroy(this);
+        setGamePlayManager(gamePlayManager);
+        //gamePlayManager.destroy(this);
 
 
     }

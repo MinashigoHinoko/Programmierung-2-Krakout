@@ -67,7 +67,7 @@ public class Bat extends LiveObject {
      * Manipulates the Output of the playerObject for the task
      */
     public void shoot() {
-        gamePlayManager.shootPinball(this.position);
+        this.shooting = true;
     }
 
     @Override
@@ -85,6 +85,10 @@ public class Bat extends LiveObject {
             }
             this.gameView.addTextToCanvas(this.playerObject, this.position.x, this.position.y, this.size, Color.WHITE, this.rotation);
         } else {
+            if (this.shooting) {
+                gamePlayManager.shootPinball(this.position);
+                this.shooting = false;
+            }
             this.size = 1.5;
             this.width = 35;
             this.height = 12;
