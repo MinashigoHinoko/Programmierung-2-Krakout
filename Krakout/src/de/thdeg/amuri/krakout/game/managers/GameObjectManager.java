@@ -15,6 +15,7 @@ import java.util.LinkedList;
  */
 class GameObjectManager {
 
+    private final GameView gameView;
     private final LinkedList<GameObject> gameObjects;
     private final LinkedList<Item> items;
     private final LinkedList<Pinball> balls;
@@ -33,6 +34,7 @@ class GameObjectManager {
     private final LinkedList<Brick> bricks;
 
     protected GameObjectManager(GameView gameView) {
+        this.gameView = gameView;
         this.gameObjects = new LinkedList<>();
         this.items = new LinkedList<>();
         this.balls = new LinkedList<>();
@@ -50,29 +52,6 @@ class GameObjectManager {
         this.playerLives = new LinkedList<>();
         this.bricks = new LinkedList<>();
 
-        this.gameView = gameView;
-        this.brick = new Brick(gameView);
-        this.ball = new Pinball(gameView);
-        this.background = new Background(gameView);
-        this.item = new Item(gameView);
-        this.item.setPosition(this.brick.getPosition());
-        this.item.setSpeedInPixel(this.ball.getSpeedInPixel());
-        this.bat = new Bat(gameView);
-        this.face = new Face(gameView);
-        this.ball.setBouncePosition(this.bat.getPosition());
-        this.ball.setBounceBrickPosition(this.brick.getPosition());
-        this.playerLive = new PlayerLive(gameView);
-        this.astronaut = new Astronaut(gameView);
-        this.bee = new Bee(gameView);
-        this.beeHive = new BeeHive(gameView);
-        this.bonusShip = new BonusShip(gameView);
-        this.cannibal = new Cannibal(gameView);
-        this.egg = new Egg(gameView);
-        this.exit = new Exit(gameView);
-        this.flash = new Flash(gameView);
-        this.timeOut = new TimeOut(gameView);
-        this.twinBall = new TwinBall(gameView);
-        this.score = new Score(gameView);
     }
 
     protected Bat getBat() {
@@ -97,6 +76,7 @@ class GameObjectManager {
         this.gameObjects.addAll(this.timeOuts);
         this.gameObjects.addAll(this.twinBalls);
         this.gameObjects.addAll(this.playerLives);
+
         this.gameObjects.add(score);
         this.gameObjects.add(bat);
         this.gameObjects.add(score);

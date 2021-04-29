@@ -27,7 +27,8 @@ public class Face extends AlienObject {
         this.height = 23;
         this.size = 1.5;
         this.speedInPixel = 3.5;
-        this.position = new Position(random.nextInt(960), random.nextInt(540));
+        this.random = new Random();
+        this.position = new Position(random.nextInt(GameView.WIDTH), random.nextInt(GameView.HEIGHT-(GameView.HEIGHT/10)));
         this.hit = false;
     }
 
