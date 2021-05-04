@@ -3,7 +3,6 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
-import de.thdeg.amuri.krakout.movement.Position;
 
 import java.util.LinkedList;
 
@@ -24,7 +23,6 @@ public class Astronaut extends AlienObject {
         this.width = 32;
         this.height = 35;
         this.size = 1.5;
-        this.position = new Position(750, 200);
         this.hit = false;
     }
 

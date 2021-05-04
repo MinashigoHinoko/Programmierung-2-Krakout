@@ -3,7 +3,6 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
-import de.thdeg.amuri.krakout.movement.Position;
 
 /**
  * Will glue the {@link Bat} when Hit, so it cant move
@@ -20,7 +19,6 @@ public class Bee extends AlienObject {
         this.width = 35;
         this.height = 31;
         this.size = 1.5;
-        this.position = new Position(650, 200);
         this.hit = false;
     }
 

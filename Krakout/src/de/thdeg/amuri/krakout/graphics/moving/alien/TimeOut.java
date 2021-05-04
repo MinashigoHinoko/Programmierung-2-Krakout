@@ -2,7 +2,6 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
-import de.thdeg.amuri.krakout.movement.Position;
 
 /**
  * All aliens will not move for 30 seconds when Hit.
@@ -31,7 +30,6 @@ public class TimeOut extends AlienObject {
         this.width = 29;
         this.height = 46;
         this.size = 1;
-        this.position = new Position(850, 360);
         this.hit = false;
     }
 

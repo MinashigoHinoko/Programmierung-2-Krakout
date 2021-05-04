@@ -3,7 +3,6 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
-import de.thdeg.amuri.krakout.movement.Position;
 
 /**
  * On contact with {@link Brick}, will damage them
@@ -20,7 +19,6 @@ public class Egg extends AlienObject {
         this.width = 20;
         this.height = 31;
         this.size = 1.5;
-        this.position = new Position(250, 200);
         this.hit = false;
     }
 

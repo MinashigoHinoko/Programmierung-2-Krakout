@@ -3,7 +3,6 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
-import de.thdeg.amuri.krakout.movement.Position;
 
 /**
  * Will eat the {@link Pinball} on collision
@@ -20,7 +19,6 @@ public class Cannibal extends AlienObject {
         this.width = 10;
         this.height = 10;
         this.size = 2;
-        this.position = new Position(350, 200);
         this.hit = false;
     }
 

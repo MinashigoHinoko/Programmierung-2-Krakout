@@ -3,7 +3,6 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
-import de.thdeg.amuri.krakout.movement.Position;
 
 /**
  * On collision with {@link Pinball}, second {@link Pinball} will be activated.
@@ -20,7 +19,6 @@ public class TwinBall extends AlienObject {
         this.width = 21;
         this.height = 19;
         this.size = 1;
-        this.position = new Position(450, 360);
         this.hit = false;
     }
 
