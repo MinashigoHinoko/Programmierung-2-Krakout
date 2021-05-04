@@ -58,10 +58,17 @@ public class GameObject {
     public void addToCanvas() {
     }
 
+    /**
+     * To transfer the Width of the Object for Hitbox calculation.
+     * @return Width in pixel
+     */
     public int getWidth() {
         return width;
     }
-
+    /**
+     * To transfer the Height of the Object for Hitbox calculation.
+     * @return Height in pixel
+     */
     public int getHeight() {
         return height;
     }

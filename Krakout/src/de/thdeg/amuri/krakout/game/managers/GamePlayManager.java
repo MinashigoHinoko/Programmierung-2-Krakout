@@ -27,26 +27,33 @@ public class GamePlayManager {
     /**
      * @param startPosition Shoots a ball, there can only be up to two at the same time.
      */
-    public void shootPinball(Position startPosition){
+    public void shootPinball(Position startPosition) {
         boolean ballCoolDown = false;
-        boolean ballCall=false;
+        boolean ballCall = false;
         if (this.gameView.timerExpired("BallCoolDown", "GamePlayManager")) {
-            this.gameView.setTimer("BallCoolDown", "GamePlayManager", 100000);
-            System.out.println("cool");
+            this.gameView.setTimer("BallCoolDown", "GamePlayManager", 300);
             ballCoolDown = !ballCoolDown;
         }
-        if (!ballCoolDown) {
+        if (ballCoolDown || this.gameObjectManager.getBalls().isEmpty()) {
             ballCall = !ballCall;
             if (ballCall) {
                 this.ball = new Pinball(this.gameView);
                 this.ball.getPosition().x = startPosition.x + this.ball.getWidth() * this.ball.getSize();
                 this.ball.getPosition().y = startPosition.y;
+                ball.setGamePlayManager(this);
                 this.gameObjectManager.getBalls().add(this.ball);
             }
         }
     }
-    public void destroy(Pinball ball){
-        this.gameObjectManager.getBalls().remove(ball);
+
+    /**
+     * @param ball removes the ball once end of map reached.
+     */
+    public void destroyPinball(Pinball ball) {
+
+        if (ball.getClass() == Pinball.class) {
+            this.gameObjectManager.getBalls().remove(ball);
+        }
     }
 
     protected void spawnAndDestroyFace(){
@@ -62,7 +69,6 @@ public class GamePlayManager {
             this.gameView.setTimer("Destroy","GamePlayManager",5000);
             destroyFace=!destroyFace;
         }
-        System.out.println(gameView.getGameTimeInMilliseconds()/1000);
         if(gameView.getGameTimeInMilliseconds()/1000==10){
             listHasBeenDeleted = !listHasBeenDeleted;
         }

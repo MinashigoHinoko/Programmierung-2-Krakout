@@ -138,9 +138,9 @@ public class Pinball extends GameObject {
 
     @Override
     public void updateStatus() {
-        setGamePlayManager(gamePlayManager);
-        //gamePlayManager.destroy(this);
-
+        if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) + this.width * this.size) {
+            this.gamePlayManager.destroyPinball(this);
+        }
 
     }
 
