@@ -12,7 +12,7 @@ import de.thdeg.amuri.krakout.movement.Position;
  * Super of {@link Pinball}, {@link Background}, {@link Brick} and {@link Item}
  * acts as extension of these Classes to include the shared Informations
  */
-public class GameObject {
+public abstract class GameObject {
     protected final GameView gameView;
     protected Position position;
     protected double size;
@@ -46,16 +46,25 @@ public class GameObject {
         this.gamePlayManager = gamePlayManager;
     }
 
-    /**
-     * Updates Visual Movement
-     */
-    public void updatePosition() {
-    }
 
     /**
      * Draws to the canvas.
      */
-    public void addToCanvas() {
+     public abstract void addToCanvas();
+
+    /**
+     * Update objects status.
+     */
+    protected abstract void updateStatus();
+
+    /**
+     * Updates
+     */
+    public void update(){
+        if (this instanceof MovingGameObject) {
+            ((MovingGameObject) this).updatePosition();
+        }
+        this.updateStatus();
     }
 
     /**
@@ -77,12 +86,6 @@ public class GameObject {
     }
 
     /**
-     * Update Status for the Task
-     */
-    public void updateStatus() {
-    }
-
-    /**
      * Gets the {@link Position} of the game object, is used for adjusting the Position of a game object to another
      *
      * @return position of the game object
@@ -92,4 +95,6 @@ public class GameObject {
         return position;
     }
 }
+
+
 

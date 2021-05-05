@@ -32,23 +32,13 @@ public class Background extends GameObject {
 
 
     @Override
-    public void updatePosition() {
-        /*
-        if (changeBackground == true) {
-            backgroundColor = BACKGROUND_COLOR_2;
-            changeBackground = false;
-        } else if (changeBackground == false) {
-            backgroundColor = BACKGROUND_COLOR_1;
-            changeBackground = true;
-        }
-
-         */
-    }
-
-
-    @Override
     public void addToCanvas() {
         gameView.addRectangleToCanvas(position.x, position.y, width, height, 1, true, Color.BLUE.darker());
         gameView.addBlockImageToCanvas(backgroundColor, position.x, position.y, size, rotation);
+    }
+
+    @Override
+    public void updateStatus() {
+
     }
 }

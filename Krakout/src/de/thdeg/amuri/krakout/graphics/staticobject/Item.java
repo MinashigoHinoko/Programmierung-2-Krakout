@@ -123,7 +123,7 @@ public class Item extends GameObject {
     }
 
     @Override
-    public void updatePosition() {
+    public void updateStatus() {
         switch (this.status) {
             case 0:
                 this.itemVisual = "Bomb.png";      //Destroy surrounding bricks

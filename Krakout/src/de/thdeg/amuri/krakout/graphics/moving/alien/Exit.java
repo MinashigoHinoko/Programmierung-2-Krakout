@@ -2,11 +2,12 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
 
 /**
  * SKIP Level on collision
  */
-public class Exit extends AlienObject {
+public class Exit extends AlienObject implements MovingGameObject {
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      *
@@ -24,5 +25,10 @@ public class Exit extends AlienObject {
     @Override
     public void addToCanvas() {
         this.gameView.addImageToCanvas("Exit.png", this.position.x, this.position.y, this.size, this.rotation);
+    }
+
+    @Override
+    public void updateStatus() {
+
     }
 }

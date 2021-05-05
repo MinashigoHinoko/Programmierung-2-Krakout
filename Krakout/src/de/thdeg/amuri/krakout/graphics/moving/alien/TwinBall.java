@@ -2,12 +2,13 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 
 /**
  * On collision with {@link Pinball}, second {@link Pinball} will be activated.
  */
-public class TwinBall extends AlienObject {
+public class TwinBall extends AlienObject implements MovingGameObject {
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      *
@@ -25,5 +26,10 @@ public class TwinBall extends AlienObject {
     @Override
     public void addToCanvas() {
         this.gameView.addImageToCanvas("TwinBall.png", this.position.x, this.position.y, this.size, this.rotation);
+    }
+
+    @Override
+    public void updateStatus() {
+
     }
 }

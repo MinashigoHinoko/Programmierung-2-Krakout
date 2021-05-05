@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * Object for every Alien class
  */
-public class AlienObject extends LiveObject {
+public abstract class AlienObject extends LiveObject implements MovingGameObject{
     private double x;
     private boolean endOfScreenRight;
     private boolean endOfScreenLeft;

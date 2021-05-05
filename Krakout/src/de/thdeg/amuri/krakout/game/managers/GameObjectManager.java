@@ -1,7 +1,10 @@
 package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
+import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.LiveObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.alien.*;
@@ -20,6 +23,8 @@ class GameObjectManager {
     private final Score score;
 
     private final LinkedList<GameObject> gameObjects;
+    private final LinkedList<AlienObject> alienObjects;
+    private final LinkedList<LiveObject> liveObjects;
     private final LinkedList<Item> items;
     private final LinkedList<Pinball> balls;
     private final LinkedList<Astronaut> astronauts;
@@ -43,6 +48,8 @@ class GameObjectManager {
         this.score = new Score(gameView);
 
         this.gameObjects = new LinkedList<>();
+        this.alienObjects = new LinkedList<>();
+        this.liveObjects = new LinkedList<>();
         this.items = new LinkedList<>();
         this.balls = new LinkedList<>();
         this.astronauts = new LinkedList<>();
@@ -67,25 +74,28 @@ class GameObjectManager {
 
     protected void updateGameObjects() {
         this.gameObjects.clear();
+        this.alienObjects.clear();
+        this.liveObjects.clear();
         this.gameObjects.add(background);
         this.gameObjects.addAll(this.bricks);
         this.gameObjects.addAll(this.items);
         this.gameObjects.addAll(this.balls);
-        this.gameObjects.addAll(this.astronauts);
-        this.gameObjects.addAll(this.bees);
-        this.gameObjects.addAll(this.beeHives);
-        this.gameObjects.addAll(this.bonusShips);
-        this.gameObjects.addAll(this.cannibals);
-        this.gameObjects.addAll(this.eggs);
-        this.gameObjects.addAll(this.exits);
-        this.gameObjects.addAll(this.faces);
-        this.gameObjects.addAll(this.flashes);
-        this.gameObjects.addAll(this.timeOuts);
-        this.gameObjects.addAll(this.twinBalls);
-        this.gameObjects.addAll(this.playerLives);
+        this.alienObjects.addAll(this.astronauts);
+        this.alienObjects.addAll(this.bees);
+        this.alienObjects.addAll(this.beeHives);
+        this.alienObjects.addAll(this.bonusShips);
+        this.alienObjects.addAll(this.cannibals);
+        this.alienObjects.addAll(this.eggs);
+        this.alienObjects.addAll(this.exits);
+        this.alienObjects.addAll(this.faces);
+        this.alienObjects.addAll(this.flashes);
+        this.alienObjects.addAll(this.timeOuts);
+        this.alienObjects.addAll(this.twinBalls);
+        this.liveObjects.addAll(this.alienObjects);
+        this.liveObjects.addAll(this.playerLives);
+        this.gameObjects.addAll(this.liveObjects);
         this.gameObjects.add(score);
         this.gameObjects.add(bat);
-        this.gameObjects.add(score);
 
         //Top red line
         gameView.addLineToCanvas(0, 50, GameView.WIDTH, 50, 5, Color.RED);
@@ -93,9 +103,8 @@ class GameObjectManager {
         gameView.addLineToCanvas(0, GameView.HEIGHT - 50, GameView.WIDTH, GameView.HEIGHT - 50, 5, Color.RED);
         //Printing to Screen
         for (GameObject gameObject : gameObjects) {
+            gameObject.update();
             gameObject.addToCanvas();
-            gameObject.updatePosition();
-            gameObject.updateStatus();
 
         }
     }

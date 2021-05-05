@@ -2,11 +2,12 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
 
 /**
  * releases {@link Bee}
  */
-public class BeeHive extends AlienObject {
+public class BeeHive extends AlienObject implements MovingGameObject {
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      *
@@ -24,5 +25,10 @@ public class BeeHive extends AlienObject {
     @Override
     public void addToCanvas() {
         this.gameView.addImageToCanvas("BeeHive.png", this.position.x, this.position.y, this.size, this.rotation);
+    }
+
+    @Override
+    public void updateStatus() {
+
     }
 }
