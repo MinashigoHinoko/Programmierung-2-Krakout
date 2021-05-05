@@ -8,5 +8,5 @@ public interface MovingGameObject {
     /**
      * Updates Visual Movement
      */
-     void updatePosition();
+    void updatePosition();
 }
