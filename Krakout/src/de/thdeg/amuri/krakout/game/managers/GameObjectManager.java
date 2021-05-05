@@ -4,7 +4,6 @@ import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.LiveObject;
-import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.alien.*;

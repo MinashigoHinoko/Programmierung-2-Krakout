@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * This is the Player Figure, that the Player controls. He uses it to manipulate the {@link Pinball} to break {@link Brick}
  */
-public class Bat extends LiveObject  {
+public class Bat extends LiveObject {
     private final boolean playerGraphic;
     private final boolean bounceBall;
     private final boolean hasPowerUp;

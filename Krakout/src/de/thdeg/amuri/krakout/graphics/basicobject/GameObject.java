@@ -50,7 +50,7 @@ public abstract class GameObject {
     /**
      * Draws to the canvas.
      */
-     public abstract void addToCanvas();
+    public abstract void addToCanvas();
 
     /**
      * Update objects status.
@@ -60,7 +60,7 @@ public abstract class GameObject {
     /**
      * Updates
      */
-    public void update(){
+    public void update() {
         if (this instanceof MovingGameObject) {
             ((MovingGameObject) this).updatePosition();
         }

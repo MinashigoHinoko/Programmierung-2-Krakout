@@ -1,7 +1,6 @@
 package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
@@ -52,7 +51,7 @@ public class GamePlayManager {
     }
 
     protected void spawnAndDestroyAstronaut() {
-            this.astronaut = new Astronaut(this.gameView);
+        this.astronaut = new Astronaut(this.gameView);
         boolean spawnAstronaut = false;
         boolean destroyAstronaut = false;
         if (this.gameView.timerExpired("SpawnAstronaut", "GamePlayManager")) {
