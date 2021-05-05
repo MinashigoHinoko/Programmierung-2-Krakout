@@ -2,13 +2,13 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
-import de.thdeg.amuri.krakout.movement.Position;
 
 /**
  * Will glue the {@link Bat} when Hit, so it cant move
  */
-public class Bee extends AlienObject {
+public class Bee extends AlienObject implements MovingGameObject {
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      *
@@ -20,12 +20,16 @@ public class Bee extends AlienObject {
         this.width = 35;
         this.height = 31;
         this.size = 1.5;
-        this.position = new Position(650, 200);
         this.hit = false;
     }
 
     @Override
     public void addToCanvas() {
         this.gameView.addImageToCanvas("Bee.png", this.position.x, this.position.y, this.size, this.rotation);
+    }
+
+    @Override
+    public void updateStatus() {
+
     }
 }

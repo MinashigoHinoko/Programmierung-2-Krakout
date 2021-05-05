@@ -2,6 +2,7 @@ package de.thdeg.amuri.krakout.graphics.moving;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
 import de.thdeg.amuri.krakout.graphics.staticobject.Item;
 import de.thdeg.amuri.krakout.movement.Position;
@@ -9,7 +10,7 @@ import de.thdeg.amuri.krakout.movement.Position;
 /**
  * This is the pinball the player needs to play with, it will destroy {@link Brick} and collect PowerUp {@link Item}
  */
-public class Pinball extends GameObject {
+public class Pinball extends GameObject implements MovingGameObject {
     private final int ammount;
     private boolean flyFromLeftToRight;
     private Position bouncePosition;
@@ -136,6 +137,13 @@ public class Pinball extends GameObject {
         }
     }
 
+    @Override
+    public void updateStatus() {
+        if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) + this.width * this.size) {
+            this.gamePlayManager.destroyPinball(this);
+        }
+
+    }
 
     @Override
     public void addToCanvas() {

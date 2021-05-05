@@ -5,7 +5,7 @@ import de.thdeg.amuri.krakout.gameview.GameView;
 /**
  * Acts as a Parent for classes that need a live system
  */
-public class LiveObject extends GameObject {
+public abstract class LiveObject extends GameObject {
     protected boolean hit;
     protected int oldLive;
     protected int live;

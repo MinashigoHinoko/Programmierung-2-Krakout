@@ -79,19 +79,19 @@ public class Score extends GameObject {
     }
 
     @Override
-    public void updatePosition() {
+    public void addToCanvas() {
+        this.scoreOutput = String.valueOf(score);
+        this.gameView.addTextToCanvas(scoreOutput, position.x, position.y, size, color, rotation);
+        this.gameView.addTextToCanvas(highScoreOutput, GameView.WIDTH - highScoreOutput.length() * size, GameView.HEIGHT - size, size, Color.YELLOW, rotation);
+    }
+
+    @Override
+    public void updateStatus() {
         if (plusScore) {
             this.score += scoreValue;
         }
         if (minusScore) {
             this.score -= scoreValue;
         }
-    }
-
-    @Override
-    public void addToCanvas() {
-        this.scoreOutput = String.valueOf(score);
-        this.gameView.addTextToCanvas(scoreOutput, position.x, position.y, size, color, rotation);
-        this.gameView.addTextToCanvas(highScoreOutput, GameView.WIDTH - highScoreOutput.length() * size, GameView.HEIGHT - size, size, Color.YELLOW, rotation);
     }
 }

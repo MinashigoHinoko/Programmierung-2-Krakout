@@ -2,16 +2,13 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
-import de.thdeg.amuri.krakout.movement.Position;
-
-import java.util.LinkedList;
 
 /**
  * Flies around and blocks the {@link Pinball}, Not a real Danger
  */
-public class Astronaut extends AlienObject {
-    LinkedList<Astronaut> astronauts;
+public class Astronaut extends AlienObject implements MovingGameObject {
 
     /**
      * This is the extension constructor, here you can find prebuild parameters.
@@ -24,12 +21,16 @@ public class Astronaut extends AlienObject {
         this.width = 32;
         this.height = 35;
         this.size = 1.5;
-        this.position = new Position(750, 200);
         this.hit = false;
     }
 
     @Override
     public void addToCanvas() {
         this.gameView.addImageToCanvas("Astronaut.png", this.position.x, this.position.y, this.size, this.rotation);
+    }
+
+    @Override
+    public void updateStatus() {
+
     }
 }

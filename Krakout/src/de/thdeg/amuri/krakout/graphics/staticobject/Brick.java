@@ -99,15 +99,16 @@ public class Brick extends LiveObject {
     }
 
     @Override
-    public void updatePosition() {
-    }
-
-    @Override
     public void addToCanvas() {
         switch (this.color) {
             case "RED":
                 this.gameView.addImageToCanvas("RED.png", this.position.x, this.position.y, this.size, this.rotation);
                 break;
         }
+    }
+
+    @Override
+    public void updateStatus() {
+
     }
 }

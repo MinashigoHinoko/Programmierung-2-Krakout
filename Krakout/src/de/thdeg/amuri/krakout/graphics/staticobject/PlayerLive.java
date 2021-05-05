@@ -27,13 +27,6 @@ public class PlayerLive extends LiveObject {
     }
 
     @Override
-    public void updatePosition() {
-        if (hit) {
-            this.live = live - 1;
-        }
-    }
-
-    @Override
     public void addToCanvas() {
         position.x = 30;
         for (int x = 0; x < this.oldLive; x++) {
@@ -46,6 +39,13 @@ public class PlayerLive extends LiveObject {
             position.x += 40;
         }
 
+    }
+
+    @Override
+    public void updateStatus() {
+        if (hit) {
+            this.live = live - 1;
+        }
     }
 
 }

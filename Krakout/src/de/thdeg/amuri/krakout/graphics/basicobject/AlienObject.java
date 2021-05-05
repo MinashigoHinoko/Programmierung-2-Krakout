@@ -1,16 +1,20 @@
 package de.thdeg.amuri.krakout.graphics.basicobject;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
+import de.thdeg.amuri.krakout.movement.Position;
+
+import java.util.Random;
 
 /**
  * Object for every Alien class
  */
-public class AlienObject extends LiveObject {
+public abstract class AlienObject extends LiveObject implements MovingGameObject {
     private double x;
     private boolean endOfScreenRight;
     private boolean endOfScreenLeft;
     private boolean endOfScreenUp;
     private boolean endOfScreenDown;
+    private final Random random;
 
     /**
      * This is the extension constructor, here you can find prebuild parameters.
@@ -22,6 +26,8 @@ public class AlienObject extends LiveObject {
         this.live = 1;
         this.speedInPixel = 2.5;
         this.hit = false;
+        this.random = new Random();
+        this.position = new Position(random.nextInt(GameView.WIDTH), random.nextInt(GameView.HEIGHT - (GameView.HEIGHT / 10)));
     }
 
     @Override
