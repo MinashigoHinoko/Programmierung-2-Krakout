@@ -32,6 +32,7 @@ public class Bat extends LiveObject {
         this.bounceBall = false;
         this.hasPowerUp = false;
         this.speedInPixel = 3.5;
+        this.position = new Position(0,200);
         this.playerGraphic = true;
     }
 
