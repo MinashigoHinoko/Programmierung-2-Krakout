@@ -95,6 +95,10 @@ public abstract class GameObject {
         return position;
     }
 
+    public void adaptPosition(double adaptX, double adaptY){
+        position.x += adaptX;
+        position.y += adaptY;
+    }
 }
 
 
