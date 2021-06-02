@@ -115,6 +115,10 @@ class GameObjectManager {
         this.gameObjects.addAll(this.bricks);
         this.gameObjects.addAll(this.items);
         this.gameObjects.addAll(this.balls);
+<<<<<<< Updated upstream
+=======
+        this.gameObjects.addAll(this.playerLives);
+>>>>>>> Stashed changes
 
         //Top red line
         gameView.addLineToCanvas(0, 50, GameView.WIDTH, 50, 5, Color.RED);
