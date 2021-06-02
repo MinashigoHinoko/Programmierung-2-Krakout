@@ -4,12 +4,15 @@ import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.LiveObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.alien.*;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -35,10 +38,13 @@ class GameObjectManager {
     private final LinkedList<Exit> exits;
     private final LinkedList<Face> faces;
     private final LinkedList<Flash> flashes;
+    private final LinkedList<FlashAttack> flashAttacks;
     private final LinkedList<TimeOut> timeOuts;
     private final LinkedList<TwinBall> twinBalls;
     private final LinkedList<PlayerLive> playerLives;
     private final LinkedList<Brick> bricks;
+    private final ArrayList<CollidableGameObject> collidableGameObjects;
+    private final ArrayList<CollidingGameObject> collidingGameObjects;
 
     protected GameObjectManager(GameView gameView) {
         this.gameView = gameView;
@@ -60,10 +66,13 @@ class GameObjectManager {
         this.exits = new LinkedList<>();
         this.faces = new LinkedList<>();
         this.flashes = new LinkedList<>();
+        this.flashAttacks = new LinkedList<>();
         this.timeOuts = new LinkedList<>();
         this.twinBalls = new LinkedList<>();
         this.playerLives = new LinkedList<>();
         this.bricks = new LinkedList<>();
+        this.collidableGameObjects = new ArrayList<>();
+        this.collidingGameObjects = new ArrayList<>();
 
     }
 
@@ -79,6 +88,8 @@ class GameObjectManager {
                     && gameObject.getClass() != Brick.class
                     && gameObject.getClass() != Background.class
                     && gameObject.getClass() != Pinball.class
+                    && gameObject.getClass() != Bee.class
+                    && gameObject.getClass() != FlashAttack.class
                     && gameObject.getClass() != Score.class
                     && gameObject.getClass() != PlayerLive.class) {
 
@@ -91,9 +102,10 @@ class GameObjectManager {
         this.gameObjects.clear();
         this.alienObjects.clear();
         this.liveObjects.clear();
+        this.collidableGameObjects.clear();
+        this.collidingGameObjects.clear();
 
         this.alienObjects.addAll(this.astronauts);
-        this.alienObjects.addAll(this.bees);
         this.alienObjects.addAll(this.beeHives);
         this.alienObjects.addAll(this.bonusShips);
         this.alienObjects.addAll(this.cannibals);
@@ -106,6 +118,13 @@ class GameObjectManager {
 
         this.liveObjects.addAll(this.playerLives);
         this.liveObjects.addAll(this.alienObjects);
+
+        this.collidingGameObjects.addAll(this.bees);
+        this.collidingGameObjects.addAll(this.flashAttacks);
+        this.collidingGameObjects.addAll(this.balls);
+
+        this.collidableGameObjects.addAll(this.alienObjects);
+        this.collidableGameObjects.addAll(this.collidingGameObjects);
 
         this.gameObjects.add(this.background);
         this.gameObjects.add(this.score);
@@ -124,6 +143,7 @@ class GameObjectManager {
         for (GameObject gameObject : gameObjects) {
             gameObject.update();
             gameObject.addToCanvas();
+            gameObject.addHitboxToCanvas();
         }
     }
 
@@ -132,6 +152,20 @@ class GameObjectManager {
      */
     public LinkedList<GameObject> getGameObjects() {
         return gameObjects;
+    }
+
+    /**
+     * @return LinkedList getter for {@link AlienObject}
+     */
+    public LinkedList<AlienObject> getAlienObjects() {
+        return alienObjects;
+    }
+
+    /**
+     * @return LinkedList getter for {@link LiveObject}
+     */
+    public LinkedList<LiveObject> getLiveObjects() {
+        return liveObjects;
     }
 
     /**
@@ -209,6 +243,27 @@ class GameObjectManager {
      */
     public LinkedList<Flash> getFlashes() {
         return flashes;
+    }
+
+    /**
+     * @return LinkedList getter for {@link FlashAttack}
+     */
+    public LinkedList<FlashAttack> getFlashAttacks() {
+        return flashAttacks;
+    }
+
+    /**
+     * @return ArrayList getter for {@link CollidableGameObject}
+     */
+    public ArrayList<CollidableGameObject> getCollidableGameObjects() {
+        return collidableGameObjects;
+    }
+
+    /**
+     * @return ArrayList getter for {@link CollidingGameObject}
+     */
+    public ArrayList<CollidingGameObject> getCollidingGameObjects() {
+        return collidingGameObjects;
     }
 
     /**

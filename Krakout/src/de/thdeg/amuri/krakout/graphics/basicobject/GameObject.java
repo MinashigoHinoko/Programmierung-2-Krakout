@@ -69,8 +69,9 @@ public abstract class GameObject {
 
     /**
      * Moves the Objects
-     * @param adaptX   so it keeps its x coordinate
-     * @param adaptY    so it keeps its y coordinate
+     *
+     * @param adaptX so it keeps its x coordinate
+     * @param adaptY so it keeps its y coordinate
      */
     public void adaptPosition(double adaptX, double adaptY) {
         position.x += adaptX;
@@ -105,6 +106,10 @@ public abstract class GameObject {
     public Position getPosition() {
         return position;
     }
+
+    public void addHitboxToCanvas() {
+    }
+
 }
 
 

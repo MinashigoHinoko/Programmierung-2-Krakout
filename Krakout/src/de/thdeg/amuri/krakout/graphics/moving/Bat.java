@@ -2,6 +2,7 @@ package de.thdeg.amuri.krakout.graphics.moving;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.LiveObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
 import de.thdeg.amuri.krakout.movement.Position;
 
@@ -30,9 +31,22 @@ public class Bat extends LiveObject {
         this.bounceBall = false;
         this.hasPowerUp = false;
         this.speedInPixel = 3.5;
-        this.position = new Position(0,200);
+        this.position = new Position(0, 200);
         this.playerGraphic = true;
         this.position = new Position(20, 280);
+        this.hitBox.width = (int) (this.width * this.size);
+        this.hitBox.height = (int) (this.height * this.size);
+    }
+
+    @Override
+    protected void updateHitBoxPosition() {
+        this.hitBox.x = (int) this.position.x;
+        this.hitBox.y = (int) this.position.y;
+    }
+
+    @Override
+    public void reactToCollision(CollidableGameObject otherObject) {
+
     }
 
     /**
@@ -61,7 +75,7 @@ public class Bat extends LiveObject {
      * interacts with {@link Position} to move up when called
      */
     public void up() {
-        if (this.position.y  >= 53 ) {
+        if (this.position.y >= 53) {
             this.position.up(this.speedInPixel);
         } else {
             this.gamePlayManager.batMovingUp(this.speedInPixel);
@@ -72,7 +86,7 @@ public class Bat extends LiveObject {
      * interacts with {@link Position} to move down when called
      */
     public void down() {
-        if (this.position.y + this.height * this.size <= this.gameView.HEIGHT - 51.5) {
+        if (this.position.y + this.height * this.size <= GameView.HEIGHT - 53) {
             this.position.down(this.speedInPixel);
         } else {
             this.gamePlayManager.batMovingDown(this.speedInPixel);

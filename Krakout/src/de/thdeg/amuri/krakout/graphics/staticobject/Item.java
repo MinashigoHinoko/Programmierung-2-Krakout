@@ -2,7 +2,7 @@ package de.thdeg.amuri.krakout.graphics.staticobject;
 
 
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.movement.Position;
 
@@ -10,7 +10,7 @@ import de.thdeg.amuri.krakout.movement.Position;
 /**
  * This Object will be used to create Items, these Items can be enemies,PowerUps or PowerDowns
  */
-public class Item extends GameObject {
+public class Item extends CollidableGameObject {
     //declares what kind of item it is
     private int status;
     //Ammount of items
@@ -29,6 +29,19 @@ public class Item extends GameObject {
         this.width = 11;
         this.height = 24;
         this.itemVisual = "Herz.png";
+        this.hitBox.width = (int) (this.width * this.size);
+        this.hitBox.height = (int) (this.height * this.size);
+    }
+
+    @Override
+    protected void updateHitBoxPosition() {
+        this.hitBox.x = (int) this.position.x;
+        this.hitBox.y = (int) this.position.y;
+    }
+
+    @Override
+    public void reactToCollision(CollidableGameObject otherObject) {
+
     }
 
 

@@ -31,6 +31,12 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
     }
 
     @Override
+    protected void updateHitBoxPosition() {
+        this.hitBox.x = (int) this.position.x;
+        this.hitBox.y = (int) this.position.y;
+    }
+
+    @Override
     public void updatePosition() {
         x = Math.random() * 10;
         while ((int) x == 0) {

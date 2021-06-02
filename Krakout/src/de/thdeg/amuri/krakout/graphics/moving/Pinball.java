@@ -1,16 +1,19 @@
 package de.thdeg.amuri.krakout.graphics.moving;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
 import de.thdeg.amuri.krakout.graphics.staticobject.Item;
 import de.thdeg.amuri.krakout.movement.Position;
 
+import java.util.ArrayList;
+
 /**
  * This is the pinball the player needs to play with, it will destroy {@link Brick} and collect PowerUp {@link Item}
  */
-public class Pinball extends GameObject implements MovingGameObject {
+public class Pinball extends CollidingGameObject implements MovingGameObject {
     private final int ammount;
     private boolean flyFromLeftToRight;
     private Position bouncePosition;
@@ -22,8 +25,8 @@ public class Pinball extends GameObject implements MovingGameObject {
      * @param gameView this is for Initialising the ball
      * @see GameView
      */
-    public Pinball(GameView gameView) {
-        super(gameView);
+    public Pinball(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
+        super(gameView, objectsToCollideWith);
         this.position = new Position(100, 100);
         this.bouncePosition = new Position(0, 0);
         this.bounceBrickPosition = new Position(0, 0);
@@ -33,6 +36,19 @@ public class Pinball extends GameObject implements MovingGameObject {
         this.height = 10;
         this.ammount = 0;
         this.speedInPixel = 3;
+        this.hitBox.width = (int) (this.width * this.size);
+        this.hitBox.height = (int) (this.height * this.size);
+    }
+
+    @Override
+    protected void updateHitBoxPosition() {
+        this.hitBox.x = (int) this.position.x;
+        this.hitBox.y = (int) this.position.y;
+    }
+
+    @Override
+    public void reactToCollision(CollidableGameObject otherObject) {
+        this.position.right(this.speedInPixel);
     }
 
     /**
