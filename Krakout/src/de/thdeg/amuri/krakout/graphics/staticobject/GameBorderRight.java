@@ -3,7 +3,13 @@ package de.thdeg.amuri.krakout.graphics.staticobject;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 
+/**
+ * Game Border on the Right(for bouncing)
+ */
 public class GameBorderRight extends CollidableGameObject {
+    /**
+     * @param gameView Visual of the Border
+     */
     public GameBorderRight(GameView gameView) {
         super(gameView);
         this.position.x=GameView.WIDTH-5;

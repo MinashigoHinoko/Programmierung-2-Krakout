@@ -3,10 +3,12 @@ package de.thdeg.amuri.krakout.graphics.basicobject;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 
+import java.util.Objects;
+
 /**
  * Acts as a Parent for classes that need a live system
  */
-public abstract class LiveObject extends CollidableGameObject {
+public abstract class LiveObject extends CollidableGameObject implements Cloneable {
     protected boolean hit;
     protected int totalLive;
     protected int live;
@@ -71,5 +73,27 @@ public abstract class LiveObject extends CollidableGameObject {
      */
     public void hasHit() {
         this.hit = true;
+    }
+
+    @Override
+    public CollidableGameObject clone() {
+        LiveObject liveObject = null;
+        liveObject = (LiveObject) super.clone();
+        liveObject.position = position.clone();
+        return liveObject;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GameObject that = (GameObject) o;
+        return Double.compare(that.speedInPixel, speedInPixel) == 0
+                && Double.compare(that.rotation, rotation) == 0
+                && Double.compare(that.size, size) == 0 && width == that.width
+                && height == that.height && position.equals(that.position);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(position, speedInPixel, rotation, size, width, height);
     }
 }

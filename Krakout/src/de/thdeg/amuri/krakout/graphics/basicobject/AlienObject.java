@@ -1,14 +1,16 @@
 package de.thdeg.amuri.krakout.graphics.basicobject;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.movement.Position;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
  * Object for every Alien class
  */
-public abstract class AlienObject extends LiveObject implements MovingGameObject {
+public abstract class AlienObject extends LiveObject implements MovingGameObject,Cloneable{
     private double x;
     private boolean endOfScreenRight;
     private boolean endOfScreenLeft;
@@ -97,5 +99,26 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
         }
 
 
+    }
+    @Override
+    public CollidableGameObject clone() {
+        AlienObject alienObject = null;
+        alienObject = (AlienObject) super.clone();
+        alienObject.position = position.clone();
+        return alienObject;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GameObject that = (GameObject) o;
+        return Double.compare(that.speedInPixel, speedInPixel) == 0
+                && Double.compare(that.rotation, rotation) == 0
+                && Double.compare(that.size, size) == 0 && width == that.width
+                && height == that.height && position.equals(that.position);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(position, speedInPixel, rotation, size, width, height);
     }
 }

@@ -5,6 +5,7 @@ import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
 import de.thdeg.amuri.krakout.movement.Position;
 
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * This is the Background of the game.
@@ -37,5 +38,33 @@ public class Background extends GameObject {
     public void updateStatus() {
 
     }
-
+    /**
+     * Clones the Background.
+     * @return clone.
+     */
+    @Override
+    public Background clone(){
+        return (Background) super.clone();
+    }
+    /**
+     *Compares String of Background.
+     * @param o object.
+     * @return true or false
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Background background = (Background) o;
+        return size == size;
+    }
+    /**
+     * Creates hashcode for the color-changing-block.
+     * @return hashcode.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), size);
+    }
 }

@@ -5,7 +5,14 @@ import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 
 import java.awt.*;
 
+/**
+ * Game Border on the Top(for bouncing)
+ */
 public class GameBorderTop extends CollidableGameObject {
+
+    /**
+     * @param gameView Visual of the Border
+     */
     public GameBorderTop(GameView gameView) {
         super(gameView);
         this.position.x=0;

@@ -6,6 +6,9 @@ import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
 
 import java.util.ArrayList;
 
+/**
+ * Porjectile of {@link Flash}
+ */
 public class FlashAttack extends CollidingGameObject {
 
     protected FlashAttack(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {

@@ -22,9 +22,11 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
     private Bat bat;
 
     /**
-     * Creates a new pinball
+     *      Creates a new pinball
      *
      * @param gameView this is for Initialising the ball
+     * @param objectsToCollideWith List of Collidable
+     *
      * @see GameView
      */
     public Pinball(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
@@ -144,8 +146,10 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
             this.flyFromLeftToRight = true;
         }
         if (this.flyFromLeftToRight == true) {
+            System.out.println("It should fly right");
             this.position.right(this.speedInPixel);
         } else if(this.flyFromLeftToRight == false) {
+            System.out.println("It should fly left");
             this.position.left(this.speedInPixel);
         }
     }
@@ -161,11 +165,5 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
     @Override
     public void addToCanvas() {
         this.gameView.addImageToCanvas("Pinball.png", this.position.x, this.position.y, this.size, this.rotation);
-    }
-
-    @Override
-
-    public String toString() {
-        return "Pinball: " + this.position;
     }
 }

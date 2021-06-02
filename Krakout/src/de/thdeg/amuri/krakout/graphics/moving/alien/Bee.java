@@ -16,6 +16,7 @@ public class Bee extends CollidingGameObject implements MovingGameObject {
      * This is the extension constructor, here you can find prebuild parameters.
      *
      * @param gameView this is for Initialising the game object
+     * @param objectsToCollideWith List of Collidable
      */
     public Bee(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
         super(gameView, objectsToCollideWith);
