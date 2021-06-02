@@ -7,7 +7,7 @@ import de.thdeg.amuri.krakout.gameview.GameView;
  */
 public abstract class LiveObject extends GameObject {
     protected boolean hit;
-    protected int oldLive;
+    protected int totalLive;
     protected int live;
 
     /**
@@ -18,7 +18,7 @@ public abstract class LiveObject extends GameObject {
     protected LiveObject(GameView gameView) {
         super(gameView);
         this.hit = false;
-        this.oldLive = 3;
+        this.totalLive = 3;
         this.live = 3;
     }
 
@@ -28,7 +28,41 @@ public abstract class LiveObject extends GameObject {
     public void setLive(int live) {
         this.live = live;
     }
+    /**
+     * Manipulate life to increase or decrease values
+     *
+     *
+     *
+     * @param live is the value to be removed
+     */
+    public void manipulateLive(int live) {
+        this.live += live;
+    }
+    /**
+     * Get Live of Object to determine how often it has to be hit, to be destroyed
+     *
+     * @return remaining Live of Brick
+     */
+    public int getLive(){
+        return this.live;
+    }
 
+    /**
+     * Get Total Live of Object to determine how many Live it should have
+     *
+     * @return Total Live of Brick
+     */
+    public int getTotalLive() {
+        return this.totalLive;
+    }
+    /**
+     * Manipulate maximum life to increase or decrease values
+     *
+     * @param totalLive is the value to be removed
+     */
+    public void manipulateTotalLive(int totalLive) {
+        this.totalLive += totalLive;
+    }
     /**
      * determines if got hit
      */
