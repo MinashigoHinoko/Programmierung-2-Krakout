@@ -76,7 +76,6 @@ public class GamePlayManager {
     }
     protected void generateHealth(){
         this.playerLive = new PlayerLive(this.gameView);
-<<<<<<< Updated upstream
         if (this.gameObjectManager.getPlayerLives().size() <= this.playerLive.getTotalLive()) {
             this.playerLive.manipulateTotalLive(2);
             if(this.gameObjectManager.getPlayerLives().isEmpty()) {
@@ -88,16 +87,6 @@ public class GamePlayManager {
             }
             int liveHelp= 3;
             for (int y=0; y < liveHelp;y++) {
-=======
-        if (this.gameObjectManager.getPlayerLives().size()< this.playerLive.getOldLive()) {
-            this.playerLive.manipulateOldLive(2);
-            int live = 0;
-            for (int x = 0; x < this.playerLive.getOldLive(); x++) {
-                this.gameObjectManager.getPlayerLives().add(this.playerLive);
-            }
-            int liveassist= 3;
-            for (int y=0; y < liveassist;y++) {
->>>>>>> Stashed changes
                 live += 1;
                 this.playerLive.setLive(live);
             }

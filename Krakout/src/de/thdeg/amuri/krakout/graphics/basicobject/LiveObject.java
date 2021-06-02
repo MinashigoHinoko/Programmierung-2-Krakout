@@ -63,21 +63,6 @@ public abstract class LiveObject extends GameObject {
     public void manipulateTotalLive(int totalLive) {
         this.totalLive += totalLive;
     }
-
-    public void manipulateLive(int live) {
-        this.live += live;
-    }
-    public int getLive(){
-        return this.live;
-    }
-
-    public int getOldLive() {
-        return this.oldLive;
-    }
-    public void manipulateOldLive(int oldLive) {
-        this.oldLive += oldLive;
-    }
-
     /**
      * determines if got hit
      */
