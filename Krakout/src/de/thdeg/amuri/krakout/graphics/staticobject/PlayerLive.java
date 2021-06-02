@@ -2,6 +2,7 @@ package de.thdeg.amuri.krakout.graphics.staticobject;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.LiveObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.movement.Position;
 
 
@@ -19,6 +20,16 @@ public class PlayerLive extends LiveObject {
         this.position = new Position(30, 0);
         this.size = 3;
         this.live = 0;
+    }
+
+    @Override
+    protected void updateHitBoxPosition() {
+
+    }
+
+    @Override
+    public void reactToCollision(CollidableGameObject otherObject) {
+
     }
 
     @Override

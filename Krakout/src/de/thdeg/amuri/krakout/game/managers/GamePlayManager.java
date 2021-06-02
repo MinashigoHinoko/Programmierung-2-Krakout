@@ -1,12 +1,14 @@
 package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
 import de.thdeg.amuri.krakout.graphics.staticobject.PlayerLive;
 import de.thdeg.amuri.krakout.movement.Position;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -43,10 +45,10 @@ public class GamePlayManager {
         if (ballCoolDown || this.gameObjectManager.getBalls().isEmpty()) {
             ballCall = !ballCall;
             if (ballCall) {
-                this.ball = new Pinball(this.gameView);
+                this.ball = new Pinball(this.gameView,gameObjectManager.getCollidableGameObjects());
                 this.ball.getPosition().x = startPosition.x + this.ball.getWidth() * this.ball.getSize();
                 this.ball.getPosition().y = startPosition.y;
-                ball.setGamePlayManager(this);
+                this.ball.setGamePlayManager(this);
                 this.gameObjectManager.getBalls().add(this.ball);
             }
         }
@@ -74,24 +76,26 @@ public class GamePlayManager {
             this.gameObjectManager.getAstronauts().removeFirst();
         }
     }
-    protected void generateHealth(){
+
+    protected void generateHealth() {
         this.playerLive = new PlayerLive(this.gameView);
         if (this.gameObjectManager.getPlayerLives().size() <= this.playerLive.getTotalLive()) {
             this.playerLive.manipulateTotalLive(2);
-            if(this.gameObjectManager.getPlayerLives().isEmpty()) {
+            if (this.gameObjectManager.getPlayerLives().isEmpty()) {
                 this.playerLive.manipulateLive(0);
             }
             int live = this.playerLive.getLive();
             for (int x = 0; x < this.playerLive.getTotalLive(); x++) {
                 this.gameObjectManager.getPlayerLives().add(this.playerLive);
             }
-            int liveHelp= 3;
-            for (int y=0; y < liveHelp;y++) {
+            int liveHelp = 3;
+            for (int y = 0; y < liveHelp; y++) {
                 live += 1;
                 this.playerLive.setLive(live);
             }
         }
     }
+
     /**
      * @param ball removes the ball once end of map reached.
      */
@@ -140,6 +144,7 @@ public class GamePlayManager {
     public void batMovingUp(double speedInPixel) {
         this.gameObjectManager.moveWorld(0, speedInPixel);
     }
+
     /**
      * When Bat touches World limit, moves whole world, so it seems not ot move
      *
@@ -148,6 +153,7 @@ public class GamePlayManager {
     public void batMovingDown(double speedInPixel) {
         this.gameObjectManager.moveWorld(0, -speedInPixel);
     }
+
     /**
      * When Bat touches World limit, moves whole world, so it seems not ot move
      *
@@ -156,6 +162,7 @@ public class GamePlayManager {
     public void batMovingLeft(double speedInPixel) {
         this.gameObjectManager.moveWorld(speedInPixel, 0);
     }
+
     /**
      * When Bat touches World limit, moves whole world, so it seems not ot move
      *

@@ -4,10 +4,12 @@ import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
 import de.thdeg.amuri.krakout.graphics.staticobject.Item;
 
+import java.util.Objects;
+
 /**
  * Main Object for the Movement of other objects
  */
-public class Position {
+public class Position implements Cloneable{
     /**
      * Initialising x for the x Position
      */
@@ -95,9 +97,34 @@ public class Position {
         this.y += pixel;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
+        return "Position (" + (int) Math.round(this.x) + ", " + (int) Math.round(this.y) + ")";
+    }
 
-        return "Position (" + (int) Math.round(this.x) + ", " + (int) Math.round(this.y) + ')';
+    @Override
+    public Position clone() {
+        Position clone = null;
+        try {
+            clone = (Position) super.clone();
+        } catch (CloneNotSupportedException ignored) {
+        }
+        return clone;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Position position = (Position) o;
+        return x == position.x && y == position.y;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

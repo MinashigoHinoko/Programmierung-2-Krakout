@@ -2,7 +2,7 @@ package de.thdeg.amuri.krakout.graphics.staticobject;
 
 
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.movement.Position;
 
@@ -10,12 +10,15 @@ import de.thdeg.amuri.krakout.movement.Position;
 /**
  * This Object will be used to create Items, these Items can be enemies,PowerUps or PowerDowns
  */
-public class Item extends GameObject {
+public class Item extends CollidableGameObject {
+    enum Status {
+        BOMB,DOUBLE,EXPAND,GLUE,MISSILE,SHIELD,MULTIPLY,HEALTHUP,SLOWBALL,NONE;
+    }
     //declares what kind of item it is
-    private int status;
     //Ammount of items
     private int maxAmmount;
     private String itemVisual;
+    private final Status status;
 
     /**
      * Constructor for filling in parameters and Building gameView
@@ -24,11 +27,24 @@ public class Item extends GameObject {
      */
     public Item(GameView gameView) {
         super(gameView);
-        this.status = 3;
+        this.status= Status.NONE;
         this.size = 2;
         this.width = 11;
         this.height = 24;
         this.itemVisual = "Herz.png";
+        this.hitBox.width = (int) (this.width * this.size);
+        this.hitBox.height = (int) (this.height * this.size);
+    }
+
+    @Override
+    protected void updateHitBoxPosition() {
+        this.hitBox.x = (int) this.position.x;
+        this.hitBox.y = (int) this.position.y;
+    }
+
+    @Override
+    public void reactToCollision(CollidableGameObject otherObject) {
+
     }
 
 
@@ -46,17 +62,8 @@ public class Item extends GameObject {
      *
      * @return status as number, this will convert in the Output to the actual Item
      */
-    public int getStatus() {
+    public Status getStatus() {
         return status;
-    }
-
-    /**
-     * To Input the Information, what kind of item manipulates the game/player
-     *
-     * @param status as number, this will convert in the Output to the actual Item
-     */
-    public void setStatus(int status) {
-        this.status = status;
     }
 
     /**
@@ -93,67 +100,7 @@ public class Item extends GameObject {
      * @param status takes the Status and looks for it in the switch
      * @return kind of Item
      */
-    private String itemStatus(int status) {
-        switch (status) {
-            case 0:
-                return "Bomb";      //Destroy surrounding bricks
-            case 1:
-                return "Double";    //Second Bat
-            case 2:
-                return "Expand";    //Big Bat
-            case 3:
-                return "Glue";      //Ball sticks to Bat
-            case 4:
-                return "Missile";   //Bat can shoot missiles
-            case 5:
-                return "Shield";    //Wall behind bat
-            case 6:
-                return "multiply";  //Doubles Points
-            case 7:
-                return "HealthUp";  //eXtra Life
-            case 8:
-                return "SlowBall";  //Slows Ball down
-            default:
-                return "none";
-
-        }
-    }
-
     private void giveItem(int status) {
-    }
-
-    @Override
-    public void updateStatus() {
-        switch (this.status) {
-            case 0:
-                this.itemVisual = "Bomb.png";      //Destroy surrounding bricks
-                break;
-            case 1:
-                this.itemVisual = "Double.png";    //Second Bat
-                break;
-            case 2:
-                this.itemVisual = "Expand.png";    //Big Bat
-                break;
-            case 3:
-                this.itemVisual = "Glue.png";      //Ball sticks to Bat
-                break;
-            case 4:
-                this.itemVisual = "Missile.png";   //Bat can shoot missiles
-                break;
-            case 5:
-                this.itemVisual = "Shield.png";    //Wall behind bat
-                break;
-            case 6:
-                this.itemVisual = "DoublePoints.png";  //Doubles Points
-                break;
-            case 7:
-                this.itemVisual = "eXtraLife";  //eXtra Life
-                break;
-            case 8:
-                this.itemVisual = "SlowBall.png";  //Slows Ball down
-                break;
-        }
-
     }
 
     @Override
@@ -162,7 +109,8 @@ public class Item extends GameObject {
     }
 
     @Override
-    public String toString() {
-        return "Item, " + itemStatus(this.status) + " : " + position;
+    protected void updateStatus() {
+
     }
 }
+

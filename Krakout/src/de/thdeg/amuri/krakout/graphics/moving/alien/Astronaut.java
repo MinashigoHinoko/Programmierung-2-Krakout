@@ -3,6 +3,7 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 
 /**
@@ -22,11 +23,19 @@ public class Astronaut extends AlienObject implements MovingGameObject {
         this.height = 35;
         this.size = 1.5;
         this.hit = false;
+        this.hitBox.width = (int) (this.width * this.size);
+        this.hitBox.height = (int) (this.height * this.size);
+    }
+
+    @Override
+    public void reactToCollision(CollidableGameObject otherObject) {
+
     }
 
     @Override
     public void addToCanvas() {
         this.gameView.addImageToCanvas("Astronaut.png", this.position.x, this.position.y, this.size, this.rotation);
+
     }
 
     @Override
