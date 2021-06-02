@@ -73,17 +73,17 @@ class GameObjectManager {
 
     protected void moveWorld(double adaptX, double adaptY) {
         for (GameObject gameObject : gameObjects) {
-            if (gameObject.getClass() != AlienObject.class
-                    && gameObject.getClass() != LiveObject.class
+            if (gameObject.getClass() != Face.class
+                    && gameObject.getClass() != Astronaut.class
                     && gameObject.getClass() != Bat.class
                     && gameObject.getClass() != Brick.class
                     && gameObject.getClass() != Background.class
                     && gameObject.getClass() != Pinball.class
-                    && gameObject.getClass() != Score.class) {
+                    && gameObject.getClass() != Score.class
+                    && gameObject.getClass() != PlayerLive.class) {
 
                 gameObject.adaptPosition(adaptX, adaptY);
             }
-            gameObject.adaptPosition(adaptX, adaptY);
         }
     }
 
@@ -91,10 +91,7 @@ class GameObjectManager {
         this.gameObjects.clear();
         this.alienObjects.clear();
         this.liveObjects.clear();
-        this.gameObjects.add(background);
-        this.gameObjects.addAll(this.bricks);
-        this.gameObjects.addAll(this.items);
-        this.gameObjects.addAll(this.balls);
+
         this.alienObjects.addAll(this.astronauts);
         this.alienObjects.addAll(this.bees);
         this.alienObjects.addAll(this.beeHives);
@@ -106,11 +103,18 @@ class GameObjectManager {
         this.alienObjects.addAll(this.flashes);
         this.alienObjects.addAll(this.timeOuts);
         this.alienObjects.addAll(this.twinBalls);
-        this.liveObjects.addAll(this.alienObjects);
+
         this.liveObjects.addAll(this.playerLives);
+        this.liveObjects.addAll(this.alienObjects);
+
+        this.gameObjects.add(this.background);
+        this.gameObjects.add(this.score);
+        this.gameObjects.add(this.bat);
+
         this.gameObjects.addAll(this.liveObjects);
-        this.gameObjects.add(score);
-        this.gameObjects.add(bat);
+        this.gameObjects.addAll(this.bricks);
+        this.gameObjects.addAll(this.items);
+        this.gameObjects.addAll(this.balls);
 
         //Top red line
         gameView.addLineToCanvas(0, 50, GameView.WIDTH, 50, 5, Color.RED);
@@ -120,7 +124,6 @@ class GameObjectManager {
         for (GameObject gameObject : gameObjects) {
             gameObject.update();
             gameObject.addToCanvas();
-
         }
     }
 

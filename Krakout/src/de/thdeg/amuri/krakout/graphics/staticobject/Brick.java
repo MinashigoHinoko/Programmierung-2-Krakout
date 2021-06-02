@@ -78,15 +78,6 @@ public class Brick extends LiveObject {
     }
 
     /**
-     * Get Live of Brick to determine how often it has to be hit, to be destroyed
-     *
-     * @return remaining Live of Brick
-     */
-    public int getLive() {
-        return this.live;
-    }
-
-    /**
      * Get the PowerUp Status to determine if it should drop a PowerUp or not
      *
      * @return if true, has PowerUp
