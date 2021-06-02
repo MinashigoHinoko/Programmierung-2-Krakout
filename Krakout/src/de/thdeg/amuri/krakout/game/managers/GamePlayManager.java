@@ -14,9 +14,9 @@ import java.util.Random;
 public class GamePlayManager {
     private final GameView gameView;
     private final GameObjectManager gameObjectManager;
+    private final Random random;
     private Pinball ball;
     private Face face;
-    private final Random random;
     private Astronaut astronaut;
     private boolean listHasBeenDeleted;
 
@@ -110,6 +110,14 @@ public class GamePlayManager {
         if (this.gameObjectManager.getFaces().size() > 30) {
             this.gameObjectManager.getFaces().removeFirst();
         }
+    }
+
+    public void batMovingLeft(double speedInPixel) {
+        this.gameObjectManager.moveWorld(speedInPixel, 0);
+    }
+
+    public void batMovingRight(double speedInPixel) {
+        this.gameObjectManager.moveWorld(-speedInPixel, 0);
     }
 
     protected void updateGamePlay() {

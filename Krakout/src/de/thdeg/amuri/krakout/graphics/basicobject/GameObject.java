@@ -67,6 +67,12 @@ public abstract class GameObject {
         this.updateStatus();
     }
 
+    public void adaptPosition(double adaptX, double adaptY) {
+        position.x += adaptX;
+        position.y += adaptY;
+    }
+
+
     /**
      * To transfer the Width of the Object for Hitbox calculation.
      *

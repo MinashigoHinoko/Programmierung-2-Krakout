@@ -71,6 +71,22 @@ class GameObjectManager {
         return bat;
     }
 
+    protected void moveWorld(double adaptX, double adaptY) {
+        for (GameObject gameObject : gameObjects) {
+            if (gameObject.getClass() != AlienObject.class
+                    && gameObject.getClass() != LiveObject.class
+                    && gameObject.getClass() != Bat.class
+                    && gameObject.getClass() != Brick.class
+                    && gameObject.getClass() != Background.class
+                    && gameObject.getClass() != Pinball.class
+                    && gameObject.getClass() != Score.class) {
+
+                gameObject.adaptPosition(adaptX, adaptY);
+            }
+            gameObject.adaptPosition(adaptX, adaptY);
+        }
+    }
+
     protected void updateGameObjects() {
         this.gameObjects.clear();
         this.alienObjects.clear();

@@ -26,8 +26,8 @@ public class Bat extends LiveObject {
     public Bat(GameView gameView) {
         super(gameView);
         this.live = oldLive;
-        this.width = 50;
-        this.height = 50;
+        this.width = 12;
+        this.height = 33;
         this.size = 50;
         this.bounceBall = false;
         this.hasPowerUp = false;
@@ -39,14 +39,22 @@ public class Bat extends LiveObject {
      * interacts with {@link Position} to move left when called
      */
     public void left() {
-        this.position.left(this.speedInPixel);
+        if (this.position.x - this.width > 0) {
+            this.position.left(this.speedInPixel);
+        } else {
+            this.gamePlayManager.batMovingLeft(speedInPixel);
+        }
     }
 
     /**
      * interacts with {@link Position} to move right when called
      */
     public void right() {
-        this.position.right(this.speedInPixel);
+        if (this.position.x + this.width <= this.gameView.WIDTH) {
+            this.position.right(this.speedInPixel);
+        } else {
+            this.gamePlayManager.batMovingRight(this.speedInPixel);
+        }
     }
 
     /**
