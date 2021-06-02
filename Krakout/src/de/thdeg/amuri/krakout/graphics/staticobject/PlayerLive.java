@@ -18,7 +18,7 @@ public class PlayerLive extends LiveObject {
         super(gameView);
         this.position = new Position(30, 0);
         this.size = 3;
-        this.live = 3;
+        this.live = 0;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class PlayerLive extends LiveObject {
     @Override
     public void addToCanvas() {
         position.x = 30;
-        for (int x = 0; x < this.oldLive; x++) {
+        for (int x = 0; x < this.totalLive; x++) {
             this.gameView.addImageToCanvas("Herzrahmen.png", this.position.x, this.position.y, this.size, this.rotation);
             position.x += 40;
         }
@@ -43,9 +43,6 @@ public class PlayerLive extends LiveObject {
 
     @Override
     public void updateStatus() {
-        if (hit) {
-            this.live = live - 1;
-        }
     }
 
 }
