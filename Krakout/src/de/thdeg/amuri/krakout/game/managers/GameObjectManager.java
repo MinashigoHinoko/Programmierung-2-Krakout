@@ -11,7 +11,6 @@ import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.alien.*;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -23,6 +22,10 @@ class GameObjectManager {
     private final Bat bat;
     private final Background background;
     private final Score score;
+    private final GameBorderTop gameBorderTop;
+    private final GameBorderBottom gameBorderBottom;
+    private final GameBorderLeft gameBorderLeft;
+    private final GameBorderRight gameBorderRight;
 
     private final LinkedList<GameObject> gameObjects;
     private final LinkedList<AlienObject> alienObjects;
@@ -51,7 +54,10 @@ class GameObjectManager {
         this.bat = new Bat(gameView);
         this.background = new Background(gameView);
         this.score = new Score(gameView);
-
+        this.gameBorderTop = new GameBorderTop(gameView);
+        this.gameBorderBottom = new GameBorderBottom(gameView);
+        this.gameBorderLeft = new GameBorderLeft(gameView);
+        this.gameBorderRight = new GameBorderRight(gameView);
         this.gameObjects = new LinkedList<>();
         this.alienObjects = new LinkedList<>();
         this.liveObjects = new LinkedList<>();
@@ -73,7 +79,6 @@ class GameObjectManager {
         this.bricks = new LinkedList<>();
         this.collidableGameObjects = new ArrayList<>();
         this.collidingGameObjects = new ArrayList<>();
-
     }
 
     protected Bat getBat() {
@@ -91,6 +96,10 @@ class GameObjectManager {
                     && gameObject.getClass() != Bee.class
                     && gameObject.getClass() != FlashAttack.class
                     && gameObject.getClass() != Score.class
+                    && gameObject.getClass() != GameBorderTop.class
+                    && gameObject.getClass() != GameBorderBottom.class
+                    && gameObject.getClass() != GameBorderLeft.class
+                    && gameObject.getClass() != GameBorderRight.class
                     && gameObject.getClass() != PlayerLive.class) {
 
                 gameObject.adaptPosition(adaptX, adaptY);
@@ -123,6 +132,10 @@ class GameObjectManager {
         this.collidingGameObjects.addAll(this.flashAttacks);
         this.collidingGameObjects.addAll(this.balls);
 
+        this.collidableGameObjects.add(this.gameBorderTop);
+        this.collidableGameObjects.add(this.gameBorderBottom);
+        this.collidableGameObjects.add(this.gameBorderLeft);
+        this.collidableGameObjects.add(this.gameBorderRight);
         this.collidableGameObjects.addAll(this.alienObjects);
         this.collidableGameObjects.addAll(this.collidingGameObjects);
 
@@ -134,11 +147,11 @@ class GameObjectManager {
         this.gameObjects.addAll(this.bricks);
         this.gameObjects.addAll(this.items);
         this.gameObjects.addAll(this.balls);
+        this.gameObjects.add(this.gameBorderTop);
+        this.gameObjects.add(this.gameBorderBottom);
+        this.gameObjects.add(this.gameBorderLeft);
+        this.gameObjects.add(this.gameBorderRight);
 
-        //Top red line
-        gameView.addLineToCanvas(0, 50, GameView.WIDTH, 50, 5, Color.RED);
-        //Bottom red line
-        gameView.addLineToCanvas(0, GameView.HEIGHT - 50, GameView.WIDTH, GameView.HEIGHT - 50, 5, Color.RED);
         //Printing to Screen
         for (GameObject gameObject : gameObjects) {
             gameObject.update();

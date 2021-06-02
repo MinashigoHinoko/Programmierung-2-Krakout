@@ -38,9 +38,6 @@ public class GamePlayManager {
     public void shootPinball(Position startPosition) {
         boolean ballCoolDown = false;
         boolean ballCall = false;
-        ArrayList<CollidableGameObject> collidableGameObjects = new ArrayList<>();
-        collidableGameObjects.add(gameObjectManager.getBat());
-        collidableGameObjects.addAll(gameObjectManager.getBalls());
         if (this.gameView.timerExpired("BallCoolDown", "GamePlayManager")) {
             this.gameView.setTimer("BallCoolDown", "GamePlayManager", 300);
             ballCoolDown = !ballCoolDown;
@@ -48,10 +45,10 @@ public class GamePlayManager {
         if (ballCoolDown || this.gameObjectManager.getBalls().isEmpty()) {
             ballCall = !ballCall;
             if (ballCall) {
-                this.ball = new Pinball(this.gameView,collidableGameObjects);
+                this.ball = new Pinball(this.gameView,gameObjectManager.getCollidableGameObjects());
                 this.ball.getPosition().x = startPosition.x + this.ball.getWidth() * this.ball.getSize();
                 this.ball.getPosition().y = startPosition.y;
-                ball.setGamePlayManager(this);
+                this.ball.setGamePlayManager(this);
                 this.gameObjectManager.getBalls().add(this.ball);
             }
         }

@@ -4,8 +4,7 @@ import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
-import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
-import de.thdeg.amuri.krakout.graphics.staticobject.Item;
+import de.thdeg.amuri.krakout.graphics.staticobject.*;
 import de.thdeg.amuri.krakout.movement.Position;
 
 import java.util.ArrayList;
@@ -18,6 +17,9 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
     private boolean flyFromLeftToRight;
     private Position bouncePosition;
     private Position bounceBrickPosition;
+    private GameBorderRight gameBorderRight;
+    private GameBorderLeft gameBorderLeft;
+    private Bat bat;
 
     /**
      * Creates a new pinball
@@ -27,6 +29,8 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
      */
     public Pinball(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
         super(gameView, objectsToCollideWith);
+        this.gameBorderRight = (GameBorderRight)objectsToCollideWith.get(3);
+        this.gameBorderLeft = (GameBorderLeft)objectsToCollideWith.get(2);
         this.position = new Position(100, 100);
         this.bouncePosition = new Position(0, 0);
         this.bounceBrickPosition = new Position(0, 0);
@@ -35,7 +39,7 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         super.width = 10;
         this.height = 10;
         this.ammount = 0;
-        this.speedInPixel = 3;
+        this.speedInPixel = 2;
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
     }
@@ -133,29 +137,22 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
 
     @Override
     public void updatePosition() {
-        /* WIP
-        if (this.position.x >= GameView.WIDTH - this.width * this.size || (this.position.y == this.bouncePosition.y && this.position.x >= this.bouncePosition.x - this.width * this.size) || this.position.x >= this.bounceBrickPosition.x + this.width * this.size) {
-            this.flyFromLeftToRight = false;
-        } else if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) - this.width * this.size || (this.position.y == this.bouncePosition.y && this.position.x <= this.bouncePosition.x - this.width * this.size) || this.position.x <= this.bounceBrickPosition.x - this.width * this.size) {
-            this.flyFromLeftToRight = true;
-        }
-         */
 
-        if (this.position.x >= GameView.WIDTH - this.width * this.size) {
+        if (collidesWith(this.gameBorderRight)) {
             this.flyFromLeftToRight = false;
-        } else if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) + this.width * this.size) {
+        } else if (collidesWith(this.gameBorderLeft)) {
             this.flyFromLeftToRight = true;
         }
         if (this.flyFromLeftToRight == true) {
             this.position.right(this.speedInPixel);
-        } else if (this.flyFromLeftToRight == false) {
+        } else  {
             this.position.left(this.speedInPixel);
         }
     }
 
     @Override
     public void updateStatus() {
-        if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) + this.width * this.size) {
+        if (collidesWith(this.gameBorderLeft)) {
             this.gamePlayManager.destroyPinball(this);
         }
 
