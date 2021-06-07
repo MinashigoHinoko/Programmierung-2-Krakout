@@ -34,8 +34,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         this.gameBorderRight = (GameBorderRight)objectsToCollideWith.get(3);
         this.gameBorderLeft = (GameBorderLeft)objectsToCollideWith.get(2);
         this.position = new Position(100, 100);
-        this.bouncePosition = new Position(0, 0);
-        this.bounceBrickPosition = new Position(0, 0);
         this.size = 2;
         this.flyFromLeftToRight = true;
         super.width = 10;
@@ -139,7 +137,7 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
 
     @Override
     public void updatePosition() {
-
+/*
         if (collidesWith(this.gameBorderRight)) {
             this.flyFromLeftToRight = false;
         } else if (collidesWith(this.gameBorderLeft)) {
@@ -152,6 +150,8 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
             System.out.println("It should fly left");
             this.position.left(this.speedInPixel);
         }
+
+ */
     }
 
     @Override
@@ -167,3 +167,4 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         this.gameView.addImageToCanvas("Pinball.png", this.position.x, this.position.y, this.size, this.rotation);
     }
 }
+
