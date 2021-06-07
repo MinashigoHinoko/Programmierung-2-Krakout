@@ -19,7 +19,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
     private Position bounceBrickPosition;
     private GameBorderRight gameBorderRight;
     private GameBorderLeft gameBorderLeft;
-    private Bat bat;
 
     /**
      *      Creates a new pinball
@@ -52,7 +51,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
 
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
-        this.position.right(this.speedInPixel);
     }
 
     /**
@@ -137,21 +135,17 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
 
     @Override
     public void updatePosition() {
-/*
+
         if (collidesWith(this.gameBorderRight)) {
             this.flyFromLeftToRight = false;
         } else if (collidesWith(this.gameBorderLeft)) {
             this.flyFromLeftToRight = true;
         }
         if (this.flyFromLeftToRight == true) {
-            System.out.println("It should fly right");
             this.position.right(this.speedInPixel);
         } else if(this.flyFromLeftToRight == false) {
-            System.out.println("It should fly left");
             this.position.left(this.speedInPixel);
         }
-
- */
     }
 
     @Override
