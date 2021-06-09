@@ -9,7 +9,7 @@ public class MovementPatterns {
     private final HashMap<String, ArrayList<Position>> hashMap;
 
     private final ArrayList<Position> square;
-    private final ArrayList<Position> zigzag;
+    private final ArrayList<Position> zigZag;
 
     private final Random random;
 
