@@ -134,9 +134,7 @@ public class GamePlayManager {
             this.gameObjectManager.getFaces().removeFirst();
         }
         if (!this.gameObjectManager.getFaces().isEmpty()){
-            System.out.println("First "+gameObjectManager.getCollidableGameObjects().size());
             gameObjectManager.getCollidableGameObjects().addAll(gameObjectManager.getFaces());
-            System.out.println("Second " +gameObjectManager.getCollidableGameObjects().size());
         }
     }
 
