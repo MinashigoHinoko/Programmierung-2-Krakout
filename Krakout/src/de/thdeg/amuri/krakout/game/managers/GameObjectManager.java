@@ -7,7 +7,9 @@ import de.thdeg.amuri.krakout.graphics.basicobject.LiveObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
+import de.thdeg.amuri.krakout.graphics.moving.FollowerBall;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
+import de.thdeg.amuri.krakout.graphics.moving.RandomBall;
 import de.thdeg.amuri.krakout.graphics.moving.alien.*;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
 
@@ -26,6 +28,8 @@ import java.util.LinkedList;
     private final GameBorderBottom gameBorderBottom;
     private final GameBorderLeft gameBorderLeft;
     private final GameBorderRight gameBorderRight;
+    private final RandomBall randomBall;
+    private final FollowerBall followerBall;
 
     private final LinkedList<GameObject> gameObjects;
     private final LinkedList<AlienObject> alienObjects;
@@ -58,6 +62,9 @@ import java.util.LinkedList;
         this.gameBorderBottom = new GameBorderBottom(gameView);
         this.gameBorderLeft = new GameBorderLeft(gameView);
         this.gameBorderRight = new GameBorderRight(gameView);
+        this.randomBall = new RandomBall(gameView);
+        this.followerBall = new FollowerBall(gameView,randomBall);
+
         this.gameObjects = new LinkedList<>();
         this.alienObjects = new LinkedList<>();
         this.liveObjects = new LinkedList<>();
@@ -143,6 +150,8 @@ import java.util.LinkedList;
         this.gameObjects.add(this.background);
         this.gameObjects.add(this.score);
         this.gameObjects.add(this.bat);
+        this.gameObjects.add(this.randomBall);
+        this.gameObjects.add(this.followerBall);
 
         this.gameObjects.addAll(this.liveObjects);
         this.gameObjects.addAll(this.bricks);

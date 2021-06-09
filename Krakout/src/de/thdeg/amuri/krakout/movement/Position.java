@@ -96,6 +96,15 @@ public class Position implements Cloneable{
     public void down(double pixel) {
         this.y += pixel;
     }
+    /**
+     * Calculates the distance to any other position.
+     *
+     * @param other Position to calculate the distance to.
+     * @return The distance.
+     */
+    public double distance(Position other) {
+        return Math.sqrt(Math.pow((x - other.x), 2) + Math.pow((y - other.y), 2));
+    }
 
     /**
      * {@inheritDoc}

@@ -131,7 +131,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         }
             for (int x = 0; x < collideObject.size(); x++) {
                 if (collidesWith(collideObject.get(x))) {
-                    System.out.println(collideObject.get(x));
                     if (this.flyFromLeftToRight == true) {
                         this.flyFromLeftToRight = false;
                     } else if (this.flyFromLeftToRight == false) {

@@ -177,7 +177,7 @@ public class GamePlayManager {
 
     protected void updateGamePlay() {
         generateHealth();
-        spawnAndDestroyFace();
-        spawnAndDestroyAstronaut();
+        //spawnAndDestroyFace();
+        //spawnAndDestroyAstronaut();
     }
 }

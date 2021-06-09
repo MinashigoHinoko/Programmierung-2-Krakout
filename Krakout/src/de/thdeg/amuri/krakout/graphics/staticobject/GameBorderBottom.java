@@ -25,7 +25,7 @@ public class GameBorderBottom extends CollidableGameObject {
 
     @Override
     public void addToCanvas() {
-        gameView.addRectangleToCanvas(this.position.x,this.position.y,this.width,this.height,this.size,true,Color.GREEN);
+        gameView.addRectangleToCanvas(this.position.x,this.position.y,this.width,this.height,this.size,true,Color.RED);
     }
 
     @Override
