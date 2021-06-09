@@ -2,7 +2,6 @@ package de.thdeg.amuri.krakout.graphics.basicobject;
 
 import de.thdeg.amuri.krakout.game.managers.GamePlayManager;
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.staticobject.Background;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
@@ -15,7 +14,7 @@ import java.util.Objects;
  * Super of {@link Pinball}, {@link Background}, {@link Brick} and {@link Item}
  * acts as extension of these Classes to include the shared Informations
  */
-public abstract class GameObject implements Cloneable{
+public abstract class GameObject implements Cloneable {
     protected final GameView gameView;
     protected Position position;
     protected double size;
@@ -115,6 +114,7 @@ public abstract class GameObject implements Cloneable{
      */
     public void addHitboxToCanvas() {
     }
+
     @Override
     public GameObject clone() {
         GameObject gameObject = null;
@@ -125,6 +125,7 @@ public abstract class GameObject implements Cloneable{
         }
         return gameObject;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -135,10 +136,12 @@ public abstract class GameObject implements Cloneable{
                 && Double.compare(that.size, size) == 0 && width == that.width
                 && height == that.height && position.equals(that.position);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(position, speedInPixel, rotation, size, width, height);
     }
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + ": " + position;

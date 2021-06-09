@@ -7,7 +7,9 @@ import de.thdeg.amuri.krakout.movement.Position;
 
 import java.awt.*;
 
-/** Ball who follows. */
+/**
+ * Ball who follows.
+ */
 public class FollowerBall extends GameObject implements MovingGameObject {
 
     private enum Status {FOLLOW, CENTER, HIDE}

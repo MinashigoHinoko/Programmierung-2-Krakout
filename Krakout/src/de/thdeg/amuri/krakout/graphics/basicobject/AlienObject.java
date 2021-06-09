@@ -10,7 +10,7 @@ import java.util.Random;
 /**
  * Object for every Alien class
  */
-public abstract class AlienObject extends LiveObject implements MovingGameObject,Cloneable{
+public abstract class AlienObject extends LiveObject implements MovingGameObject, Cloneable {
     private double x;
     private boolean endOfScreenRight;
     private boolean endOfScreenLeft;
@@ -100,6 +100,7 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
 
 
     }
+
     @Override
     public CollidableGameObject clone() {
         AlienObject alienObject = null;
@@ -107,6 +108,7 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
         alienObject.position = position.clone();
         return alienObject;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -117,6 +119,7 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
                 && Double.compare(that.size, size) == 0 && width == that.width
                 && height == that.height && position.equals(that.position);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(position, speedInPixel, rotation, size, width, height);

@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Main Object for the Movement of other objects
  */
-public class Position implements Cloneable{
+public class Position implements Cloneable {
     /**
      * Initialising x for the x Position
      */
@@ -96,6 +96,7 @@ public class Position implements Cloneable{
     public void down(double pixel) {
         this.y += pixel;
     }
+
     /**
      * Calculates the distance to any other position.
      *
@@ -123,6 +124,7 @@ public class Position implements Cloneable{
         }
         return clone;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -132,6 +134,7 @@ public class Position implements Cloneable{
         Position position = (Position) o;
         return x == position.x && y == position.y;
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(x, y);

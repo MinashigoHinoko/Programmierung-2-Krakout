@@ -12,11 +12,11 @@ public class GameBorderRight extends CollidableGameObject {
      */
     public GameBorderRight(GameView gameView) {
         super(gameView);
-        this.position.x=GameView.WIDTH-6;
-        this.position.y=56;
-        this.size=1;
-        this.width=5;
-        this.height= GameView.HEIGHT-56;
+        this.position.x = GameView.WIDTH - 6;
+        this.position.y = 56;
+        this.size = 1;
+        this.width = 5;
+        this.height = GameView.HEIGHT - 56;
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
     }

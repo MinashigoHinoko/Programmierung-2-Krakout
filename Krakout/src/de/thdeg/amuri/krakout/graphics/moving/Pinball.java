@@ -16,16 +16,15 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
     private final int ammount;
     private boolean flyFromLeftToRight;
     private GameBorderTop gameBorderTop;
-    private GameBorderBottom  gameBorderBottom;
+    private GameBorderBottom gameBorderBottom;
     private GameBorderLeft gameBorderLeft;
     private ArrayList<CollidableGameObject> collideObject;
 
     /**
-     *      Creates a new pinball
+     * Creates a new pinball
      *
-     * @param gameView this is for Initialising the ball
+     * @param gameView             this is for Initialising the ball
      * @param objectsToCollideWith List of Collidable
-     *
      * @see GameView
      */
     public Pinball(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
@@ -129,23 +128,24 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         if (collidesWith(gameBorderBottom)) {
             this.position.up(this.speedInPixel);
         }
-            for (int x = 0; x < collideObject.size(); x++) {
-                if (collidesWith(collideObject.get(x))) {
-                    if (this.flyFromLeftToRight == true) {
-                        this.flyFromLeftToRight = false;
-                    } else if (this.flyFromLeftToRight == false) {
-                        this.flyFromLeftToRight = true;
-                    }
+        for (int x = 0; x < collideObject.size(); x++) {
+            if (collidesWith(collideObject.get(x))) {
+                if (this.flyFromLeftToRight == true) {
+                    this.flyFromLeftToRight = false;
+                } else if (this.flyFromLeftToRight == false) {
+                    this.flyFromLeftToRight = true;
                 }
             }
+        }
 
 
         if (this.flyFromLeftToRight == true) {
             this.position.right(this.speedInPixel);
-        } else if(this.flyFromLeftToRight == false) {
+        } else if (this.flyFromLeftToRight == false) {
             this.position.left(this.speedInPixel);
         }
     }
+
     @Override
     public void updateStatus() {
         if (collidesWith(gameBorderLeft)) {

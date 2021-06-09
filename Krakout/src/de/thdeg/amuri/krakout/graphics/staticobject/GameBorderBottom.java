@@ -14,18 +14,18 @@ public class GameBorderBottom extends CollidableGameObject {
      */
     public GameBorderBottom(GameView gameView) {
         super(gameView);
-        this.position.x=0;
-        this.position.y=GameView.HEIGHT-50;
-        this.size=5;
-        this.width=GameView.WIDTH;
-        this.height=1;
+        this.position.x = 0;
+        this.position.y = GameView.HEIGHT - 50;
+        this.size = 5;
+        this.width = GameView.WIDTH;
+        this.height = 1;
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
     }
 
     @Override
     public void addToCanvas() {
-        gameView.addRectangleToCanvas(this.position.x,this.position.y,this.width,this.height,this.size,true,Color.RED);
+        gameView.addRectangleToCanvas(this.position.x, this.position.y, this.width, this.height, this.size, true, Color.RED);
     }
 
     @Override

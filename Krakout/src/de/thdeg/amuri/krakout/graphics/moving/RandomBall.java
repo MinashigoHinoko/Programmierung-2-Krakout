@@ -11,7 +11,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-/** Ball with random movement. */
+/**
+ * Ball with random movement.
+ */
 public class RandomBall extends GameObject implements MovingGameObject {
     private final Position targetPosition;
     private final Random random;
@@ -25,7 +27,7 @@ public class RandomBall extends GameObject implements MovingGameObject {
      */
     public RandomBall(GameView gameView) {
         super(gameView);
-        this.position = new Position(0,0);
+        this.position = new Position(0, 0);
         this.targetPosition = new Position(800, 200);
         this.random = new Random();
         this.patternList = new ArrayList<>();
@@ -65,8 +67,8 @@ public class RandomBall extends GameObject implements MovingGameObject {
         gameView.addOvalToCanvas(targetPosition.x, targetPosition.y, size, size, 2, false, Color.WHITE);
     }
 
-    public void setPatternTargetPosition(){
-        if (this.patternList.size() == 0){
+    public void setPatternTargetPosition() {
+        if (this.patternList.size() == 0) {
             this.patternList.addAll(this.movementPatterns.getPattern(this.movementPatterns.getRandomPattern()));
         }
 

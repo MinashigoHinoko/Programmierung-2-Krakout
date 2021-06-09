@@ -12,8 +12,9 @@ import de.thdeg.amuri.krakout.movement.Position;
  */
 public class Item extends CollidableGameObject {
     enum Status {
-        BOMB,DOUBLE,EXPAND,GLUE,MISSILE,SHIELD,MULTIPLY,HEALTHUP,SLOWBALL,NONE;
+        BOMB, DOUBLE, EXPAND, GLUE, MISSILE, SHIELD, MULTIPLY, HEALTHUP, SLOWBALL, NONE;
     }
+
     //declares what kind of item it is
     //Ammount of items
     private int maxAmmount;
@@ -27,7 +28,7 @@ public class Item extends CollidableGameObject {
      */
     public Item(GameView gameView) {
         super(gameView);
-        this.status= Status.NONE;
+        this.status = Status.NONE;
         this.size = 2;
         this.width = 11;
         this.height = 24;

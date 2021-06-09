@@ -82,6 +82,7 @@ public abstract class LiveObject extends CollidableGameObject implements Cloneab
         liveObject.position = position.clone();
         return liveObject;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,6 +93,7 @@ public abstract class LiveObject extends CollidableGameObject implements Cloneab
                 && Double.compare(that.size, size) == 0 && width == that.width
                 && height == that.height && position.equals(that.position);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(position, speedInPixel, rotation, size, width, height);

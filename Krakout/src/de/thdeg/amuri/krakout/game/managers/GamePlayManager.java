@@ -1,14 +1,12 @@
 package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
 import de.thdeg.amuri.krakout.graphics.staticobject.PlayerLive;
 import de.thdeg.amuri.krakout.movement.Position;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -45,7 +43,7 @@ public class GamePlayManager {
         if (ballCoolDown || this.gameObjectManager.getBalls().isEmpty()) {
             ballCall = !ballCall;
             if (ballCall) {
-                this.ball = new Pinball(this.gameView,gameObjectManager.getCollidableGameObjects());
+                this.ball = new Pinball(this.gameView, gameObjectManager.getCollidableGameObjects());
                 this.ball.getPosition().x = startPosition.x + this.ball.getWidth() * this.ball.getSize();
                 this.ball.getPosition().y = startPosition.y;
                 this.ball.setGamePlayManager(this);
@@ -133,7 +131,7 @@ public class GamePlayManager {
         if (this.gameObjectManager.getFaces().size() > 30) {
             this.gameObjectManager.getFaces().removeFirst();
         }
-        if (!this.gameObjectManager.getFaces().isEmpty()){
+        if (!this.gameObjectManager.getFaces().isEmpty()) {
             gameObjectManager.getCollidableGameObjects().addAll(gameObjectManager.getFaces());
         }
     }

@@ -53,12 +53,13 @@ public abstract class CollidableGameObject extends GameObject implements Cloneab
      */
     @Override
     public CollidableGameObject clone() {
-            return (CollidableGameObject) super.clone();
+        return (CollidableGameObject) super.clone();
     }
 
 
     /**
      * Compares the objects hitboxes.
+     *
      * @param o object.
      * @return true or false if equal or not equal.
      */
@@ -70,8 +71,10 @@ public abstract class CollidableGameObject extends GameObject implements Cloneab
         CollidableGameObject that = (CollidableGameObject) o;
         return Objects.equals(hitBox, that.hitBox);
     }
+
     /**
      * Creates hashcode.
+     *
      * @return hashcode.
      */
     @Override

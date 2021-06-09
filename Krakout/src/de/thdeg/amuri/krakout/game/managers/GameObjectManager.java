@@ -19,7 +19,7 @@ import java.util.LinkedList;
 /**
  * Manager of all Game Object Visuals
  */
- class GameObjectManager {
+class GameObjectManager {
     private final GameView gameView;
     private final Bat bat;
     private final Background background;
@@ -63,7 +63,7 @@ import java.util.LinkedList;
         this.gameBorderLeft = new GameBorderLeft(gameView);
         this.gameBorderRight = new GameBorderRight(gameView);
         this.randomBall = new RandomBall(gameView);
-        this.followerBall = new FollowerBall(gameView,randomBall);
+        this.followerBall = new FollowerBall(gameView, randomBall);
 
         this.gameObjects = new LinkedList<>();
         this.alienObjects = new LinkedList<>();
