@@ -6,7 +6,6 @@ import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
 import de.thdeg.amuri.krakout.movement.Position;
 
 import java.awt.*;
-import java.util.Random;
 
 /** Ball who follows. */
 public class FollowerBall extends GameObject implements MovingGameObject {

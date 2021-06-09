@@ -4,15 +4,19 @@ package de.thdeg.amuri.krakout.graphics.moving;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
+import de.thdeg.amuri.krakout.movement.MovementPatterns;
 import de.thdeg.amuri.krakout.movement.Position;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 /** Ball with random movement. */
 public class RandomBall extends GameObject implements MovingGameObject {
     private final Position targetPosition;
     private final Random random;
+    private ArrayList<Position> patternList;
+    private final MovementPatterns movementPatterns;
 
     /**
      * Creates the GameObject with the GameView to be displayed on.
@@ -24,6 +28,8 @@ public class RandomBall extends GameObject implements MovingGameObject {
         this.position = new Position(0,0);
         this.targetPosition = new Position(800, 200);
         this.random = new Random();
+        this.patternList = new ArrayList<>();
+        this.movementPatterns = new MovementPatterns();
         this.size = 50;
         this.speedInPixel = 4;
     }
@@ -36,13 +42,13 @@ public class RandomBall extends GameObject implements MovingGameObject {
             position.down((targetPosition.y - position.y) / distance * speedInPixel);
         } else {
             setRandomTargetPosition();
+            setPatternTargetPosition();
         }
     }
 
 
     @Override
     protected void updateStatus() {
-
     }
 
     /**
@@ -57,5 +63,15 @@ public class RandomBall extends GameObject implements MovingGameObject {
     public void addToCanvas() {
         gameView.addOvalToCanvas(position.x, position.y, size, size, 2, true, Color.YELLOW);
         gameView.addOvalToCanvas(targetPosition.x, targetPosition.y, size, size, 2, false, Color.WHITE);
+    }
+
+    public void setPatternTargetPosition(){
+        if (this.patternList.size() == 0){
+            this.patternList.addAll(this.movementPatterns.getPattern(this.movementPatterns.getRandomPattern()));
+        }
+
+        this.targetPosition.x = this.patternList.get(0).x;
+        this.targetPosition.y = this.patternList.get(0).y;
+        this.patternList.remove(0);
     }
 }
