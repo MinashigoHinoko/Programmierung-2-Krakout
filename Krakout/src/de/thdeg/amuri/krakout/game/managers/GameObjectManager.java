@@ -17,7 +17,7 @@ import java.util.LinkedList;
 /**
  * Manager of all Game Object Visuals
  */
-class GameObjectManager {
+ class GameObjectManager {
     private final GameView gameView;
     private final Bat bat;
     private final Background background;
@@ -138,6 +138,7 @@ class GameObjectManager {
         this.collidableGameObjects.add(this.gameBorderRight);
         this.collidableGameObjects.addAll(this.alienObjects);
         this.collidableGameObjects.addAll(this.collidingGameObjects);
+        this.collidableGameObjects.add(this.bat);
 
         this.gameObjects.add(this.background);
         this.gameObjects.add(this.score);
@@ -151,7 +152,6 @@ class GameObjectManager {
         this.gameObjects.add(this.gameBorderBottom);
         this.gameObjects.add(this.gameBorderLeft);
         this.gameObjects.add(this.gameBorderRight);
-
         //Printing to Screen
         for (GameObject gameObject : gameObjects) {
             gameObject.update();

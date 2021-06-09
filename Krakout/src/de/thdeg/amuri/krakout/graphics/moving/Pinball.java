@@ -15,10 +15,10 @@ import java.util.ArrayList;
 public class Pinball extends CollidingGameObject implements MovingGameObject {
     private final int ammount;
     private boolean flyFromLeftToRight;
-    private Position bouncePosition;
-    private Position bounceBrickPosition;
-    private GameBorderRight gameBorderRight;
+    private GameBorderTop gameBorderTop;
+    private GameBorderBottom  gameBorderBottom;
     private GameBorderLeft gameBorderLeft;
+    private ArrayList<CollidableGameObject> collideObject;
 
     /**
      *      Creates a new pinball
@@ -30,8 +30,11 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
      */
     public Pinball(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
         super(gameView, objectsToCollideWith);
-        this.gameBorderRight = (GameBorderRight)objectsToCollideWith.get(3);
-        this.gameBorderLeft = (GameBorderLeft)objectsToCollideWith.get(2);
+        this.collideObject = new ArrayList<>();
+        this.collideObject.addAll(objectsToCollideWith);
+        this.gameBorderLeft = (GameBorderLeft) objectsToCollideWith.get(2);
+        this.gameBorderTop = (GameBorderTop) objectsToCollideWith.get(0);
+        this.gameBorderBottom = (GameBorderBottom) objectsToCollideWith.get(1);
         this.position = new Position(100, 100);
         this.size = 2;
         this.flyFromLeftToRight = true;
@@ -51,24 +54,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
 
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
-    }
-
-    /**
-     * needed for tracking Position of the {@link Bat}
-     *
-     * @param bouncePosition as the Position (x,y) of the {@link Bat} so the ball bounces off
-     */
-    public void setBouncePosition(Position bouncePosition) {
-        this.bouncePosition = bouncePosition;
-    }
-
-    /**
-     * needed for tracking Position of the {@link Brick
-     *
-     * @param bounceBrickPosition as the Position (x,y) of the {@link Brick} so the ball bounces off
-     */
-    public void setBounceBrickPosition(Position bounceBrickPosition) {
-        this.bounceBrickPosition = bounceBrickPosition;
     }
 
     /**
@@ -135,22 +120,36 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
 
     @Override
     public void updatePosition() {
-
-        if (collidesWith(this.gameBorderRight)) {
-            this.flyFromLeftToRight = false;
-        } else if (collidesWith(this.gameBorderLeft)) {
-            this.flyFromLeftToRight = true;
+        if (collidesWith(gameBorderLeft)) {
+            this.gamePlayManager.destroyPinball(this);
         }
+        if (collidesWith(gameBorderTop)) {
+            this.position.down(this.speedInPixel);
+        }
+        if (collidesWith(gameBorderBottom)) {
+            this.position.up(this.speedInPixel);
+        }
+            for (int x = 0; x < collideObject.size(); x++) {
+                if (collidesWith(collideObject.get(x))) {
+                    System.out.println(collideObject.get(x));
+                    if (this.flyFromLeftToRight == true) {
+                        this.flyFromLeftToRight = false;
+                    } else if (this.flyFromLeftToRight == false) {
+                        this.flyFromLeftToRight = true;
+                    }
+                }
+            }
+
+
         if (this.flyFromLeftToRight == true) {
             this.position.right(this.speedInPixel);
         } else if(this.flyFromLeftToRight == false) {
             this.position.left(this.speedInPixel);
         }
     }
-
     @Override
     public void updateStatus() {
-        if (collidesWith(this.gameBorderLeft)) {
+        if (collidesWith(gameBorderLeft)) {
             this.gamePlayManager.destroyPinball(this);
         }
 
