@@ -67,6 +67,9 @@ public class RandomBall extends GameObject implements MovingGameObject {
         gameView.addOvalToCanvas(targetPosition.x, targetPosition.y, size, size, 2, false, Color.WHITE);
     }
 
+    /**
+     * Applies randomised Pattern, replaces targetposition with the pattern and resets the list for next usage.
+     */
     public void setPatternTargetPosition() {
         if (this.patternList.size() == 0) {
             this.patternList.addAll(this.movementPatterns.getPattern(this.movementPatterns.getRandomPattern()));

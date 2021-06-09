@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+
+/**
+ * Movement Patterns for {@link de.thdeg.amuri.krakout.graphics.moving.RandomBall}
+ */
 public class MovementPatterns {
     private final HashMap<String, ArrayList<Position>> hashMap;
 
@@ -13,6 +17,9 @@ public class MovementPatterns {
 
     private final Random random;
 
+    /**
+     * Movement Patterns and their hasMaps
+     */
     public MovementPatterns() {
         this.hashMap = new HashMap<>();
         this.square =
@@ -21,7 +28,7 @@ public class MovementPatterns {
                         new Position(930, 30),
                         new Position(930, 510),
                         new Position(30, 510)));
-        this.zigzag =
+        this.zigZag =
                 new ArrayList<>(List.of(
                         new Position(300, 200),
                         new Position(400, 340),
@@ -30,10 +37,13 @@ public class MovementPatterns {
                         new Position(700, 200),
                         new Position(800, 340)));
         this.hashMap.put("Square", square);
-        this.hashMap.put("ZigZag", zigzag);
+        this.hashMap.put("ZigZag", zigZag);
         this.random = new Random();
     }
 
+    /**
+     * @return Random Pattern
+     */
     public String getRandomPattern() {
         if (random.nextBoolean()) {
             return "Square";
@@ -42,6 +52,10 @@ public class MovementPatterns {
         }
     }
 
+    /**
+     * @param pattern
+     * @return associated pattern of the hashMap
+     */
     public ArrayList getPattern(String pattern) {
         return hashMap.get(pattern);
     }
