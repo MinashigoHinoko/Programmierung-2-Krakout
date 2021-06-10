@@ -51,10 +51,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         this.hitBox.y = (int) this.position.y;
     }
 
-    @Override
-    public void reactToCollision(CollidableGameObject otherObject) {
-    }
-
     /**
      * Outputs the Speed in pixel for the Items
      *
@@ -116,7 +112,14 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
     private void bounce() {
     }
 
-
+    @Override
+    public void reactToCollision(CollidableGameObject otherObject) {
+            if (this.flyFromLeftToRight == true) {
+                this.flyFromLeftToRight = false;
+            } else if (this.flyFromLeftToRight == false) {
+                this.flyFromLeftToRight = true;
+            }
+    }
     @Override
     public void updatePosition() {
         if (collidesWith(gameBorderLeft)) {
@@ -128,16 +131,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         if (collidesWith(gameBorderBottom)) {
             this.position.up(this.speedInPixel);
         }
-        for (int x = 0; x < collideObject.size(); x++) {
-            if (collidesWith(collideObject.get(x))) {
-                if (this.flyFromLeftToRight == true) {
-                    this.flyFromLeftToRight = false;
-                } else if (this.flyFromLeftToRight == false) {
-                    this.flyFromLeftToRight = true;
-                }
-            }
-        }
-
 
         if (this.flyFromLeftToRight == true) {
             this.position.right(this.speedInPixel);

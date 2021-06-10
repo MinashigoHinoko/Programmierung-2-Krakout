@@ -132,7 +132,6 @@ public class GamePlayManager {
             this.gameObjectManager.getFaces().removeFirst();
         }
         if (!this.gameObjectManager.getFaces().isEmpty()) {
-            gameObjectManager.getCollidableGameObjects().addAll(gameObjectManager.getFaces());
         }
     }
 
@@ -176,6 +175,6 @@ public class GamePlayManager {
     protected void updateGamePlay() {
         generateHealth();
         //spawnAndDestroyFace();
-        //spawnAndDestroyAstronaut();
+        spawnAndDestroyAstronaut();
     }
 }
