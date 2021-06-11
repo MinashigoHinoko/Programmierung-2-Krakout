@@ -143,8 +143,8 @@ class GameObjectManager {
         this.collidableGameObjects.add(this.gameBorderBottom);
         this.collidableGameObjects.add(this.gameBorderLeft);
         this.collidableGameObjects.add(this.gameBorderRight);
-        this.collidableGameObjects.addAll(this.alienObjects);
         this.collidableGameObjects.addAll(this.collidingGameObjects);
+        this.collidableGameObjects.addAll(this.alienObjects);
         this.collidableGameObjects.add(this.bat);
 
         this.gameObjects.add(this.background);

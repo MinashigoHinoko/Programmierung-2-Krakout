@@ -29,7 +29,6 @@ public class Astronaut extends AlienObject implements MovingGameObject {
 
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
-
     }
 
     @Override

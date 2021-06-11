@@ -110,6 +110,10 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
     }
 
     @Override
+    public void reactToCollision(CollidableGameObject otherObject) {
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

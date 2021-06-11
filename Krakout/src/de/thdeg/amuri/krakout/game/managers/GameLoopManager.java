@@ -10,6 +10,7 @@ public class GameLoopManager {
     private final InputManager inputManager;
     private final GameObjectManager gameObjectManager;
     private final GamePlayManager gamePlayManager;
+    private final int gameSound;
 
     /**
      * Creates the main loop
@@ -22,6 +23,7 @@ public class GameLoopManager {
         this.gameObjectManager = new GameObjectManager(gameView);
         this.inputManager = new InputManager(gameView, gameObjectManager.getBat());
         this.gamePlayManager = new GamePlayManager(gameView, gameObjectManager);
+        this.gameSound = gameView.playSound("GameSound.wav", true);
 
     }
 

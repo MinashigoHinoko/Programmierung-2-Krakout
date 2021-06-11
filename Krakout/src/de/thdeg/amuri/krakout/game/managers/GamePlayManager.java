@@ -1,12 +1,14 @@
 package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
 import de.thdeg.amuri.krakout.graphics.staticobject.PlayerLive;
 import de.thdeg.amuri.krakout.movement.Position;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -21,6 +23,7 @@ public class GamePlayManager {
     private Astronaut astronaut;
     private PlayerLive playerLive;
     private boolean listHasBeenDeleted;
+    public boolean destroyAstronaut = false;
 
     protected GamePlayManager(GameView gameView, GameObjectManager gameObjectManager) {
         this.gameView = gameView;
@@ -36,6 +39,7 @@ public class GamePlayManager {
     public void shootPinball(Position startPosition) {
         boolean ballCoolDown = false;
         boolean ballCall = false;
+        ArrayList<CollidableGameObject> collidableGameObjects = gameObjectManager.getCollidableGameObjects();
         if (this.gameView.timerExpired("BallCoolDown", "GamePlayManager")) {
             this.gameView.setTimer("BallCoolDown", "GamePlayManager", 300);
             ballCoolDown = !ballCoolDown;
@@ -43,32 +47,38 @@ public class GamePlayManager {
         if (ballCoolDown || this.gameObjectManager.getBalls().isEmpty()) {
             ballCall = !ballCall;
             if (ballCall) {
-                this.ball = new Pinball(this.gameView, gameObjectManager.getCollidableGameObjects());
+                collidableGameObjects.remove(this.ball);
+                this.ball = new Pinball(this.gameView, collidableGameObjects);
                 this.ball.getPosition().x = startPosition.x + this.ball.getWidth() * this.ball.getSize();
                 this.ball.getPosition().y = startPosition.y;
                 this.ball.setGamePlayManager(this);
                 this.gameObjectManager.getBalls().add(this.ball);
+                this.gameView.playSound("BallShot.wav", false);
             }
         }
+    }
+
+    public void destroyAstronaut(CollidableGameObject otherObject) {
+        this.gameObjectManager.getAstronauts().remove(otherObject);
     }
 
     protected void spawnAndDestroyAstronaut() {
         this.astronaut = new Astronaut(this.gameView);
         boolean spawnAstronaut = false;
-        boolean destroyAstronaut = false;
         if (this.gameView.timerExpired("SpawnAstronaut", "GamePlayManager")) {
             this.gameView.setTimer("SpawnAstronaut", "GamePlayManager", 3000);
             spawnAstronaut = !spawnAstronaut;
         }
         if (this.gameView.timerExpired("DestroyAstronaut", "GamePlayManager")) {
             this.gameView.setTimer("DestroyAstronaut", "GamePlayManager", 8000);
-            destroyAstronaut = !destroyAstronaut;
+            this.destroyAstronaut = true;
         }
         if (spawnAstronaut) {
             this.gameObjectManager.getAstronauts().add(this.astronaut);
         }
-        if (destroyAstronaut && !this.gameObjectManager.getAstronauts().isEmpty()) {
+        if (this.destroyAstronaut && !this.gameObjectManager.getAstronauts().isEmpty()) {
             this.gameObjectManager.getAstronauts().remove(this.random.nextInt(this.gameObjectManager.getAstronauts().size()));
+            this.destroyAstronaut = false;
         }
         if (this.gameObjectManager.getAstronauts().size() > 10) {
             this.gameObjectManager.getAstronauts().removeFirst();

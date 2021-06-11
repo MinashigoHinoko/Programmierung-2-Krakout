@@ -114,12 +114,13 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
 
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
-            if (this.flyFromLeftToRight == true) {
-                this.flyFromLeftToRight = false;
-            } else if (this.flyFromLeftToRight == false) {
-                this.flyFromLeftToRight = true;
-            }
+        if (this.flyFromLeftToRight == true) {
+            this.flyFromLeftToRight = false;
+        } else if (this.flyFromLeftToRight == false) {
+            this.flyFromLeftToRight = true;
+        }
     }
+
     @Override
     public void updatePosition() {
         if (collidesWith(gameBorderLeft)) {
@@ -131,7 +132,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         if (collidesWith(gameBorderBottom)) {
             this.position.up(this.speedInPixel);
         }
-
         if (this.flyFromLeftToRight == true) {
             this.position.right(this.speedInPixel);
         } else if (this.flyFromLeftToRight == false) {
