@@ -2,6 +2,7 @@ package de.thdeg.amuri.krakout.graphics.basicobject;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
+import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.movement.Position;
 
 import java.util.Objects;
@@ -30,6 +31,13 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
         this.hit = false;
         this.random = new Random();
         this.position = new Position(random.nextInt(GameView.WIDTH), random.nextInt(GameView.HEIGHT - (GameView.HEIGHT / 10)));
+    }
+
+    @Override
+    public void reactToCollision(CollidableGameObject otherObject) {
+        if (otherObject.getClass() == Pinball.class) {
+            this.gamePlayManager.destroy(this);
+        }
     }
 
     @Override

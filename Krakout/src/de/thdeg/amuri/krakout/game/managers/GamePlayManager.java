@@ -4,6 +4,7 @@ import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
+import de.thdeg.amuri.krakout.graphics.moving.alien.Bee;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
 import de.thdeg.amuri.krakout.graphics.staticobject.PlayerLive;
 import de.thdeg.amuri.krakout.movement.Position;
@@ -21,6 +22,7 @@ public class GamePlayManager {
     private Pinball ball;
     private Face face;
     private Astronaut astronaut;
+    private Bee bee;
     private PlayerLive playerLive;
     private boolean listHasBeenDeleted;
     public boolean destroyAstronaut = false;
@@ -58,10 +60,6 @@ public class GamePlayManager {
         }
     }
 
-    public void destroyAstronaut(CollidableGameObject otherObject) {
-        this.gameObjectManager.getAstronauts().remove(otherObject);
-    }
-
     protected void spawnAndDestroyAstronaut() {
         this.astronaut = new Astronaut(this.gameView);
         boolean spawnAstronaut = false;
@@ -74,6 +72,7 @@ public class GamePlayManager {
             this.destroyAstronaut = true;
         }
         if (spawnAstronaut) {
+            this.astronaut.setGamePlayManager(this);
             this.gameObjectManager.getAstronauts().add(this.astronaut);
         }
         if (this.destroyAstronaut && !this.gameObjectManager.getAstronauts().isEmpty()) {
@@ -105,12 +104,28 @@ public class GamePlayManager {
     }
 
     /**
-     * @param ball removes the ball once end of map reached.
+     * @param object as Object to be deleted
      */
-    public void destroyPinball(Pinball ball) {
+    public void destroy(Object object) {
 
-        if (ball.getClass() == Pinball.class) {
-            this.gameObjectManager.getBalls().remove(ball);
+        if (object.getClass() == Face.class) {
+            this.gameObjectManager.getFaces().remove(object);
+            this.gameView.playSound("BallHitAlien.wav", false);
+        }
+
+        if (object.getClass() == Astronaut.class) {
+            this.gameObjectManager.getAstronauts().remove(object);
+            this.gameView.playSound("BallHitAlien.wav", false);
+        }
+
+        if (object.getClass() == Bee.class) {
+            this.gameObjectManager.getBees().remove(object);
+            this.gameView.playSound("BallHitAlien.wav", false);
+        }
+
+        if (object.getClass() == Pinball.class) {
+            this.gameView.playSound("BallLost.wav", false);
+            this.gameObjectManager.getBalls().remove(object);
         }
     }
 
@@ -130,6 +145,7 @@ public class GamePlayManager {
             listHasBeenDeleted = !listHasBeenDeleted;
         }
         if (spawnFace) {
+            this.face.setGamePlayManager(this);
             this.gameObjectManager.getFaces().add(this.face);
         }
         if (destroyFace && !this.gameObjectManager.getFaces().isEmpty()) {
@@ -184,7 +200,7 @@ public class GamePlayManager {
 
     protected void updateGamePlay() {
         generateHealth();
-        //spawnAndDestroyFace();
+        spawnAndDestroyFace();
         spawnAndDestroyAstronaut();
     }
 }

@@ -3,7 +3,6 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
-import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 
 /**
  * All aliens will not move for 30 seconds when Hit.
@@ -37,10 +36,6 @@ public class TimeOut extends AlienObject implements MovingGameObject {
         this.hitBox.height = (int) (this.height * this.size);
     }
 
-    @Override
-    public void reactToCollision(CollidableGameObject otherObject) {
-
-    }
 
     @Override
     public void addToCanvas() {

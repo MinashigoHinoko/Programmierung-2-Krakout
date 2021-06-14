@@ -17,7 +17,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
     private boolean flyFromLeftToRight;
     private GameBorderTop gameBorderTop;
     private GameBorderBottom gameBorderBottom;
-    private GameBorderLeft gameBorderLeft;
     private ArrayList<CollidableGameObject> collideObject;
 
     /**
@@ -31,7 +30,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         super(gameView, objectsToCollideWith);
         this.collideObject = new ArrayList<>();
         this.collideObject.addAll(objectsToCollideWith);
-        this.gameBorderLeft = (GameBorderLeft) objectsToCollideWith.get(2);
         this.gameBorderTop = (GameBorderTop) objectsToCollideWith.get(0);
         this.gameBorderBottom = (GameBorderBottom) objectsToCollideWith.get(1);
         this.position = new Position(100, 100);
@@ -114,6 +112,15 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
 
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
+        if (otherObject.getClass() == GameBorderLeft.class) {
+            this.gamePlayManager.destroy(this);
+        }
+        if (collidesWith(gameBorderTop)) {
+            this.position.down(this.speedInPixel);
+        }
+        if (collidesWith(gameBorderBottom)) {
+            this.position.up(this.speedInPixel);
+        }
         if (this.flyFromLeftToRight == true) {
             this.flyFromLeftToRight = false;
         } else if (this.flyFromLeftToRight == false) {
@@ -123,15 +130,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
 
     @Override
     public void updatePosition() {
-        if (collidesWith(gameBorderLeft)) {
-            this.gamePlayManager.destroyPinball(this);
-        }
-        if (collidesWith(gameBorderTop)) {
-            this.position.down(this.speedInPixel);
-        }
-        if (collidesWith(gameBorderBottom)) {
-            this.position.up(this.speedInPixel);
-        }
         if (this.flyFromLeftToRight == true) {
             this.position.right(this.speedInPixel);
         } else if (this.flyFromLeftToRight == false) {
@@ -141,9 +139,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
 
     @Override
     public void updateStatus() {
-        if (collidesWith(gameBorderLeft)) {
-            this.gamePlayManager.destroyPinball(this);
-        }
 
     }
 

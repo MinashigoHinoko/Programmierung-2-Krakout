@@ -74,6 +74,7 @@ public abstract class CollidableGameObject extends GameObject implements Cloneab
 
     /**
      * Creates hashcode.
+     *
      * @return hashcode.
      */
     @Override

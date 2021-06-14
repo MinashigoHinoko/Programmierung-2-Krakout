@@ -122,6 +122,7 @@ class GameObjectManager {
         this.collidingGameObjects.clear();
 
         this.alienObjects.addAll(this.astronauts);
+        this.alienObjects.addAll(this.bees);
         this.alienObjects.addAll(this.beeHives);
         this.alienObjects.addAll(this.bonusShips);
         this.alienObjects.addAll(this.cannibals);
@@ -135,7 +136,6 @@ class GameObjectManager {
         this.liveObjects.addAll(this.playerLives);
         this.liveObjects.addAll(this.alienObjects);
 
-        this.collidingGameObjects.addAll(this.bees);
         this.collidingGameObjects.addAll(this.flashAttacks);
         this.collidingGameObjects.addAll(this.balls);
 
