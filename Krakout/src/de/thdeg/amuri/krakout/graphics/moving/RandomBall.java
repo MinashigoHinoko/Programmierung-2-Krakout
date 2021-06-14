@@ -68,7 +68,7 @@ public class RandomBall extends GameObject implements MovingGameObject {
     }
 
     /**
-     * Applies randomised Pattern, replaces targetposition with the pattern and resets the list for next usage.
+     * Applies randomised Pattern, replaces target position with the pattern and resets the list for next usage.
      */
     public void setPatternTargetPosition() {
         if (this.patternList.size() == 0) {
