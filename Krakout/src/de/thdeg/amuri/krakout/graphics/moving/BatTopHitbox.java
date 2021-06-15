@@ -22,7 +22,7 @@ public class BatTopHitbox extends Bat {
 
     @Override
     public void addToCanvas() {
-        this.gameView.addRectangleToCanvas(this.position.x, this.position.y, this.width, this.height, 1, true, Color.GREEN);
+        //this.gameView.addRectangleToCanvas(this.position.x, this.position.y, this.width, this.height, 1, true, Color.GREEN);
     }
 
     @Override
