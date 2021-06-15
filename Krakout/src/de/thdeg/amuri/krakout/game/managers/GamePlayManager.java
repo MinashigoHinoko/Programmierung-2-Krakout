@@ -103,6 +103,11 @@ public class GamePlayManager {
         }
     }
 
+ public void bounceSound (Object object){
+        if (object.getClass() == Pinball.class) {
+            this.gameView.playSound("BallBounce.wav", false);
+        }
+    }
     /**
      * @param object as Object to be deleted
      */

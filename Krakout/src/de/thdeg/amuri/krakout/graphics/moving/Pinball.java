@@ -122,8 +122,10 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
             this.position.up(this.speedInPixel);
         }
         if (this.flyFromLeftToRight == true) {
+            //this.gamePlayManager.bounceSound(otherObject);
             this.flyFromLeftToRight = false;
         } else if (this.flyFromLeftToRight == false) {
+            //this.gamePlayManager.bounceSound(otherObject);
             this.flyFromLeftToRight = true;
         }
     }
