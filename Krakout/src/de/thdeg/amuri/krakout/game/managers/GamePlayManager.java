@@ -2,11 +2,9 @@ package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
-import de.thdeg.amuri.krakout.graphics.moving.Pinball;
-import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
-import de.thdeg.amuri.krakout.graphics.moving.alien.Bee;
-import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
-import de.thdeg.amuri.krakout.graphics.staticobject.PlayerLive;
+import de.thdeg.amuri.krakout.graphics.moving.*;
+import de.thdeg.amuri.krakout.graphics.moving.alien.*;
+import de.thdeg.amuri.krakout.graphics.staticobject.*;
 import de.thdeg.amuri.krakout.movement.Position;
 
 import java.util.ArrayList;
@@ -55,6 +53,7 @@ public class GamePlayManager {
                 this.ball.getPosition().y = startPosition.y;
                 this.ball.setGamePlayManager(this);
                 this.gameObjectManager.getBalls().add(this.ball);
+                this.ball.setExist(true);
                 this.gameView.playSound("BallShot.wav", false);
             }
         }
@@ -103,10 +102,22 @@ public class GamePlayManager {
         }
     }
 
- public void bounceSound (Object object){
-        if (object.getClass() == Pinball.class) {
-            this.gameView.playSound("BallBounce.wav", false);
-        }
+    public void ballSound (Object object){
+            if (object.getClass() == GameBorderLeft.class) {
+                this.gameView.playSound("BallLost.wav", false);
+            }
+            if (object.getClass() == GameBorderTop.class) {
+                this.gameView.playSound("BallBounce.wav", false);
+            }
+            if (object.getClass() == GameBorderBottom.class) {
+                this.gameView.playSound("BallBounce.wav", false);
+            }
+            if (object.getClass() == GameBorderRight.class) {
+                this.gameView.playSound("BallBounce.wav", false);
+            }
+     if (object.getClass() == Bat.class) {
+         this.gameView.playSound("BallBatBounce.wav", false);
+     }
     }
     /**
      * @param object as Object to be deleted
@@ -129,7 +140,6 @@ public class GamePlayManager {
         }
 
         if (object.getClass() == Pinball.class) {
-            this.gameView.playSound("BallLost.wav", false);
             this.gameObjectManager.getBalls().remove(object);
         }
     }
@@ -204,8 +214,8 @@ public class GamePlayManager {
     }
 
     protected void updateGamePlay() {
-        generateHealth();
-        spawnAndDestroyFace();
-        spawnAndDestroyAstronaut();
+        this.generateHealth();
+        this.spawnAndDestroyFace();
+        this.spawnAndDestroyAstronaut();
     }
 }

@@ -6,10 +6,7 @@ import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.LiveObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
-import de.thdeg.amuri.krakout.graphics.moving.Bat;
-import de.thdeg.amuri.krakout.graphics.moving.FollowerBall;
-import de.thdeg.amuri.krakout.graphics.moving.Pinball;
-import de.thdeg.amuri.krakout.graphics.moving.RandomBall;
+import de.thdeg.amuri.krakout.graphics.moving.*;
 import de.thdeg.amuri.krakout.graphics.moving.alien.*;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
 
@@ -22,6 +19,7 @@ import java.util.LinkedList;
 class GameObjectManager {
     private final GameView gameView;
     private final Bat bat;
+    private final BatTopHitbox batTopHitbox;
     private final Background background;
     private final Score score;
     private final GameBorderTop gameBorderTop;
@@ -56,6 +54,7 @@ class GameObjectManager {
     protected GameObjectManager(GameView gameView) {
         this.gameView = gameView;
         this.bat = new Bat(gameView);
+        this.batTopHitbox = new BatTopHitbox(gameView);
         this.background = new Background(gameView);
         this.score = new Score(gameView);
         this.gameBorderTop = new GameBorderTop(gameView);
@@ -146,10 +145,12 @@ class GameObjectManager {
         this.collidableGameObjects.addAll(this.collidingGameObjects);
         this.collidableGameObjects.addAll(this.alienObjects);
         this.collidableGameObjects.add(this.bat);
+        this.collidableGameObjects.add(this.batTopHitbox);
 
         this.gameObjects.add(this.background);
         this.gameObjects.add(this.score);
         this.gameObjects.add(this.bat);
+        this.gameObjects.add(this.batTopHitbox);
         this.gameObjects.add(this.randomBall);
         this.gameObjects.add(this.followerBall);
 
@@ -181,6 +182,10 @@ class GameObjectManager {
      */
     public LinkedList<AlienObject> getAlienObjects() {
         return alienObjects;
+    }
+
+    public BatTopHitbox getBatTopHitbox() {
+        return batTopHitbox;
     }
 
     /**

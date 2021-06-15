@@ -11,7 +11,6 @@ import de.thdeg.amuri.krakout.movement.Position;
  */
 public class Bat extends LiveObject {
     private final boolean playerGraphic;
-    private final boolean bounceBall;
     private final boolean hasPowerUp;
     private boolean shooting;
 
@@ -28,10 +27,8 @@ public class Bat extends LiveObject {
         this.width = 12;
         this.height = 33;
         this.rotation = 0;
-        this.bounceBall = false;
         this.hasPowerUp = false;
         this.speedInPixel = 3.5;
-        this.position = new Position(0, 200);
         this.playerGraphic = true;
         this.position = new Position(20, 280);
         this.hitBox.width = (int) (this.width * this.size);

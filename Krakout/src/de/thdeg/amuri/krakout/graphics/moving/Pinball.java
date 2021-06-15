@@ -14,10 +14,12 @@ import java.util.ArrayList;
  */
 public class Pinball extends CollidingGameObject implements MovingGameObject {
     private final int ammount;
-    private boolean flyFromLeftToRight;
-    private GameBorderTop gameBorderTop;
-    private GameBorderBottom gameBorderBottom;
-    private ArrayList<CollidableGameObject> collideObject;
+    private final ArrayList<CollidableGameObject> collideObject;
+    private boolean exist;
+    private boolean bounce;
+    private boolean allowBounceUpDown;
+    private boolean bounceUpDown;
+
 
     /**
      * Creates a new pinball
@@ -30,17 +32,18 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         super(gameView, objectsToCollideWith);
         this.collideObject = new ArrayList<>();
         this.collideObject.addAll(objectsToCollideWith);
-        this.gameBorderTop = (GameBorderTop) objectsToCollideWith.get(0);
-        this.gameBorderBottom = (GameBorderBottom) objectsToCollideWith.get(1);
         this.position = new Position(100, 100);
         this.size = 2;
-        this.flyFromLeftToRight = true;
         super.width = 10;
         this.height = 10;
         this.ammount = 0;
         this.speedInPixel = 2;
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
+        this.exist = false;
+        this.bounce = false;
+        this.bounceUpDown= false;
+        this.allowBounceUpDown = false;
     }
 
     @Override
@@ -68,15 +71,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
     }
 
     /**
-     * If the Ball hits something, this turns to true and triggers the Hit
-     *
-     * @return if the Ball has Hit anything
-     */
-    public boolean hasHit() {
-        return this.flyFromLeftToRight;
-    }
-
-    /**
      * to track the Ammount of balls is necessary to run the game as smooth as possible
      *
      * @return how many balls there are at the same time
@@ -94,48 +88,50 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         return this.size;
     }
 
-
-    /**
-     * detemines if pinball hits something to call bounce
-     */
-    private void damage() {
-        if (this.flyFromLeftToRight = true) {
-            bounce();
-        }
-    }
-
-    /**
-     * ball bounces of hitted element.
-     */
-    private void bounce() {
+    public void setExist(boolean exist) {
+        this.exist = exist;
     }
 
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
+        this.gamePlayManager.ballSound(otherObject);
         if (otherObject.getClass() == GameBorderLeft.class) {
             this.gamePlayManager.destroy(this);
         }
-        if (collidesWith(gameBorderTop)) {
-            this.position.down(this.speedInPixel);
+        if (otherObject.getClass() == GameBorderTop.class ) {
+            this.allowBounceUpDown = true;
+            this.bounceUpDown = true;
         }
-        if (collidesWith(gameBorderBottom)) {
-            this.position.up(this.speedInPixel);
+        if (otherObject.getClass() == GameBorderBottom.class || otherObject.getClass() == BatTopHitbox.class) {
+            this.allowBounceUpDown = true;
+            this.bounceUpDown = false;
         }
-        if (this.flyFromLeftToRight == true) {
-            //this.gamePlayManager.bounceSound(otherObject);
-            this.flyFromLeftToRight = false;
-        } else if (this.flyFromLeftToRight == false) {
-            //this.gamePlayManager.bounceSound(otherObject);
-            this.flyFromLeftToRight = true;
+        if (otherObject.getClass() == GameBorderRight.class || otherObject.getClass() == Bat.class) {
+            this.bounce = !this.bounce;
         }
     }
 
     @Override
     public void updatePosition() {
-        if (this.flyFromLeftToRight == true) {
-            this.position.right(this.speedInPixel);
-        } else if (this.flyFromLeftToRight == false) {
-            this.position.left(this.speedInPixel);
+        if (!bounce) {
+            if (exist) {
+                this.position.right(this.speedInPixel);
+            }
+        } else {
+            if (exist) {
+                this.position.left(this.speedInPixel);
+            }
+        }
+        if (allowBounceUpDown) {
+            if (bounceUpDown) {
+                if (exist) {
+                    this.position.down(this.speedInPixel);
+                }
+            }else{
+                if (exist) {
+                    this.position.up(this.speedInPixel);
+                }
+            }
         }
     }
 
