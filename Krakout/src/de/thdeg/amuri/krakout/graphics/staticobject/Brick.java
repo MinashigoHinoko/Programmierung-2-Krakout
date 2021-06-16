@@ -36,9 +36,9 @@ public class Brick extends LiveObject {
         this.size = 2;
         this.color = "RED";
         this.powerUp = false;
-        this.rotation = 90;
-        this.width = 25;
-        this.height = 12;
+        this.rotation = 0;
+        this.width = 12;
+        this.height = 25;
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
     }
@@ -51,7 +51,9 @@ public class Brick extends LiveObject {
 
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
-
+        if (otherObject.getClass() == Pinball.class) {
+            this.gamePlayManager.destroy(this);
+        }
     }
 
     /**

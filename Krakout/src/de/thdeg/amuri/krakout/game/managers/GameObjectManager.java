@@ -146,6 +146,7 @@ class GameObjectManager {
         this.collidableGameObjects.addAll(this.alienObjects);
         this.collidableGameObjects.add(this.bat);
         this.collidableGameObjects.add(this.batTopHitbox);
+        this.collidableGameObjects.addAll(this.bricks);
 
         this.gameObjects.add(this.background);
         this.gameObjects.add(this.score);
@@ -184,6 +185,9 @@ class GameObjectManager {
         return alienObjects;
     }
 
+    /**
+     * @return LinkedList getter for {@link BatTopHitbox}
+     */
     public BatTopHitbox getBatTopHitbox() {
         return batTopHitbox;
     }

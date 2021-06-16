@@ -5,8 +5,15 @@ import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 
 import java.awt.*;
 
+/**
+ * Top Hitbox of {@link Bat} for bouncing up and down
+ */
 public class BatTopHitbox extends Bat {
         private Bat bat;
+
+    /**
+     * @param gameView initialise visiable Hitbox
+     */
     public BatTopHitbox(GameView gameView) {
         super(gameView);
         this.bat= new Bat(gameView);

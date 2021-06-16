@@ -88,6 +88,9 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         return this.size;
     }
 
+    /**
+     * @param exist For telling the Pinball, it may move.
+     */
     public void setExist(boolean exist) {
         this.exist = exist;
     }
@@ -106,7 +109,7 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
             this.allowBounceUpDown = true;
             this.bounceUpDown = false;
         }
-        if (otherObject.getClass() == GameBorderRight.class || otherObject.getClass() == Bat.class) {
+        if (otherObject.getClass() == GameBorderRight.class || otherObject.getClass() == Bat.class || otherObject.getClass() == Brick.class) {
             this.bounce = !this.bounce;
         }
     }
