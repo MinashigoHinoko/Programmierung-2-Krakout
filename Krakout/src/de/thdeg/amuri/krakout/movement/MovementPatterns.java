@@ -109,9 +109,9 @@ public class MovementPatterns {
         this.middlePos = new Position(GameView.HEIGHT / 2, GameView.WIDTH / 2);
         this.centeredComparator = (Position obj1, Position obj2) -> (int) Math.signum(Math.abs(position.distance(obj1.x, obj1.y) - position.distance(middlePos.x, middlePos.y)) - Math.abs(position.distance(obj2.x, obj2.y) - position.distance(middlePos.x, middlePos.y)));
         Collections.sort(zero);
-        xFirst.sort(xAxisComparator);
-        yFirst.sort(yAxisComparator);
-        centered.sort(this.centeredComparator);
+        this.xFirst.sort(xAxisComparator);
+        this.yFirst.sort(yAxisComparator);
+        this.centered.sort(this.centeredComparator);
         this.hashMap.put("Zero", zero);
         this.hashMap.put("Square", square);
         this.hashMap.put("ZigZag", zigZag);
