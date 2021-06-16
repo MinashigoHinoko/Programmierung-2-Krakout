@@ -4,7 +4,7 @@ package de.thdeg.amuri.krakout.game.utilities;
 /**
  * Represents the player of the game
  */
-public class Player  {
+public class Player {
     /**
      * The number of lives, the player starts with.
      */

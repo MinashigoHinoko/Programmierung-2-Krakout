@@ -58,7 +58,7 @@ public class GamePlayManager {
         }
         if (ballCoolDown || this.gameObjectManager.getBalls().isEmpty()) {
             ballCall = !ballCall;
-            if (ballCall && this.gameObjectManager.getBalls().size()<2) {
+            if (ballCall && this.gameObjectManager.getBalls().size() < 2) {
                 collidableGameObjects.remove(this.ball);
                 this.ball = new Pinball(this.gameView, collidableGameObjects);
                 this.ball.getPosition().x = startPosition.x + this.ball.getWidth() * this.ball.getSize();
@@ -116,6 +116,7 @@ public class GamePlayManager {
 
     /**
      * Sounds for Ball when colliding with different objects
+     *
      * @param object object to collide with
      */
     public void ballSound(Object object) {
@@ -197,7 +198,7 @@ public class GamePlayManager {
     }
 
     protected void spawnBrick() {
-        if (this.gameObjectManager.getBricks().isEmpty()){
+        if (this.gameObjectManager.getBricks().isEmpty()) {
             this.brickSpawned = false;
         }
         if (!this.brickSpawned) {
@@ -223,8 +224,8 @@ public class GamePlayManager {
             int x = 450;
             int y = 300;
             if (i != 0) {
-                x += 23*i;
-                y += 0*i;
+                x += 23 * i;
+                y += 0 * i;
             }
             brickPositions.add(new Position(x, y));
         }

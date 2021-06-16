@@ -109,17 +109,19 @@ public class Position implements Cloneable, Comparable<Position> {
 
     /**
      * Calculates the distance between two positions.
+     *
      * @param x Position x
      * @param y Position y
      * @return the distance
      */
     public double distance(double x, double y) {
-        return Math.sqrt(Math.pow((x),2)+Math.pow((y),2));
+        return Math.sqrt(Math.pow((x), 2) + Math.pow((y), 2));
     }
+
     @Override
     public int compareTo(Position o) {
-    Position zero = new Position(0,0);
-    return (int) Math.signum(this.distance(zero)- o.distance(zero));
+        Position zero = new Position(0, 0);
+        return (int) Math.signum(this.distance(zero) - o.distance(zero));
     }
 
     /**

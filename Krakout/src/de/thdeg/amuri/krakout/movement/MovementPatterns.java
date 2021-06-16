@@ -21,7 +21,7 @@ public class MovementPatterns {
     private boolean runXFirst;
     private boolean runYFirst;
     private boolean runCentered;
-    private  XAxisComparator xAxisComparator;
+    private XAxisComparator xAxisComparator;
     private final ArrayList<Position> xFirst;
     private final ArrayList<Position> yFirst;
     private final Comparator<Position> centeredComparator;
@@ -101,26 +101,26 @@ public class MovementPatterns {
         Comparator<Position> yAxisComparator = new Comparator<Position>() {
             @Override
             public int compare(Position o1, Position o2) {
-                return (int) Math.signum(o1.y-o2.y);
+                return (int) Math.signum(o1.y - o2.y);
             }
         };
         this.xAxisComparator = new XAxisComparator();
         this.position = new Position();
-        this.middlePos = new Position(GameView.HEIGHT/2,GameView.WIDTH/2);
-        this.centeredComparator = (Position obj1, Position obj2) -> (int) Math.signum(Math.abs(position.distance(obj1.x,obj1.y)-position.distance(middlePos.x,middlePos.y))- Math.abs(position.distance(obj2.x,obj2.y)-position.distance(middlePos.x,middlePos.y)));
+        this.middlePos = new Position(GameView.HEIGHT / 2, GameView.WIDTH / 2);
+        this.centeredComparator = (Position obj1, Position obj2) -> (int) Math.signum(Math.abs(position.distance(obj1.x, obj1.y) - position.distance(middlePos.x, middlePos.y)) - Math.abs(position.distance(obj2.x, obj2.y) - position.distance(middlePos.x, middlePos.y)));
         Collections.sort(zero);
         xFirst.sort(xAxisComparator);
         yFirst.sort(yAxisComparator);
         centered.sort(this.centeredComparator);
-        this.hashMap.put("Zero",zero);
+        this.hashMap.put("Zero", zero);
         this.hashMap.put("Square", square);
         this.hashMap.put("ZigZag", zigZag);
-        this.hashMap.put("XFirst",xFirst);
-        this.hashMap.put("YFirst",yFirst);
-        this.hashMap.put("Centered",centered);
+        this.hashMap.put("XFirst", xFirst);
+        this.hashMap.put("YFirst", yFirst);
+        this.hashMap.put("Centered", centered);
         this.random = new Random();
         this.runZero = false;
-        this.runSquare =false;
+        this.runSquare = false;
         this.runZigZag = false;
         this.runXFirst = false;
         this.runYFirst = false;
@@ -131,16 +131,16 @@ public class MovementPatterns {
      * @return Random Pattern
      */
     public String getRandomPattern() {
-        if(this.runCentered){
+        if (this.runCentered) {
             this.runCentered = false;
             this.runYFirst = true;
             this.runXFirst = true;
             this.runZero = true;
-            this.runSquare= true;
+            this.runSquare = true;
             this.runZigZag = true;
             return "Centered";
         }
-        if (this.runYFirst){
+        if (this.runYFirst) {
             this.runYFirst = false;
             this.runXFirst = true;
             this.runZero = true;
@@ -148,7 +148,7 @@ public class MovementPatterns {
             this.runZigZag = true;
             return "YFirst";
         }
-        if (this.runXFirst){
+        if (this.runXFirst) {
             this.runXFirst = false;
             this.runZero = true;
             this.runSquare = true;
@@ -170,14 +170,14 @@ public class MovementPatterns {
                 return "ZigZag";
             }
 
-            }else if(this.runZigZag && !this.runSquare) {
+        } else if (this.runZigZag && !this.runSquare) {
             this.runZigZag = false;
-                return "ZigZag";
-        }else if (this.runSquare && this.runZigZag) {
+            return "ZigZag";
+        } else if (this.runSquare && this.runZigZag) {
             this.runZigZag = false;
             return "Square";
-        }else{
-            this.runCentered= true;
+        } else {
+            this.runCentered = true;
             return "Centered";
         }
     }

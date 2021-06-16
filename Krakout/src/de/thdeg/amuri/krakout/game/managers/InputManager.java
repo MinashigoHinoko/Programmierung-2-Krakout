@@ -18,7 +18,7 @@ class InputManager {
     private final PlayerLive playerlive;
 
 
-    protected InputManager(GameView gameView, Bat bat,BatTopHitbox batTopHitbox) {
+    protected InputManager(GameView gameView, Bat bat, BatTopHitbox batTopHitbox) {
         this.gameView = gameView;
         this.bat = bat;
         this.batTopHitbox = batTopHitbox;

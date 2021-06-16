@@ -42,7 +42,7 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         this.hitBox.height = (int) (this.height * this.size);
         this.exist = false;
         this.bounce = false;
-        this.bounceUpDown= false;
+        this.bounceUpDown = false;
         this.allowBounceUpDown = false;
     }
 
@@ -101,7 +101,7 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         if (otherObject.getClass() == GameBorderLeft.class) {
             this.gamePlayManager.destroy(this);
         }
-        if (otherObject.getClass() == GameBorderTop.class ) {
+        if (otherObject.getClass() == GameBorderTop.class) {
             this.allowBounceUpDown = true;
             this.bounceUpDown = true;
         }
@@ -130,7 +130,7 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
                 if (exist) {
                     this.position.down(this.speedInPixel);
                 }
-            }else{
+            } else {
                 if (exist) {
                     this.position.up(this.speedInPixel);
                 }

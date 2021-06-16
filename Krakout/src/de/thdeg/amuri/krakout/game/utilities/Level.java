@@ -37,12 +37,12 @@ public class Level {
     /**
      * Creates a level
      *
-     * @param name              Name of the level.
-     * @param numberOfBricks    Number of Bricks in the level.
-     * @param numberOfItems     Number of Bricks that have a Item.
-     * @param numberOfAliens    Number of Aliens that will spawn in the level
-     * @param playerLive        Amount of Live the player has in the level.
-     * @param brickPositions    Positions of all th Bricks that need to be spawned.
+     * @param name           Name of the level.
+     * @param numberOfBricks Number of Bricks in the level.
+     * @param numberOfItems  Number of Bricks that have a Item.
+     * @param numberOfAliens Number of Aliens that will spawn in the level
+     * @param playerLive     Amount of Live the player has in the level.
+     * @param brickPositions Positions of all th Bricks that need to be spawned.
      */
     public Level(String name, int numberOfBricks, int numberOfItems, int numberOfAliens, int playerLive, LinkedList<Position> brickPositions) {
         this.name = name;
