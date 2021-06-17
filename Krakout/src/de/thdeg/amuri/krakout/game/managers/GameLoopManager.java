@@ -21,7 +21,7 @@ public class GameLoopManager {
         this.gameView.setStatusText("Amir(mHiko), Amuri - Java Programmierung SS 2021");
         this.gameView.setWindowIcon("Target.png");
         this.gameObjectManager = new GameObjectManager(gameView);
-        this.inputManager = new InputManager(gameView, gameObjectManager.getBat(), gameObjectManager.getBatTopHitbox());
+        this.inputManager = new InputManager(gameView, gameObjectManager.getBat());
         this.gamePlayManager = new GamePlayManager(gameView, gameObjectManager);
         this.gameSound = gameView.playSound("GameSound.wav", true);
 

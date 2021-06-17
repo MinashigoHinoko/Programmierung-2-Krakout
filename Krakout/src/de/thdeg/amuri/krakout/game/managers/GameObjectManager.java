@@ -19,7 +19,6 @@ import java.util.LinkedList;
 class GameObjectManager {
     private final GameView gameView;
     private final Bat bat;
-    private final BatTopHitbox batTopHitbox;
     private final Background background;
     private final Score score;
     private final GameBorderTop gameBorderTop;
@@ -54,7 +53,6 @@ class GameObjectManager {
     protected GameObjectManager(GameView gameView) {
         this.gameView = gameView;
         this.bat = new Bat(gameView);
-        this.batTopHitbox = new BatTopHitbox(gameView);
         this.background = new Background(gameView);
         this.score = new Score(gameView);
         this.gameBorderTop = new GameBorderTop(gameView);
@@ -145,13 +143,11 @@ class GameObjectManager {
         this.collidableGameObjects.addAll(this.collidingGameObjects);
         this.collidableGameObjects.addAll(this.alienObjects);
         this.collidableGameObjects.add(this.bat);
-        this.collidableGameObjects.add(this.batTopHitbox);
         this.collidableGameObjects.addAll(this.bricks);
 
         this.gameObjects.add(this.background);
         this.gameObjects.add(this.score);
         this.gameObjects.add(this.bat);
-        this.gameObjects.add(this.batTopHitbox);
         this.gameObjects.add(this.randomBall);
         this.gameObjects.add(this.followerBall);
 
@@ -183,13 +179,6 @@ class GameObjectManager {
      */
     public LinkedList<AlienObject> getAlienObjects() {
         return alienObjects;
-    }
-
-    /**
-     * @return LinkedList getter for {@link BatTopHitbox}
-     */
-    public BatTopHitbox getBatTopHitbox() {
-        return batTopHitbox;
     }
 
     /**

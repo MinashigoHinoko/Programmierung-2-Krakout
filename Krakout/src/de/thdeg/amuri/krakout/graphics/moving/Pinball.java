@@ -4,6 +4,7 @@ import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
+import de.thdeg.amuri.krakout.graphics.moving.alien.*;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
 import de.thdeg.amuri.krakout.movement.Position;
 
@@ -19,6 +20,7 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
     private boolean bounce;
     private boolean allowBounceUpDown;
     private boolean bounceUpDown;
+    private boolean isColliding;
 
 
     /**
@@ -44,6 +46,7 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         this.bounce = false;
         this.bounceUpDown = false;
         this.allowBounceUpDown = false;
+        this.isColliding = false;
     }
 
     @Override
@@ -97,25 +100,38 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
 
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
-        this.gamePlayManager.ballSound(otherObject);
-        if (otherObject.getClass() == GameBorderLeft.class) {
-            this.gamePlayManager.destroy(this);
-        }
-        if (otherObject.getClass() == GameBorderTop.class) {
-            this.allowBounceUpDown = true;
-            this.bounceUpDown = true;
-        }
-        if (otherObject.getClass() == GameBorderBottom.class || otherObject.getClass() == BatTopHitbox.class) {
-            this.allowBounceUpDown = true;
-            this.bounceUpDown = false;
-        }
-        if (otherObject.getClass() == GameBorderRight.class || otherObject.getClass() == Bat.class || otherObject.getClass() == Brick.class) {
-            this.bounce = !this.bounce;
+        if (otherObject.getClass() == Pinball.class) {
+
+        } else {
+            this.gamePlayManager.ballSound(otherObject);
+            if (otherObject.getClass() == GameBorderLeft.class) {
+                this.gamePlayManager.destroy(this);
+            } else if (otherObject.getClass() == GameBorderTop.class || otherObject.getPosition().y < this.getPosition().y && (this.getPosition().x - otherObject.getPosition().x) == 0) {
+                this.allowBounceUpDown = true;
+                this.bounceUpDown = true;
+            } else if (otherObject.getClass() == GameBorderBottom.class || otherObject.getPosition().y > this.getPosition().y && (this.getPosition().x - otherObject.getPosition().x) == 0) {
+                this.allowBounceUpDown = true;
+                this.bounceUpDown = false;
+            }
+            if (!this.isColliding) {
+                if (otherObject.getClass() == GameBorderRight.class || otherObject.getClass() == Bat.class || otherObject.getClass() == Brick.class|| otherObject.getClass()== Astronaut.class||otherObject.getClass()== Face.class) {
+                    this.bounce = !this.bounce;
+                    if (this.gameView.timerExpired("DebugBall", "Pinball")) {
+                        this.gameView.setTimer("DebugBall", "Pinball", 3000);
+                        this.isColliding = !this.isColliding;
+                    }
+                }
+            }
         }
     }
 
     @Override
     public void updatePosition() {
+        if (this.isColliding) {
+            if (this.gameView.timerExpired("DebugBall", "Pinball")) {
+                this.isColliding = !this.isColliding;
+            }
+        }
         if (!bounce) {
             if (exist) {
                 this.position.right(this.speedInPixel);

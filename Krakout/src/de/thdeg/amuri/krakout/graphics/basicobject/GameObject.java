@@ -39,6 +39,10 @@ public abstract class GameObject implements Cloneable {
         this.height = 0;
     }
 
+    public double getSize() {
+        return size;
+    }
+
     /**
      * Needed for Interaction into the Game
      *
