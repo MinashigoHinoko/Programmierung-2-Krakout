@@ -39,6 +39,11 @@ public abstract class GameObject implements Cloneable {
         this.height = 0;
     }
 
+    /**
+     * We need to know the size of the Objects to track the Hitbox correctly
+     *
+     * @return size of an Object
+     */
     public double getSize() {
         return size;
     }

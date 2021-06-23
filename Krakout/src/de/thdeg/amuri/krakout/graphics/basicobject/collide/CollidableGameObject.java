@@ -41,6 +41,10 @@ public abstract class CollidableGameObject extends GameObject implements Cloneab
         updateHitBoxPosition();
     }
 
+
+    /**
+     * @return Hitbox of the object
+     */
     public Rectangle getHitBox() {
         return hitBox;
     }

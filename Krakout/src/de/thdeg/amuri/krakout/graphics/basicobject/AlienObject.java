@@ -61,7 +61,7 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
                     this.endOfScreenRight = true;
                     this.endOfScreenLeft = false;
                 }
-                if (this.endOfScreenRight == true) {
+                if (this.endOfScreenRight) {
                     this.position.left(this.speedInPixel);
                     break;
                 } else {

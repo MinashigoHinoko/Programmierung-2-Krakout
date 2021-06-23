@@ -6,7 +6,8 @@ import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.LiveObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
-import de.thdeg.amuri.krakout.graphics.moving.*;
+import de.thdeg.amuri.krakout.graphics.moving.Bat;
+import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.alien.*;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
 
@@ -25,8 +26,6 @@ class GameObjectManager {
     private final GameBorderBottom gameBorderBottom;
     private final GameBorderLeft gameBorderLeft;
     private final GameBorderRight gameBorderRight;
-    private final RandomBall randomBall;
-    private final FollowerBall followerBall;
 
     private final LinkedList<GameObject> gameObjects;
     private final LinkedList<AlienObject> alienObjects;
@@ -59,8 +58,6 @@ class GameObjectManager {
         this.gameBorderBottom = new GameBorderBottom(gameView);
         this.gameBorderLeft = new GameBorderLeft(gameView);
         this.gameBorderRight = new GameBorderRight(gameView);
-        this.randomBall = new RandomBall(gameView);
-        this.followerBall = new FollowerBall(gameView, randomBall);
 
         this.gameObjects = new LinkedList<>();
         this.alienObjects = new LinkedList<>();
@@ -148,8 +145,6 @@ class GameObjectManager {
         this.gameObjects.add(this.background);
         this.gameObjects.add(this.score);
         this.gameObjects.add(this.bat);
-        this.gameObjects.add(this.randomBall);
-        this.gameObjects.add(this.followerBall);
 
         this.gameObjects.addAll(this.liveObjects);
         this.gameObjects.addAll(this.bricks);
@@ -167,33 +162,6 @@ class GameObjectManager {
         }
     }
 
-    /**
-     * @return LinkedList getter for {@link GameObject}
-     */
-    public LinkedList<GameObject> getGameObjects() {
-        return gameObjects;
-    }
-
-    /**
-     * @return LinkedList getter for {@link AlienObject}
-     */
-    public LinkedList<AlienObject> getAlienObjects() {
-        return alienObjects;
-    }
-
-    /**
-     * @return LinkedList getter for {@link LiveObject}
-     */
-    public LinkedList<LiveObject> getLiveObjects() {
-        return liveObjects;
-    }
-
-    /**
-     * @return LinkedList getter for {@link Item}
-     */
-    public LinkedList<Item> getItems() {
-        return items;
-    }
 
     /**
      * @return LinkedList getter for {@link Pinball}
@@ -217,41 +185,6 @@ class GameObjectManager {
     }
 
     /**
-     * @return LinkedList for {@link BeeHive}
-     */
-    public LinkedList<BeeHive> getBeeHives() {
-        return beeHives;
-    }
-
-    /**
-     * @return LinkedList getter for {@link BonusShip}
-     */
-    public LinkedList<BonusShip> getBonusShips() {
-        return bonusShips;
-    }
-
-    /**
-     * @return LinkedList getter for {@link Cannibal}
-     */
-    public LinkedList<Cannibal> getCannibals() {
-        return cannibals;
-    }
-
-    /**
-     * @return LinkedList getter for {@link Egg}
-     */
-    public LinkedList<Egg> getEggs() {
-        return eggs;
-    }
-
-    /**
-     * @return LinkedList getter for {@link Exit}
-     */
-    public LinkedList<Exit> getExits() {
-        return exits;
-    }
-
-    /**
      * @return LinkedList getter for {@link Face}
      */
     public LinkedList<Face> getFaces() {
@@ -259,45 +192,10 @@ class GameObjectManager {
     }
 
     /**
-     * @return LinkedList getter for {@link Flash}
-     */
-    public LinkedList<Flash> getFlashes() {
-        return flashes;
-    }
-
-    /**
-     * @return LinkedList getter for {@link FlashAttack}
-     */
-    public LinkedList<FlashAttack> getFlashAttacks() {
-        return flashAttacks;
-    }
-
-    /**
      * @return ArrayList getter for {@link CollidableGameObject}
      */
     public ArrayList<CollidableGameObject> getCollidableGameObjects() {
         return collidableGameObjects;
-    }
-
-    /**
-     * @return ArrayList getter for {@link CollidingGameObject}
-     */
-    public ArrayList<CollidingGameObject> getCollidingGameObjects() {
-        return collidingGameObjects;
-    }
-
-    /**
-     * @return LinkedList getter for {@link TimeOut}
-     */
-    public LinkedList<TimeOut> getTimeOuts() {
-        return timeOuts;
-    }
-
-    /**
-     * @return LinkedList getter for {@link TwinBall}
-     */
-    public LinkedList<TwinBall> getTwinBalls() {
-        return twinBalls;
     }
 
     /**

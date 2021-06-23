@@ -12,13 +12,13 @@ import de.thdeg.amuri.krakout.movement.Position;
  */
 public class Item extends CollidableGameObject {
     enum Status {
-        BOMB, DOUBLE, EXPAND, GLUE, MISSILE, SHIELD, MULTIPLY, HEALTHUP, SLOWBALL, NONE;
+        BOMB, DOUBLE, EXPAND, GLUE, MISSILE, SHIELD, MULTIPLY, HEALTHUP, SLOWBALL, NONE
     }
 
     //declares what kind of item it is
     //Ammount of items
     private int maxAmmount;
-    private String itemVisual;
+    private final String itemVisual;
     private final Status status;
 
     /**
@@ -76,13 +76,9 @@ public class Item extends CollidableGameObject {
         this.speedInPixel = speedInPixel * 0.8;
     }
 
-    /**
-     * Get the Size of the Item for Hitbox calculation
-     *
-     * @return Size as a Number
-     */
+    @Override
     public double getSize() {
-        return size;
+        return super.getSize();
     }
 
     /**

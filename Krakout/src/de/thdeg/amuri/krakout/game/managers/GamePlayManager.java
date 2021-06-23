@@ -1,7 +1,6 @@
 package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.game.utilities.Level;
-import de.thdeg.amuri.krakout.game.utilities.Player;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
@@ -23,10 +22,8 @@ public class GamePlayManager {
     private final GameView gameView;
     private final GameObjectManager gameObjectManager;
     private final Random random;
-    private boolean destroyAstronaut;
     private Pinball ball;
     private Level level;
-    private Player player;
     private boolean listHasBeenDeleted;
     private LinkedList<Position> brickPositions;
     private String name;
@@ -42,7 +39,6 @@ public class GamePlayManager {
         this.random = new Random();
         this.gameObjectManager.getBat().setGamePlayManager(this);
         this.listHasBeenDeleted = false;
-        this.destroyAstronaut = false;
     }
 
     /**
@@ -62,36 +58,12 @@ public class GamePlayManager {
                 collidableGameObjects.remove(this.ball);
                 this.ball = new Pinball(this.gameView, collidableGameObjects);
                 this.ball.getPosition().x = startPosition.x + this.ball.getWidth() * this.ball.getSize();
-                this.ball.getPosition().y = startPosition.y;
+                this.ball.getPosition().y = startPosition.y + this.ball.getHeight() * this.ball.getSize();
                 this.ball.setGamePlayManager(this);
                 this.gameObjectManager.getBalls().add(this.ball);
                 this.ball.setExist(true);
                 this.gameView.playSound("BallShot.wav", false);
             }
-        }
-    }
-
-    protected void spawnAndDestroyAstronaut() {
-        Astronaut astronaut = new Astronaut(this.gameView);
-        boolean spawnAstronaut = false;
-        if (this.gameView.timerExpired("SpawnAstronaut", "GamePlayManager")) {
-            this.gameView.setTimer("SpawnAstronaut", "GamePlayManager", 3000);
-            spawnAstronaut = !spawnAstronaut;
-        }
-        if (this.gameView.timerExpired("DestroyAstronaut", "GamePlayManager")) {
-            this.gameView.setTimer("DestroyAstronaut", "GamePlayManager", 8000);
-            this.destroyAstronaut = true;
-        }
-        if (spawnAstronaut) {
-            astronaut.setGamePlayManager(this);
-            this.gameObjectManager.getAstronauts().add(astronaut);
-        }
-        if (this.destroyAstronaut && !this.gameObjectManager.getAstronauts().isEmpty()) {
-            this.gameObjectManager.getAstronauts().remove(this.random.nextInt(this.gameObjectManager.getAstronauts().size()));
-            this.destroyAstronaut = false;
-        }
-        if (this.gameObjectManager.getAstronauts().size() > 10) {
-            this.gameObjectManager.getAstronauts().removeFirst();
         }
     }
 
@@ -273,6 +245,5 @@ public class GamePlayManager {
         this.levelOne();
         this.spawnBrick();
         this.spawnAndDestroyFace();
-        this.spawnAndDestroyAstronaut();
     }
 }
