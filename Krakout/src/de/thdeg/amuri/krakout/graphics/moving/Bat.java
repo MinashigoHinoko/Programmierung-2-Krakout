@@ -40,8 +40,8 @@ public class Bat extends LiveObject {
         this.height = 33;
         this.rotation = 0;
         this.hasPowerUp = false;
-        this.speedInPixel = 3.5;
-        this.playerGraphic = false;
+        this.speedInPixel = 2;
+        this.playerGraphic = true;
         this.position = new Position(20, 280);
         if (playerGraphic) {
             this.hitBox.width = (int) (this.width * this.size);

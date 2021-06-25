@@ -45,8 +45,8 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         this.hitBox.height = (int) (this.height * this.size);
         this.exist = false;
         this.bounce = false;
-        this.bounceUpDown = false;
         this.allowBounceUpDown = false;
+        this.bounceUpDown = false;
         this.isColliding = false;
     }
 
@@ -109,19 +109,19 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
             this.gamePlayManager.ballSound(otherObject);
             if (otherObject.getClass() == GameBorderLeft.class) {
                 this.gamePlayManager.destroy(this);
-            } else if (otherObject.getClass() == GameBorderTop.class || (otherObject.getPosition().y < this.getPosition().y && ((!((this.getPosition().x - otherObject.getPosition().x) < 0)) || !((this.getPosition().x - otherObject.getPosition().x) > 0)))) {
-                this.allowBounceUpDown = true;
-                this.bounceUpDown = true;
-            } else if (otherObject.getClass() == GameBorderBottom.class || (otherObject.getPosition().y > this.getPosition().y && ((!((this.getPosition().x - otherObject.getPosition().x) < 0)) || !((this.getPosition().x - otherObject.getPosition().x) > 0)))) {
+            } else if (this.getHitBox().intersectsLine(otherObject.getPosition().x, otherObject.getPosition().y + otherObject.getHeight() * otherObject.getSize(), otherObject.getPosition().x + otherObject.getWidth() * otherObject.getSize(), otherObject.getPosition().y + otherObject.getHeight() * otherObject.getSize())
+            ) {
+                if (otherObject.getClass() != GameBorderBottom.class) {
+                    this.allowBounceUpDown = true;
+                    this.bounceUpDown = true;
+                }
+            } else if (this.getHitBox().intersectsLine(otherObject.getPosition().x, otherObject.getPosition().y - otherObject.getHeight() * otherObject.getSize(), otherObject.getPosition().x + otherObject.getWidth() * otherObject.getSize(), otherObject.getPosition().y)) {
                 this.allowBounceUpDown = true;
                 this.bounceUpDown = false;
             }
             //if (!this.isColliding) {
             if (otherObject.getClass() == GameBorderRight.class || otherObject.getClass() == Bat.class || otherObject.getClass() == Brick.class || otherObject.getClass() == Astronaut.class || otherObject.getClass() == Face.class) {
                 this.bounce = !this.bounce;
-                if (allowBounceUpDown) {
-                    this.bounceUpDown = !this.bounceUpDown;
-                }
                 if (this.gameView.timerExpired("DebugBall", "Pinball")) {
                     this.gameView.setTimer("DebugBall", "Pinball", 3000);
                     //this.isColliding = !this.isColliding;
@@ -132,12 +132,12 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
     }
 
     private void rollingAnimation() {
-        if (bounce) {
-            rotation -= this.speedInPixel * this.size;
-        } else if (!bounce) {
-            rotation += this.speedInPixel * this.size;
+        if (this.bounce) {
+            this.rotation -= this.speedInPixel * this.size;
+        } else if (!this.bounce) {
+            this.rotation += this.speedInPixel * this.size;
         } else {
-            rotation = 0;
+            this.rotation = 0;
         }
     }
 
@@ -150,22 +150,22 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
          }
 
          }**/
-        if (!bounce) {
-            if (exist) {
+        if (!this.bounce) {
+            if (this.exist) {
                 this.position.right(this.speedInPixel);
             }
         } else {
-            if (exist) {
+            if (this.exist) {
                 this.position.left(this.speedInPixel);
             }
         }
-        if (allowBounceUpDown) {
-            if (bounceUpDown) {
+        if (this.allowBounceUpDown) {
+            if (this.bounceUpDown) {
                 if (exist) {
                     this.position.down(this.speedInPixel);
                 }
             } else {
-                if (exist) {
+                if (this.exist) {
                     this.position.up(this.speedInPixel);
                 }
             }

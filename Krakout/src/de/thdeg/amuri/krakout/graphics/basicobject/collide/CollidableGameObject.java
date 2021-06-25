@@ -51,7 +51,7 @@ public abstract class CollidableGameObject extends GameObject implements Cloneab
 
     @Override
     public void addHitboxToCanvas() {
-        //this.gameView.addRectangleToCanvas(this.hitBox.x, this.hitBox.y, this.hitBox.width, this.hitBox.height, 1, false, Color.red);
+        this.gameView.addRectangleToCanvas(this.hitBox.x, this.hitBox.y, this.hitBox.width, this.hitBox.height, 1, false, Color.GREEN);
     }
 
     /**
