@@ -70,12 +70,6 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         } else {
             if (this.isColliding) {
             } else {
-                if (otherObject.getClass() == Brick.class) {
-                    if (!(this.getPosition().x - otherObject.getPosition().x > 0)) {
-                    }
-                    if (!(this.getPosition().x - otherObject.getPosition().x < 0)) {
-                    }
-                }
                 this.gamePlayManager.ballSound(otherObject);
                 if (otherObject.getClass() == GameBorderLeft.class) {
                     this.gamePlayManager.destroy(this);
