@@ -40,7 +40,7 @@ public class Bat extends LiveObject {
         this.height = 33;
         this.rotation = 0;
         this.hasPowerUp = false;
-        this.speedInPixel = 2;
+        this.speedInPixel = 3;
         this.playerGraphic = true;
         this.position = new Position(20, 280);
         if (playerGraphic) {

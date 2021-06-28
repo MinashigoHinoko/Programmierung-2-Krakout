@@ -13,6 +13,19 @@ import de.thdeg.amuri.krakout.movement.Position;
  * @see Position
  */
 public class Face extends AlienObject implements MovingGameObject {
+    private int faceTimer;
+
+    private AnimationStatus animationStatus;
+    private final static String FACE_FACE1 = "Face.png";
+    private final static String FACE_FACE2 = "Face2.png";
+    private final static String FACE_FACE3 = "Face3.png";
+    enum AnimationStatus{
+        STAGE_ONE, STAGE_TWO, STAGE_THREE;
+
+        AnimationStatus(){
+
+        }
+    }
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      *
@@ -28,16 +41,39 @@ public class Face extends AlienObject implements MovingGameObject {
         this.hit = false;
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
+        this.animationStatus = AnimationStatus.STAGE_ONE;
+        this.faceTimer = 1;
     }
 
 
     @Override
     public void addToCanvas() {
-        gameView.addImageToCanvas("Face.png", this.position.x, this.position.y, this.size, this.rotation);
+
+        switch (animationStatus){
+            case STAGE_ONE: this.gameView.addImageToCanvas(FACE_FACE1,this.position.x, this.position.y, this.size, this.rotation);
+            break;
+            case STAGE_TWO: this.gameView.addImageToCanvas(FACE_FACE2,this.position.x, this.position.y, this.size, this.rotation);
+            break;
+            case STAGE_THREE: this.gameView.addImageToCanvas(FACE_FACE3,this.position.x, this.position.y, this.size, this.rotation);
+            break;
+        }
+    }
+
+    public void setFaceTimer(int faceTimer) {
+        this.faceTimer = faceTimer;
     }
 
     @Override
     public void updateStatus() {
-
+        if (this.gameView.timerExpired("AnimationFace", "Face" + faceTimer)){
+            switch (animationStatus){
+                case STAGE_ONE: this.animationStatus = AnimationStatus.STAGE_TWO;
+                break;
+                case STAGE_TWO: this.animationStatus = AnimationStatus.STAGE_THREE;
+                break;
+                case STAGE_THREE: this.animationStatus=AnimationStatus.STAGE_ONE;
+            }
+            this.gameView.setTimer("AnimationFace","Face"+faceTimer,300);
+        }
     }
 }

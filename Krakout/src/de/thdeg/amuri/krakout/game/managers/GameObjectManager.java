@@ -21,7 +21,6 @@ class GameObjectManager {
     private final GameView gameView;
     private final Bat bat;
     private final Background background;
-    private final Score score;
     private final GameBorderTop gameBorderTop;
     private final GameBorderBottom gameBorderBottom;
     private final GameBorderLeft gameBorderLeft;
@@ -46,6 +45,7 @@ class GameObjectManager {
     private final LinkedList<TwinBall> twinBalls;
     private final LinkedList<PlayerLive> playerLives;
     private final LinkedList<Brick> bricks;
+    private final LinkedList<Score> score;
     private final ArrayList<CollidableGameObject> collidableGameObjects;
     private final ArrayList<CollidingGameObject> collidingGameObjects;
 
@@ -53,7 +53,6 @@ class GameObjectManager {
         this.gameView = gameView;
         this.bat = new Bat(gameView);
         this.background = new Background(gameView);
-        this.score = new Score(gameView);
         this.gameBorderTop = new GameBorderTop(gameView);
         this.gameBorderBottom = new GameBorderBottom(gameView);
         this.gameBorderLeft = new GameBorderLeft(gameView);
@@ -78,6 +77,7 @@ class GameObjectManager {
         this.twinBalls = new LinkedList<>();
         this.playerLives = new LinkedList<>();
         this.bricks = new LinkedList<>();
+        this.score = new LinkedList<>();
         this.collidableGameObjects = new ArrayList<>();
         this.collidingGameObjects = new ArrayList<>();
     }
@@ -143,9 +143,9 @@ class GameObjectManager {
         this.collidableGameObjects.addAll(this.bricks);
 
         this.gameObjects.add(this.background);
-        this.gameObjects.add(this.score);
         this.gameObjects.add(this.bat);
 
+        this.gameObjects.addAll(this.score);
         this.gameObjects.addAll(this.liveObjects);
         this.gameObjects.addAll(this.bricks);
         this.gameObjects.addAll(this.items);
@@ -210,5 +210,9 @@ class GameObjectManager {
      */
     public LinkedList<Brick> getBricks() {
         return bricks;
+    }
+
+    public LinkedList<Score> getScore() {
+        return score;
     }
 }
