@@ -65,6 +65,7 @@ public class Face extends AlienObject implements MovingGameObject {
 
     @Override
     public void updateStatus() {
+        System.out.println(faceTimer);
         if (this.gameView.timerExpired("AnimationFace", "Face" + faceTimer)){
             switch (animationStatus){
                 case STAGE_ONE: this.animationStatus = AnimationStatus.STAGE_TWO;
@@ -73,7 +74,7 @@ public class Face extends AlienObject implements MovingGameObject {
                 break;
                 case STAGE_THREE: this.animationStatus=AnimationStatus.STAGE_ONE;
             }
-            this.gameView.setTimer("AnimationFace","Face"+faceTimer,300);
+            this.gameView.setTimer("AnimationFace","Face"+faceTimer, (long) (speedInPixel*100));
         }
     }
 }

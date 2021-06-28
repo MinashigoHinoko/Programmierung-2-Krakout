@@ -33,6 +33,7 @@ public class GamePlayManager {
     private int liveOfPLayer;
     private boolean brickSpawned;
     private final Score score;
+    private LevelManager levelManager;
 
     protected GamePlayManager(GameView gameView, GameObjectManager gameObjectManager) {
         this.gameView = gameView;
@@ -42,6 +43,7 @@ public class GamePlayManager {
         this.listHasBeenDeleted = false;
         this.score = new Score(gameView);
         this.gameObjectManager.getScore().add(score);
+        this.levelManager = new LevelManager(true);
     }
 
     /**
@@ -207,13 +209,13 @@ public class GamePlayManager {
         this.brickSpawned = true;
     }
 
-    protected void levelOne() {
+    protected void levelGen() {
         this.brickPositions = new LinkedList<>();
-        this.name = "Level 1";
-        this.numberOfBricks = 5;
-        this.numberOfItems = 2;
-        this.numberOfAliens = 10;
-        this.liveOfPLayer = 3;
+        this.name = this.levelManager.getNextLevel().name;
+        this.numberOfBricks = this.levelManager.getNextLevel().numberOfBricks;
+        this.numberOfItems = this.levelManager.getNextLevel().numberOfItems;
+        this.numberOfAliens = this.levelManager.getNextLevel().numberOfAliens;
+        this.liveOfPLayer = this.levelManager.getNextLevel().playerLive;
         for (int i = 1; i <= this.numberOfBricks; i++) {
             int x = 450;
             int y = 300;
@@ -224,6 +226,13 @@ public class GamePlayManager {
             brickPositions.add(new Position(x, y));
         }
         this.level = new Level(this.name, this.numberOfBricks, this.numberOfItems, this.numberOfAliens, liveOfPLayer, this.brickPositions);
+    }
+
+    protected void updateGamePlay() {
+        this.generateHealth();
+        this.levelGen();
+        this.spawnBrick();
+        this.spawnAndDestroyFace();
     }
 
     /**
@@ -260,12 +269,5 @@ public class GamePlayManager {
      */
     public void batMovingRight(double speedInPixel) {
         this.gameObjectManager.moveWorld(-speedInPixel, 0);
-    }
-
-    protected void updateGamePlay() {
-        this.generateHealth();
-        this.levelOne();
-        this.spawnBrick();
-        this.spawnAndDestroyFace();
     }
 }
