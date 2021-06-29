@@ -11,10 +11,12 @@ import de.thdeg.amuri.krakout.movement.Position;
  */
 public class Bat extends LiveObject {
     private final boolean playerGraphic;
-    private final boolean bounceBall;
     private final boolean hasPowerUp;
+    private JumpState jumpState;
+    private Status status;
     private boolean shooting;
-
+    private boolean movingToRight;
+    private boolean movingToLeft;
 
     /**
      * This is the extension constructor, here you can find prebuild parameters.
@@ -23,19 +25,28 @@ public class Bat extends LiveObject {
      */
     public Bat(GameView gameView) {
         super(gameView);
+        this.status = Status.STANDARD;
+        this.jumpState = JumpState.STANDARD;
         this.live = totalLive;
         this.size = 1.5;
         this.width = 12;
         this.height = 33;
         this.rotation = 0;
-        this.bounceBall = false;
         this.hasPowerUp = false;
-        this.speedInPixel = 3.5;
-        this.position = new Position(0, 200);
+        this.speedInPixel = 3;
         this.playerGraphic = true;
         this.position = new Position(20, 280);
-        this.hitBox.width = (int) (this.width * this.size);
-        this.hitBox.height = (int) (this.height * this.size);
+        if (playerGraphic) {
+            this.hitBox.width = (int) (this.width * this.size);
+            this.hitBox.height = (int) (this.height * this.size);
+        } else {
+            this.hitBox.width = 50;
+            this.hitBox.height = 50;
+        }
+    }
+
+    public void setInvisible() {
+        status = Status.DEAD;
     }
 
     @Override
@@ -53,6 +64,7 @@ public class Bat extends LiveObject {
      * interacts with {@link Position} to move left when called
      */
     public void left() {
+        this.movingToLeft = true;
         if (this.position.x > 20) {
             this.position.left(this.speedInPixel);
         } else {
@@ -64,6 +76,7 @@ public class Bat extends LiveObject {
      * interacts with {@link Position} to move right when called
      */
     public void right() {
+        this.movingToRight = true;
         if (this.position.x + this.width * this.size <= 20) {
             this.position.right(this.speedInPixel);
         } else {
@@ -106,11 +119,67 @@ public class Bat extends LiveObject {
             gamePlayManager.shootPinball(this.position);
             this.shooting = false;
         }
-        this.gameView.addImageToCanvas("Player.png", this.position.x, this.position.y, this.size, this.rotation);
+        switch (status) {
+            case STANDARD:
+                this.gameView.addImageToCanvas("Player.png", this.position.x, this.position.y, this.size, this.rotation);
+                break;
+            case DEAD:
+                break;
+        }
+    }
+
+    private void jumpingAnimation() {
+        if (gameView.timerExpired("jumpAnimation", "Bat")) {
+            gameView.setTimer("jumpAnimation", "Bat", 80);
+            if (movingToRight) {
+                switchJumpState();
+                movingToRight = false;
+            } else {
+                jumpState = JumpState.STANDARD;
+            }
+        }
+    }
+
+    private void switchJumpState() {
+        switch (jumpState) {
+            case STANDARD:
+                jumpState = JumpState.HALF_UP;
+                break;
+            case HALF_UP:
+                jumpState = JumpState.FULL_UP;
+                break;
+            case FULL_UP:
+                jumpState = JumpState.HALF_DOWN;
+                break;
+            case HALF_DOWN:
+                jumpState = JumpState.STANDARD;
+                break;
+        }
+    }
+
+    private void rollingAnimation() {
+        if (movingToLeft) {
+            rotation -= 5;
+            movingToLeft = false;
+        } else {
+            rotation = 0;
+        }
     }
 
     @Override
     public void updateStatus() {
+        switch (status) {
+            case STANDARD:
+                jumpingAnimation();
+                rollingAnimation();
+                break;
+            case DEAD:
+                break;
+        }
 
     }
+
+    private enum Status {STANDARD, DEAD}
+
+    private enum JumpState {STANDARD, HALF_UP, FULL_UP, HALF_DOWN}
 }

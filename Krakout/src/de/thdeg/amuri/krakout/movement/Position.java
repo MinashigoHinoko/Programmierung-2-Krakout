@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Main Object for the Movement of other objects
  */
-public class Position implements Cloneable{
+public class Position implements Cloneable, Comparable<Position> {
     /**
      * Initialising x for the x Position
      */
@@ -98,6 +98,33 @@ public class Position implements Cloneable{
     }
 
     /**
+     * Calculates the distance to any other position.
+     *
+     * @param other Position to calculate the distance to.
+     * @return The distance.
+     */
+    public double distance(Position other) {
+        return Math.sqrt(Math.pow((x - other.x), 2) + Math.pow((y - other.y), 2));
+    }
+
+    /**
+     * Calculates the distance between two positions.
+     *
+     * @param x Position x
+     * @param y Position y
+     * @return the distance
+     */
+    public double distance(double x, double y) {
+        return Math.sqrt(Math.pow((x), 2) + Math.pow((y), 2));
+    }
+
+    @Override
+    public int compareTo(Position o) {
+        Position zero = new Position(0, 0);
+        return (int) Math.signum(this.distance(zero) - o.distance(zero));
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -114,6 +141,7 @@ public class Position implements Cloneable{
         }
         return clone;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -123,6 +151,7 @@ public class Position implements Cloneable{
         Position position = (Position) o;
         return x == position.x && y == position.y;
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(x, y);

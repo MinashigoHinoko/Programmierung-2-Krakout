@@ -21,15 +21,8 @@ public abstract class LiveObject extends CollidableGameObject implements Cloneab
     protected LiveObject(GameView gameView) {
         super(gameView);
         this.hit = false;
-        this.totalLive = 3;
-        this.live = 3;
-    }
-
-    /**
-     * @param live as the current Live of the Object
-     */
-    public void setLive(int live) {
-        this.live = live;
+        this.totalLive = 0;
+        this.live = 0;
     }
 
     /**
@@ -48,6 +41,13 @@ public abstract class LiveObject extends CollidableGameObject implements Cloneab
      */
     public int getLive() {
         return this.live;
+    }
+
+    /**
+     * @param live as the current Live of the Object
+     */
+    public void setLive(int live) {
+        this.live = live;
     }
 
     /**
@@ -82,6 +82,7 @@ public abstract class LiveObject extends CollidableGameObject implements Cloneab
         liveObject.position = position.clone();
         return liveObject;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,6 +93,7 @@ public abstract class LiveObject extends CollidableGameObject implements Cloneab
                 && Double.compare(that.size, size) == 0 && width == that.width
                 && height == that.height && position.equals(that.position);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(position, speedInPixel, rotation, size, width, height);

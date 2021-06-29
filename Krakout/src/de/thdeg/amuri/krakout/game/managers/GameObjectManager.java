@@ -21,11 +21,11 @@ class GameObjectManager {
     private final GameView gameView;
     private final Bat bat;
     private final Background background;
-    private final Score score;
     private final GameBorderTop gameBorderTop;
     private final GameBorderBottom gameBorderBottom;
     private final GameBorderLeft gameBorderLeft;
     private final GameBorderRight gameBorderRight;
+    private final Overlay overlay;
 
     private final LinkedList<GameObject> gameObjects;
     private final LinkedList<AlienObject> alienObjects;
@@ -46,6 +46,7 @@ class GameObjectManager {
     private final LinkedList<TwinBall> twinBalls;
     private final LinkedList<PlayerLive> playerLives;
     private final LinkedList<Brick> bricks;
+    private final LinkedList<Score> score;
     private final ArrayList<CollidableGameObject> collidableGameObjects;
     private final ArrayList<CollidingGameObject> collidingGameObjects;
 
@@ -53,11 +54,12 @@ class GameObjectManager {
         this.gameView = gameView;
         this.bat = new Bat(gameView);
         this.background = new Background(gameView);
-        this.score = new Score(gameView);
         this.gameBorderTop = new GameBorderTop(gameView);
         this.gameBorderBottom = new GameBorderBottom(gameView);
         this.gameBorderLeft = new GameBorderLeft(gameView);
         this.gameBorderRight = new GameBorderRight(gameView);
+        this.overlay = new Overlay(gameView);
+
         this.gameObjects = new LinkedList<>();
         this.alienObjects = new LinkedList<>();
         this.liveObjects = new LinkedList<>();
@@ -77,6 +79,7 @@ class GameObjectManager {
         this.twinBalls = new LinkedList<>();
         this.playerLives = new LinkedList<>();
         this.bricks = new LinkedList<>();
+        this.score = new LinkedList<>();
         this.collidableGameObjects = new ArrayList<>();
         this.collidingGameObjects = new ArrayList<>();
     }
@@ -115,6 +118,7 @@ class GameObjectManager {
         this.collidingGameObjects.clear();
 
         this.alienObjects.addAll(this.astronauts);
+        this.alienObjects.addAll(this.bees);
         this.alienObjects.addAll(this.beeHives);
         this.alienObjects.addAll(this.bonusShips);
         this.alienObjects.addAll(this.cannibals);
@@ -128,7 +132,6 @@ class GameObjectManager {
         this.liveObjects.addAll(this.playerLives);
         this.liveObjects.addAll(this.alienObjects);
 
-        this.collidingGameObjects.addAll(this.bees);
         this.collidingGameObjects.addAll(this.flashAttacks);
         this.collidingGameObjects.addAll(this.balls);
 
@@ -136,13 +139,15 @@ class GameObjectManager {
         this.collidableGameObjects.add(this.gameBorderBottom);
         this.collidableGameObjects.add(this.gameBorderLeft);
         this.collidableGameObjects.add(this.gameBorderRight);
-        this.collidableGameObjects.addAll(this.alienObjects);
         this.collidableGameObjects.addAll(this.collidingGameObjects);
+        this.collidableGameObjects.addAll(this.alienObjects);
+        this.collidableGameObjects.add(this.bat);
+        this.collidableGameObjects.addAll(this.bricks);
 
         this.gameObjects.add(this.background);
-        this.gameObjects.add(this.score);
         this.gameObjects.add(this.bat);
 
+        this.gameObjects.addAll(this.score);
         this.gameObjects.addAll(this.liveObjects);
         this.gameObjects.addAll(this.bricks);
         this.gameObjects.addAll(this.items);
@@ -151,7 +156,7 @@ class GameObjectManager {
         this.gameObjects.add(this.gameBorderBottom);
         this.gameObjects.add(this.gameBorderLeft);
         this.gameObjects.add(this.gameBorderRight);
-
+        this.gameObjects.add(this.overlay);
         //Printing to Screen
         for (GameObject gameObject : gameObjects) {
             gameObject.update();
@@ -160,33 +165,6 @@ class GameObjectManager {
         }
     }
 
-    /**
-     * @return LinkedList getter for {@link GameObject}
-     */
-    public LinkedList<GameObject> getGameObjects() {
-        return gameObjects;
-    }
-
-    /**
-     * @return LinkedList getter for {@link AlienObject}
-     */
-    public LinkedList<AlienObject> getAlienObjects() {
-        return alienObjects;
-    }
-
-    /**
-     * @return LinkedList getter for {@link LiveObject}
-     */
-    public LinkedList<LiveObject> getLiveObjects() {
-        return liveObjects;
-    }
-
-    /**
-     * @return LinkedList getter for {@link Item}
-     */
-    public LinkedList<Item> getItems() {
-        return items;
-    }
 
     /**
      * @return LinkedList getter for {@link Pinball}
@@ -210,59 +188,10 @@ class GameObjectManager {
     }
 
     /**
-     * @return LinkedList for {@link BeeHive}
-     */
-    public LinkedList<BeeHive> getBeeHives() {
-        return beeHives;
-    }
-
-    /**
-     * @return LinkedList getter for {@link BonusShip}
-     */
-    public LinkedList<BonusShip> getBonusShips() {
-        return bonusShips;
-    }
-
-    /**
-     * @return LinkedList getter for {@link Cannibal}
-     */
-    public LinkedList<Cannibal> getCannibals() {
-        return cannibals;
-    }
-
-    /**
-     * @return LinkedList getter for {@link Egg}
-     */
-    public LinkedList<Egg> getEggs() {
-        return eggs;
-    }
-
-    /**
-     * @return LinkedList getter for {@link Exit}
-     */
-    public LinkedList<Exit> getExits() {
-        return exits;
-    }
-
-    /**
      * @return LinkedList getter for {@link Face}
      */
     public LinkedList<Face> getFaces() {
         return faces;
-    }
-
-    /**
-     * @return LinkedList getter for {@link Flash}
-     */
-    public LinkedList<Flash> getFlashes() {
-        return flashes;
-    }
-
-    /**
-     * @return LinkedList getter for {@link FlashAttack}
-     */
-    public LinkedList<FlashAttack> getFlashAttacks() {
-        return flashAttacks;
     }
 
     /**
@@ -273,31 +202,22 @@ class GameObjectManager {
     }
 
     /**
-     * @return ArrayList getter for {@link CollidingGameObject}
-     */
-    public ArrayList<CollidingGameObject> getCollidingGameObjects() {
-        return collidingGameObjects;
-    }
-
-    /**
-     * @return LinkedList getter for {@link TimeOut}
-     */
-    public LinkedList<TimeOut> getTimeOuts() {
-        return timeOuts;
-    }
-
-    /**
-     * @return LinkedList getter for {@link TwinBall}
-     */
-    public LinkedList<TwinBall> getTwinBalls() {
-        return twinBalls;
-    }
-
-    /**
      * @return LinkedList getter for {@link PlayerLive}
      */
     public LinkedList<PlayerLive> getPlayerLives() {
         return playerLives;
+    }
+
+    public LinkedList<AlienObject> getAlienObjects() {
+        return alienObjects;
+    }
+
+    public LinkedList<Item> getItems() {
+        return items;
+    }
+
+    public Overlay getOverlay() {
+        return overlay;
     }
 
     /**
@@ -305,5 +225,9 @@ class GameObjectManager {
      */
     public LinkedList<Brick> getBricks() {
         return bricks;
+    }
+
+    public LinkedList<Score> getScore() {
+        return score;
     }
 }

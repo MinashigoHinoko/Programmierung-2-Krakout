@@ -2,6 +2,7 @@ package de.thdeg.amuri.krakout.graphics.basicobject;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
+import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.movement.Position;
 
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Random;
 /**
  * Object for every Alien class
  */
-public abstract class AlienObject extends LiveObject implements MovingGameObject,Cloneable{
+public abstract class AlienObject extends LiveObject implements MovingGameObject, Cloneable {
     private double x;
     private boolean endOfScreenRight;
     private boolean endOfScreenLeft;
@@ -30,6 +31,13 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
         this.hit = false;
         this.random = new Random();
         this.position = new Position(random.nextInt(GameView.WIDTH), random.nextInt(GameView.HEIGHT - (GameView.HEIGHT / 10)));
+    }
+
+    @Override
+    public void reactToCollision(CollidableGameObject otherObject) {
+        if (otherObject.getClass() == Pinball.class) {
+            this.gamePlayManager.destroy(this);
+        }
     }
 
     @Override
@@ -53,7 +61,7 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
                     this.endOfScreenRight = true;
                     this.endOfScreenLeft = false;
                 }
-                if (this.endOfScreenRight == true) {
+                if (this.endOfScreenRight) {
                     this.position.left(this.speedInPixel);
                     break;
                 } else {
@@ -100,6 +108,7 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
 
 
     }
+
     @Override
     public CollidableGameObject clone() {
         AlienObject alienObject = null;
@@ -107,6 +116,7 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
         alienObject.position = position.clone();
         return alienObject;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -117,6 +127,7 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
                 && Double.compare(that.size, size) == 0 && width == that.width
                 && height == that.height && position.equals(that.position);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(position, speedInPixel, rotation, size, width, height);

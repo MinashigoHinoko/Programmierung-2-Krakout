@@ -38,16 +38,20 @@ public class Background extends GameObject {
     public void updateStatus() {
 
     }
+
     /**
      * Clones the Background.
+     *
      * @return clone.
      */
     @Override
-    public Background clone(){
+    public Background clone() {
         return (Background) super.clone();
     }
+
     /**
-     *Compares String of Background.
+     * Compares String of Background.
+     *
      * @param o object.
      * @return true or false
      */
@@ -59,8 +63,10 @@ public class Background extends GameObject {
         Background background = (Background) o;
         return size == size;
     }
+
     /**
      * Creates hashcode for the color-changing-block.
+     *
      * @return hashcode.
      */
     @Override
