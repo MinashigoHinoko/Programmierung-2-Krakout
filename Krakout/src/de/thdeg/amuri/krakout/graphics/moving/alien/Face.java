@@ -13,19 +13,12 @@ import de.thdeg.amuri.krakout.movement.Position;
  * @see Position
  */
 public class Face extends AlienObject implements MovingGameObject {
-    private int faceTimer;
-
-    private AnimationStatus animationStatus;
     private final static String FACE_FACE1 = "Face.png";
     private final static String FACE_FACE2 = "Face2.png";
     private final static String FACE_FACE3 = "Face3.png";
-    enum AnimationStatus{
-        STAGE_ONE, STAGE_TWO, STAGE_THREE;
+    private int faceTimer;
+    private AnimationStatus animationStatus;
 
-        AnimationStatus(){
-
-        }
-    }
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      *
@@ -45,17 +38,19 @@ public class Face extends AlienObject implements MovingGameObject {
         this.faceTimer = 1;
     }
 
-
     @Override
     public void addToCanvas() {
 
-        switch (animationStatus){
-            case STAGE_ONE: this.gameView.addImageToCanvas(FACE_FACE1,this.position.x, this.position.y, this.size, this.rotation);
-            break;
-            case STAGE_TWO: this.gameView.addImageToCanvas(FACE_FACE2,this.position.x, this.position.y, this.size, this.rotation);
-            break;
-            case STAGE_THREE: this.gameView.addImageToCanvas(FACE_FACE3,this.position.x, this.position.y, this.size, this.rotation);
-            break;
+        switch (animationStatus) {
+            case STAGE_ONE:
+                this.gameView.addImageToCanvas(FACE_FACE1, this.position.x, this.position.y, this.size, this.rotation);
+                break;
+            case STAGE_TWO:
+                this.gameView.addImageToCanvas(FACE_FACE2, this.position.x, this.position.y, this.size, this.rotation);
+                break;
+            case STAGE_THREE:
+                this.gameView.addImageToCanvas(FACE_FACE3, this.position.x, this.position.y, this.size, this.rotation);
+                break;
         }
     }
 
@@ -65,16 +60,27 @@ public class Face extends AlienObject implements MovingGameObject {
 
     @Override
     public void updateStatus() {
-        System.out.println(faceTimer);
-        if (this.gameView.timerExpired("AnimationFace", "Face" + faceTimer)){
-            switch (animationStatus){
-                case STAGE_ONE: this.animationStatus = AnimationStatus.STAGE_TWO;
-                break;
-                case STAGE_TWO: this.animationStatus = AnimationStatus.STAGE_THREE;
-                break;
-                case STAGE_THREE: this.animationStatus=AnimationStatus.STAGE_ONE;
+        if (this.gameView.timerExpired("AnimationFace", "Face" + faceTimer)) {
+            switch (animationStatus) {
+                case STAGE_ONE:
+                    this.animationStatus = AnimationStatus.STAGE_TWO;
+                    break;
+                case STAGE_TWO:
+                    this.animationStatus = AnimationStatus.STAGE_THREE;
+                    break;
+                case STAGE_THREE:
+                    this.animationStatus = AnimationStatus.STAGE_ONE;
+                    break;
             }
-            this.gameView.setTimer("AnimationFace","Face"+faceTimer, (long) (speedInPixel*100));
+            this.gameView.setTimer("AnimationFace", "Face" + faceTimer, (long) (speedInPixel * 100));
+        }
+    }
+
+    enum AnimationStatus {
+        STAGE_ONE, STAGE_TWO, STAGE_THREE;
+
+        AnimationStatus() {
+
         }
     }
 }

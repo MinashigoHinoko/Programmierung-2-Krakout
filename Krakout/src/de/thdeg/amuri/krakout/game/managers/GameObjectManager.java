@@ -25,6 +25,7 @@ class GameObjectManager {
     private final GameBorderBottom gameBorderBottom;
     private final GameBorderLeft gameBorderLeft;
     private final GameBorderRight gameBorderRight;
+    private final Overlay overlay;
 
     private final LinkedList<GameObject> gameObjects;
     private final LinkedList<AlienObject> alienObjects;
@@ -57,6 +58,7 @@ class GameObjectManager {
         this.gameBorderBottom = new GameBorderBottom(gameView);
         this.gameBorderLeft = new GameBorderLeft(gameView);
         this.gameBorderRight = new GameBorderRight(gameView);
+        this.overlay = new Overlay(gameView);
 
         this.gameObjects = new LinkedList<>();
         this.alienObjects = new LinkedList<>();
@@ -154,6 +156,7 @@ class GameObjectManager {
         this.gameObjects.add(this.gameBorderBottom);
         this.gameObjects.add(this.gameBorderLeft);
         this.gameObjects.add(this.gameBorderRight);
+        this.gameObjects.add(this.overlay);
         //Printing to Screen
         for (GameObject gameObject : gameObjects) {
             gameObject.update();
@@ -203,6 +206,18 @@ class GameObjectManager {
      */
     public LinkedList<PlayerLive> getPlayerLives() {
         return playerLives;
+    }
+
+    public LinkedList<AlienObject> getAlienObjects() {
+        return alienObjects;
+    }
+
+    public LinkedList<Item> getItems() {
+        return items;
+    }
+
+    public Overlay getOverlay() {
+        return overlay;
     }
 
     /**

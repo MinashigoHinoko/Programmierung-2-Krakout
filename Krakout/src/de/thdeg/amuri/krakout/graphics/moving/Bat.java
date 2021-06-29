@@ -6,24 +6,17 @@ import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
 import de.thdeg.amuri.krakout.movement.Position;
 
-import java.awt.*;
-
 /**
  * This is the Player Figure, that the Player controls. He uses it to manipulate the {@link Pinball} to break {@link Brick}
  */
 public class Bat extends LiveObject {
-    private enum Status {STANDARD, DAMAGED1, DAMAGED2, GONE}
-
-    private enum JumpState {STANDARD, HALF_UP, FULL_UP, HALF_DOWN}
-
-    private JumpState jumpState;
-    private Status status;
     private final boolean playerGraphic;
     private final boolean hasPowerUp;
+    private JumpState jumpState;
+    private Status status;
     private boolean shooting;
     private boolean movingToRight;
     private boolean movingToLeft;
-
 
     /**
      * This is the extension constructor, here you can find prebuild parameters.
@@ -50,6 +43,10 @@ public class Bat extends LiveObject {
             this.hitBox.width = 50;
             this.hitBox.height = 50;
         }
+    }
+
+    public void setInvisible() {
+        status = Status.DEAD;
     }
 
     @Override
@@ -118,31 +115,16 @@ public class Bat extends LiveObject {
 
     @Override
     public void addToCanvas() {
-        if (this.playerGraphic) {
-            if (this.shooting) {
-                gamePlayManager.shootPinball(this.position);
-                this.shooting = false;
-            }
-            this.gameView.addImageToCanvas("Player.png", this.position.x, this.position.y, this.size, this.rotation);
-        } else {
-            if (status == Status.STANDARD) {
-                switch (jumpState) {
-                    case STANDARD:
-                        gameView.addTextToCanvas("X", position.x, position.y, 50, Color.WHITE, rotation);
-                        break;
-                    case HALF_UP:
-                    case HALF_DOWN:
-                        gameView.addTextToCanvas("X", position.x, position.y - 20, 50, Color.WHITE, rotation);
-                        break;
-                    case FULL_UP:
-                        gameView.addTextToCanvas("X", position.x, position.y - 40, 50, Color.WHITE, rotation);
-                        break;
-                }
-            } else if (status == Status.DAMAGED1) {
-                gameView.addTextToCanvas("X", position.x - 20, position.y - 20, 90, Color.WHITE, rotation);
-            } else if (status == Status.DAMAGED2) {
-                gameView.addTextToCanvas("X", position.x - 40, position.y - 40, 130, Color.WHITE, rotation);
-            }
+        if (this.shooting) {
+            gamePlayManager.shootPinball(this.position);
+            this.shooting = false;
+        }
+        switch (status) {
+            case STANDARD:
+                this.gameView.addImageToCanvas("Player.png", this.position.x, this.position.y, this.size, this.rotation);
+                break;
+            case DEAD:
+                break;
         }
     }
 
@@ -184,20 +166,6 @@ public class Bat extends LiveObject {
         }
     }
 
-    private void damaged1Animation() {
-        if (gameView.timerExpired("damaged", "Bat")) {
-            gameView.setTimer("damaged", "Bat", 300);
-            status = Status.DAMAGED2;
-        }
-    }
-
-    private void damaged2Animation() {
-        if (gameView.timerExpired("damaged", "Bat")) {
-            gameView.setTimer("damaged", "Bat", 300);
-            status = Status.GONE;
-        }
-    }
-
     @Override
     public void updateStatus() {
         switch (status) {
@@ -205,15 +173,13 @@ public class Bat extends LiveObject {
                 jumpingAnimation();
                 rollingAnimation();
                 break;
-            case DAMAGED1:
-                damaged1Animation();
-                break;
-            case DAMAGED2:
-                damaged2Animation();
-                break;
-            case GONE:
+            case DEAD:
                 break;
         }
 
     }
+
+    private enum Status {STANDARD, DEAD}
+
+    private enum JumpState {STANDARD, HALF_UP, FULL_UP, HALF_DOWN}
 }

@@ -32,8 +32,10 @@ public class GamePlayManager {
     private int numberOfAliens;
     private int liveOfPLayer;
     private boolean brickSpawned;
-    private final Score score;
+    private Score score;
     private LevelManager levelManager;
+    private PlayerLive playerLive;
+    private boolean levelOver;
 
     protected GamePlayManager(GameView gameView, GameObjectManager gameObjectManager) {
         this.gameView = gameView;
@@ -41,11 +43,46 @@ public class GamePlayManager {
         this.random = new Random();
         this.gameObjectManager.getBat().setGamePlayManager(this);
         this.listHasBeenDeleted = false;
-        this.score = new Score(gameView);
-        this.gameObjectManager.getScore().add(score);
+        this.playerLive = new PlayerLive(this.gameView);
         this.levelManager = new LevelManager(true);
     }
+    private void initializeLevel() {
+        this.score = new Score(gameView);
+        this.gameObjectManager.getScore().add(score);
+        this.brickPositions = new LinkedList<>();
+        this.name = this.levelManager.getNextLevel().name;
+        this.numberOfBricks = this.levelManager.getNextLevel().numberOfBricks;
+        this.numberOfItems = this.levelManager.getNextLevel().numberOfItems;
+        this.numberOfAliens = this.levelManager.getNextLevel().numberOfAliens;
+        this.liveOfPLayer = this.levelManager.getNextLevel().playerLive;
+        for (int i = 1; i <= this.numberOfBricks; i++) {
+            int x = 450;
+            int y = 300;
+            if (i != 0) {
+                x += 23 * i;
+                y += 0 * i;
+            }
+            brickPositions.add(new Position(x, y));
+        }
 
+        this.level = new Level(this.name, this.numberOfBricks, this.numberOfItems, this.numberOfAliens, liveOfPLayer, this.brickPositions);
+        this.spawnBrick();
+        this.spawnAndDestroyFace();
+        this.generateHealth();
+    }
+
+    private void nextLevel() {
+        if (!levelOver) {
+            gameView.setTimer("level", "GamePlayManager", 3000);
+            levelOver = true;
+            gameObjectManager.getBat().setInvisible();
+            gameObjectManager.getOverlay().showMessage("Great job!");
+        }
+        if (gameView.timerExpired("level", "GamePlayManager")) {
+            levelOver = false;
+            initializeLevel();
+        }
+    }
     /**
      * @param startPosition Shoots a ball, there can only be up to two at the same time.
      */
@@ -73,17 +110,17 @@ public class GamePlayManager {
     }
 
     protected void generateHealth() {
-        PlayerLive playerLive = new PlayerLive(this.gameView);
+        this.gameObjectManager.getPlayerLives().clear();
         if (this.gameObjectManager.getPlayerLives().size() <= playerLive.getTotalLive()) {
-            playerLive.manipulateTotalLive(2);
+            playerLive.manipulateTotalLive(3);
             if (this.gameObjectManager.getPlayerLives().isEmpty()) {
-                playerLive.manipulateLive(0);
+                playerLive.setLive(this.level.playerLive);
             }
             int live = playerLive.getLive();
             for (int x = 0; x < playerLive.getTotalLive(); x++) {
                 this.gameObjectManager.getPlayerLives().add(playerLive);
             }
-            int liveHelp = 3;
+            int liveHelp = 0;
             for (int y = 0; y < liveHelp; y++) {
                 live += 1;
                 playerLive.setLive(live);
@@ -139,7 +176,8 @@ public class GamePlayManager {
         }
         this.managePoints(object);
     }
-    public void managePoints(Object object){
+
+    public void managePoints(Object object) {
         if (object.getClass() == Brick.class) {
             this.gameObjectManager.getScore().getFirst().plusScore(200);
         }
@@ -195,7 +233,7 @@ public class GamePlayManager {
 
     protected void spawnBrick() {
         if (this.gameObjectManager.getBricks().isEmpty()) {
-            this.brickSpawned = false;
+            //this.brickSpawned = false;
         }
         if (!this.brickSpawned) {
             for (Position position : this.level.brickPositions) {
@@ -209,30 +247,22 @@ public class GamePlayManager {
         this.brickSpawned = true;
     }
 
-    protected void levelGen() {
-        this.brickPositions = new LinkedList<>();
-        this.name = this.levelManager.getNextLevel().name;
-        this.numberOfBricks = this.levelManager.getNextLevel().numberOfBricks;
-        this.numberOfItems = this.levelManager.getNextLevel().numberOfItems;
-        this.numberOfAliens = this.levelManager.getNextLevel().numberOfAliens;
-        this.liveOfPLayer = this.levelManager.getNextLevel().playerLive;
-        for (int i = 1; i <= this.numberOfBricks; i++) {
-            int x = 450;
-            int y = 300;
-            if (i != 0) {
-                x += 23 * i;
-                y += 0 * i;
-            }
-            brickPositions.add(new Position(x, y));
-        }
-        this.level = new Level(this.name, this.numberOfBricks, this.numberOfItems, this.numberOfAliens, liveOfPLayer, this.brickPositions);
-    }
-
     protected void updateGamePlay() {
-        this.generateHealth();
-        this.levelGen();
-        this.spawnBrick();
-        this.spawnAndDestroyFace();
+        this.gameObjectManager.getBricks().clear();
+        this.gameObjectManager.getItems().clear();
+        this.gameObjectManager.getAlienObjects().clear();
+        this.gameObjectManager.getPlayerLives().clear();
+        // if (this.brickSpawned && this.gameObjectManager.getBricks().isEmpty()) {
+        //nextGame();
+        /* } else*/
+        if (this.playerLive.getLive() <= 0) {
+            if (levelManager.hasNextLevel()) {
+                nextLevel();
+
+                //} else {
+                //nextGame();
+            }
+        }
     }
 
     /**

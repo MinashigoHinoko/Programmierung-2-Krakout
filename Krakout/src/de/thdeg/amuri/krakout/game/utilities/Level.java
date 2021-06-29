@@ -51,13 +51,14 @@ public class Level {
         this.playerLive = playerLive;
 
     }
-    public Level(String name, int numberOfBricks, int numberOfItems, int numberOfAliens, int playerLive, LinkedList<Position> brickPositions){
+
+    public Level(String name, int numberOfBricks, int numberOfItems, int numberOfAliens, int playerLive, LinkedList<Position> brickPositions) {
         this.name = name;
         this.numberOfBricks = numberOfBricks;
         this.numberOfItems = numberOfItems;
         this.numberOfAliens = numberOfAliens;
         this.playerLive = playerLive;
-        this.brickPositions=brickPositions;
+        this.brickPositions = brickPositions;
 
     }
 }

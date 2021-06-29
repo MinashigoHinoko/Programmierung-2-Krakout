@@ -4,7 +4,7 @@ import de.thdeg.amuri.krakout.game.utilities.Level;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
+import java.util.NoSuchElementException;
 
 /**
  * Manages the levels of the game.
@@ -13,10 +13,14 @@ class LevelManager {
     private ArrayList<Level> levels;
     private int nextLevel;
 
-    public LevelManager(boolean difficultyIsSetToEasy) {
+    LevelManager(boolean difficultyIsSetToEasy) {
         int basenumberOfBricks = difficultyIsSetToEasy ? 3 : 6;
-        Level level1 = new Level("   Level ∞\n\nInfinityMode",basenumberOfBricks,5,10,5);
-        levels = new ArrayList<>(List.of(level1));
+        int basenumberOfItems = difficultyIsSetToEasy ? 1 : 3;
+        int basenumberOfAliens = difficultyIsSetToEasy ? 2 : 4;
+        int basenumberOfLive = difficultyIsSetToEasy ? 3 : 2;
+        Level level1 = new Level("   Level ∞\n\nInfinityMode", basenumberOfBricks, basenumberOfItems, basenumberOfAliens, basenumberOfLive);
+        Level level2 = new Level("   Level Test\n\nInfinityMode",basenumberOfBricks+5, basenumberOfItems+2, basenumberOfAliens+3, basenumberOfLive);
+        levels = new ArrayList<>(List.of(level1,level2));
         this.nextLevel = 0;
     }
 
@@ -38,9 +42,9 @@ class LevelManager {
     public Level getNextLevel() {
         Level level = levels.get(nextLevel);
         if (level == null) {
-            throw new NoSuchElementException();
+            throw new NoMoreLevelsAvailableException();
         }
-        //nextLevel++;
+        nextLevel++;
         return level;
     }
 }

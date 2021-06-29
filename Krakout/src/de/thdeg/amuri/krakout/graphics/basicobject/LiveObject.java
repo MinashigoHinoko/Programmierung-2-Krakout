@@ -21,15 +21,8 @@ public abstract class LiveObject extends CollidableGameObject implements Cloneab
     protected LiveObject(GameView gameView) {
         super(gameView);
         this.hit = false;
-        this.totalLive = 3;
-        this.live = 3;
-    }
-
-    /**
-     * @param live as the current Live of the Object
-     */
-    public void setLive(int live) {
-        this.live = live;
+        this.totalLive = 0;
+        this.live = 0;
     }
 
     /**
@@ -48,6 +41,13 @@ public abstract class LiveObject extends CollidableGameObject implements Cloneab
      */
     public int getLive() {
         return this.live;
+    }
+
+    /**
+     * @param live as the current Live of the Object
+     */
+    public void setLive(int live) {
+        this.live = live;
     }
 
     /**
