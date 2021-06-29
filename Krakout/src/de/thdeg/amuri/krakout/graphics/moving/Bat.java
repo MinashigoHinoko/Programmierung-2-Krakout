@@ -36,17 +36,29 @@ public class Bat extends LiveObject {
         this.speedInPixel = 3;
         this.playerGraphic = true;
         this.position = new Position(20, 280);
-        if (playerGraphic) {
-            this.hitBox.width = (int) (this.width * this.size);
-            this.hitBox.height = (int) (this.height * this.size);
-        } else {
-            this.hitBox.width = 50;
-            this.hitBox.height = 50;
-        }
+        this.hitBox.width = (int) (this.width * this.size);
+        this.hitBox.height = (int) (this.height * this.size);
     }
 
+    /**
+     * Makes the Bat invisible.
+     */
     public void setInvisible() {
         status = Status.DEAD;
+    }
+
+    /**
+     * Resets the Bat fot the next level.
+     *
+     * @param resetPosition Determines if the position should be reset to the original position.
+     */
+    public void resetBat(boolean resetPosition) {
+        status = Status.LIVE;
+        if (resetPosition) {
+            position = new Position(20, 280);
+        }
+        this.hitBox.width = (int) (this.width * this.size);
+        this.hitBox.height = (int) (this.height * this.size);
     }
 
     @Override
@@ -121,6 +133,7 @@ public class Bat extends LiveObject {
         }
         switch (status) {
             case STANDARD:
+            case LIVE:
                 this.gameView.addImageToCanvas("Player.png", this.position.x, this.position.y, this.size, this.rotation);
                 break;
             case DEAD:
@@ -175,11 +188,12 @@ public class Bat extends LiveObject {
                 break;
             case DEAD:
                 break;
+            case LIVE:
         }
 
     }
 
-    private enum Status {STANDARD, DEAD}
+    private enum Status {STANDARD, DEAD, LIVE}
 
     private enum JumpState {STANDARD, HALF_UP, FULL_UP, HALF_DOWN}
 }

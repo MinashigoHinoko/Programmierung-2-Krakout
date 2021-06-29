@@ -12,23 +12,23 @@ public class Level {
     /**
      * Name of the level.
      */
-    public final String name;
+    public String name;
     /**
      * Number of Bricks in the level.
      */
-    public final int numberOfBricks;
+    public int numberOfBricks;
     /**
      * Number of Bricks that have item.
      */
-    public final int numberOfItems;
+    public int numberOfItems;
     /**
      * Number of Aliens that will spawn in the level.
      */
-    public final int numberOfAliens;
+    public int numberOfAliens;
     /**
      * Amount of Live the player has in the level.
      */
-    public final int playerLive;
+    public int playerLive;
     /**
      * Positions of all the Bricks that need to be spawned.
      */
@@ -52,13 +52,7 @@ public class Level {
 
     }
 
-    public Level(String name, int numberOfBricks, int numberOfItems, int numberOfAliens, int playerLive, LinkedList<Position> brickPositions) {
-        this.name = name;
-        this.numberOfBricks = numberOfBricks;
-        this.numberOfItems = numberOfItems;
-        this.numberOfAliens = numberOfAliens;
-        this.playerLive = playerLive;
+    public void setBrickPositions(LinkedList<Position> brickPositions) {
         this.brickPositions = brickPositions;
-
     }
 }

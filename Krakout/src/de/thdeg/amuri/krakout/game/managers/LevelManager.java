@@ -41,10 +41,14 @@ class LevelManager {
      */
     public Level getNextLevel() {
         Level level = levels.get(nextLevel);
-        if (level == null) {
+        if (level == null ) {
             throw new NoMoreLevelsAvailableException();
         }
-        nextLevel++;
-        return level;
+        if (nextLevel>levels.size()){
+            return level;
+        }else {
+            nextLevel++;
+            return level;
+        }
     }
 }

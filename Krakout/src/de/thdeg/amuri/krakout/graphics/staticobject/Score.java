@@ -55,6 +55,10 @@ public class Score extends GameObject {
         this.score += score;
     }
 
+    public int getScore() {
+        return score;
+    }
+
     @Override
     public void addToCanvas() {
         this.scoreOutput = ""+score;

@@ -1,6 +1,7 @@
 package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.game.utilities.Level;
+import de.thdeg.amuri.krakout.game.utilities.Player;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
@@ -9,6 +10,8 @@ import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Bee;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
+import de.thdeg.amuri.krakout.graphics.staticobject.screen.EndScreen;
+import de.thdeg.amuri.krakout.graphics.staticobject.screen.StartScreen;
 import de.thdeg.amuri.krakout.movement.Position;
 
 import java.util.ArrayList;
@@ -23,19 +26,15 @@ public class GamePlayManager {
     private final GameObjectManager gameObjectManager;
     private final Random random;
     private Pinball ball;
-    private Level level;
     private boolean listHasBeenDeleted;
-    private LinkedList<Position> brickPositions;
-    private String name;
-    private int numberOfBricks;
-    private int numberOfItems;
-    private int numberOfAliens;
-    private int liveOfPLayer;
     private boolean brickSpawned;
-    private Score score;
+    private Level level;
     private LevelManager levelManager;
-    private PlayerLive playerLive;
+    private final PlayerLive playerLive;
     private boolean levelOver;
+    private Player player;
+    private boolean gameOver;
+    private int gameSound;
 
     protected GamePlayManager(GameView gameView, GameObjectManager gameObjectManager) {
         this.gameView = gameView;
@@ -44,18 +43,31 @@ public class GamePlayManager {
         this.gameObjectManager.getBat().setGamePlayManager(this);
         this.listHasBeenDeleted = false;
         this.playerLive = new PlayerLive(this.gameView);
-        this.levelManager = new LevelManager(true);
+        this.player = new Player();
+        initializeGame();
     }
+
+    private void initializeGame() {
+        StartScreen startScreen = new StartScreen(gameView);
+        levelManager = new LevelManager(startScreen.isDifficultySetToEasy());
+        this.gameSound = gameView.playSound("GameSound.wav", true);
+        startScreen.showStartScreen();
+        this.player.lives = Player.MAXIMUM_NUMBER_OF_LIVES;
+        this.player.score = 0;
+        initializeLevel();
+    }
+
     private void initializeLevel() {
-        this.score = new Score(gameView);
+        String name = this.levelManager.getNextLevel().name;
+        int numberOfBricks = this.levelManager.getNextLevel().numberOfBricks;
+        int  numberOfAliens = this.levelManager.getNextLevel().numberOfAliens;
+        int  numberOfItems = this.levelManager.getNextLevel().numberOfItems;
+        int playerLive = this.levelManager.getNextLevel().playerLive;
+        this.gameObjectManager.getBat().resetBat(true);
+        Score score = new Score(this.gameView);
         this.gameObjectManager.getScore().add(score);
-        this.brickPositions = new LinkedList<>();
-        this.name = this.levelManager.getNextLevel().name;
-        this.numberOfBricks = this.levelManager.getNextLevel().numberOfBricks;
-        this.numberOfItems = this.levelManager.getNextLevel().numberOfItems;
-        this.numberOfAliens = this.levelManager.getNextLevel().numberOfAliens;
-        this.liveOfPLayer = this.levelManager.getNextLevel().playerLive;
-        for (int i = 1; i <= this.numberOfBricks; i++) {
+        LinkedList<Position> brickPositions = new LinkedList<>();
+        for (int i = 1; i <= level.numberOfBricks; i++) {
             int x = 450;
             int y = 300;
             if (i != 0) {
@@ -64,16 +76,29 @@ public class GamePlayManager {
             }
             brickPositions.add(new Position(x, y));
         }
-
-        this.level = new Level(this.name, this.numberOfBricks, this.numberOfItems, this.numberOfAliens, liveOfPLayer, this.brickPositions);
-        this.spawnBrick();
+        this.level = new Level(name,numberOfBricks,numberOfItems,numberOfAliens,playerLive);
         this.spawnAndDestroyFace();
+        this.spawnBrick();
         this.generateHealth();
     }
-
+    private void nextGame() {
+        if (!this.gameOver) {
+            this.gameView.setTimer("game", "GamePlayManager", 3000);
+            this.gameOver = true;
+            this.gameObjectManager.getBat().setInvisible();
+            this.gameObjectManager.getOverlay().showMessage("Game Over!");
+        }
+        if (this.gameView.timerExpired("game", "GamePlayManager")) {
+            this.gameOver = false;
+            this.gameView.stopAllSounds();
+            EndScreen endScreen = new EndScreen(this.gameView);
+            endScreen.showEndScreen(this.player.score);
+            initializeGame();
+        }
+    }
     private void nextLevel() {
         if (!levelOver) {
-            gameView.setTimer("level", "GamePlayManager", 3000);
+            gameView.setTimer("level", "GamePlayManager", 500);
             levelOver = true;
             gameObjectManager.getBat().setInvisible();
             gameObjectManager.getOverlay().showMessage("Great job!");
@@ -112,9 +137,9 @@ public class GamePlayManager {
     protected void generateHealth() {
         this.gameObjectManager.getPlayerLives().clear();
         if (this.gameObjectManager.getPlayerLives().size() <= playerLive.getTotalLive()) {
-            playerLive.manipulateTotalLive(3);
+            this.playerLive.manipulateTotalLive(3);
             if (this.gameObjectManager.getPlayerLives().isEmpty()) {
-                playerLive.setLive(this.level.playerLive);
+                playerLive.setLive(1);
             }
             int live = playerLive.getLive();
             for (int x = 0; x < playerLive.getTotalLive(); x++) {
@@ -123,7 +148,7 @@ public class GamePlayManager {
             int liveHelp = 0;
             for (int y = 0; y < liveHelp; y++) {
                 live += 1;
-                playerLive.setLive(live);
+                this.playerLive.setLive(live);
             }
         }
     }
@@ -196,6 +221,7 @@ public class GamePlayManager {
         if (object.getClass() == Pinball.class) {
             this.gameObjectManager.getScore().getFirst().minusScore(200);
         }
+        this.player.score = this.gameObjectManager.getScore().getFirst().getScore();
     }
 
     protected void spawnAndDestroyFace() {
@@ -252,15 +278,13 @@ public class GamePlayManager {
         this.gameObjectManager.getItems().clear();
         this.gameObjectManager.getAlienObjects().clear();
         this.gameObjectManager.getPlayerLives().clear();
-        // if (this.brickSpawned && this.gameObjectManager.getBricks().isEmpty()) {
-        //nextGame();
-        /* } else*/
-        if (this.playerLive.getLive() <= 0) {
+        if (this.level.playerLive == 0) {
+            nextGame();
+        } else {
             if (levelManager.hasNextLevel()) {
                 nextLevel();
-
-                //} else {
-                //nextGame();
+            } else {
+                nextGame();
             }
         }
     }
