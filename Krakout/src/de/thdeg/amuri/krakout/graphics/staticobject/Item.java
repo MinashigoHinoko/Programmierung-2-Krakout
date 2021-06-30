@@ -11,16 +11,9 @@ import de.thdeg.amuri.krakout.movement.Position;
  * This Object will be used to create Items, these Items can be enemies,PowerUps or PowerDowns
  */
 public class Item extends CollidableGameObject {
-    enum Status {
-        BOMB, DOUBLE, EXPAND, GLUE, MISSILE, SHIELD, MULTIPLY, HEALTHUP, SLOWBALL, NONE
-    }
-
-    //declares what kind of item it is
-    //Ammount of items
-    private int maxAmmount;
-    private final String itemVisual;
+    private String itemVisual;
     private final Status status;
-
+    private int maxAmmount;
     /**
      * Constructor for filling in parameters and Building gameView
      *
@@ -32,7 +25,7 @@ public class Item extends CollidableGameObject {
         this.size = 2;
         this.width = 11;
         this.height = 24;
-        this.itemVisual = "Herz.png";
+        this.itemVisual = null;
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
     }
@@ -47,7 +40,6 @@ public class Item extends CollidableGameObject {
     public void reactToCollision(CollidableGameObject otherObject) {
 
     }
-
 
     /**
      * Max Ammount of Items per game compared to {@link Brick}
@@ -102,12 +94,48 @@ public class Item extends CollidableGameObject {
 
     @Override
     public void addToCanvas() {
+        switch (status){
+            case BOMB:
+                this.itemVisual= "Bomb.png";
+                break;
+            case DOUBLE:
+                this.itemVisual= "Double.png";
+                break;
+            case EXPAND:
+                this.itemVisual= "Expand.png";
+                break;
+            case GLUE:
+                this.itemVisual= "Glue.png";
+                break;
+            case MISSILE:
+                this.itemVisual= "Missile.png";
+                break;
+            case SHIELD:
+                this.itemVisual= "Shield.png";
+                break;
+            case MULTIPLY:
+                this.itemVisual= "DoublePoints.png";
+                break;
+            case HEALTHUP:
+                this.itemVisual= "Herz.png";
+                break;
+            case SLOWBALL:
+                this.itemVisual= "SlowBall.png";
+                break;
+            case NONE:
+                this.itemVisual= null;
+                break;
+        }
         gameView.addImageToCanvas(itemVisual, position.x, position.y, size, rotation);
     }
 
     @Override
     protected void updateStatus() {
 
+    }
+
+    enum Status {
+        BOMB, DOUBLE, EXPAND, GLUE, MISSILE, SHIELD, MULTIPLY, HEALTHUP, SLOWBALL, NONE
     }
 }
 

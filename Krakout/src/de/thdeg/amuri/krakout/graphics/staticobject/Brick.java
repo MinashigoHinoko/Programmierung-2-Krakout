@@ -2,8 +2,10 @@ package de.thdeg.amuri.krakout.graphics.staticobject;
 
 
 import de.thdeg.amuri.krakout.gameview.GameView;
+import de.thdeg.amuri.krakout.graphics.basicobject.GameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.LiveObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.movement.Position;
 
@@ -13,13 +15,13 @@ import java.util.LinkedList;
  * This is the Brick the player has to hit with his {@link Pinball}.
  * Every Brick has to be destroyed to finish the game
  */
-public class Brick extends LiveObject {
+public class Brick extends CollidableGameObject {
     //Ammount of Bricks for Win condition
     private final int ammount;
     private final String color;
+    LinkedList<Brick> bricks;
     //Has PowerUP?
     private boolean powerUp;
-    LinkedList<Brick> bricks;
 
     /**
      * Creates a new Brick
@@ -29,9 +31,7 @@ public class Brick extends LiveObject {
      */
     public Brick(GameView gameView) {
         super(gameView);
-        this.hit = false;
         this.position = new Position(860, 100);
-        this.live = 2;
         this.ammount = 1;
         this.size = 2;
         this.color = "RED";
@@ -73,15 +73,6 @@ public class Brick extends LiveObject {
      */
     public void setHasPowerUp(boolean haspowerUp) {
         this.powerUp = haspowerUp;
-    }
-
-    /**
-     * If being Hit, the Live of the Brick will be reduced according to the Damage
-     *
-     * @return if being Hit, true = Damage
-     */
-    public boolean isHit() {
-        return this.hit;
     }
 
     /**

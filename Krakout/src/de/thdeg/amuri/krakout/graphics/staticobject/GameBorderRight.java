@@ -3,6 +3,8 @@ package de.thdeg.amuri.krakout.graphics.staticobject;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 
+import java.awt.*;
+
 /**
  * Game Border on the Right(for bouncing)
  */
@@ -13,16 +15,17 @@ public class GameBorderRight extends CollidableGameObject {
     public GameBorderRight(GameView gameView) {
         super(gameView);
         this.position.x = GameView.WIDTH - 6;
-        this.position.y = 56;
+        this.position.y = 50;
         this.size = 1;
         this.width = 5;
-        this.height = GameView.HEIGHT - 56;
+        this.height = GameView.HEIGHT - 100;
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
     }
 
     @Override
     public void addToCanvas() {
+        gameView.addRectangleToCanvas(this.position.x, this.position.y, this.width, this.height, this.size, true, Color.RED);
     }
 
     @Override

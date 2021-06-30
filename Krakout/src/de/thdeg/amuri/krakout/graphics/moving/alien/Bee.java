@@ -3,7 +3,10 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
+
+import java.util.ArrayList;
 
 /**
  * Will glue the {@link Bat} when Hit, so it cant move
@@ -14,8 +17,8 @@ public class Bee extends AlienObject implements MovingGameObject {
      *
      * @param gameView this is for Initialising the game object
      */
-    public Bee(GameView gameView) {
-        super(gameView);
+    public Bee(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
+        super(gameView,objectsToCollideWith);
         this.width = 35;
         this.height = 31;
         this.size = 1.5;

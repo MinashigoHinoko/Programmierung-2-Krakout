@@ -3,6 +3,9 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
+
+import java.util.ArrayList;
 
 /**
  * All aliens will not move for 30 seconds when Hit.
@@ -13,9 +16,7 @@ import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
  * @see BonusShip
  * @see Cannibal
  * @see Egg
- * @see Exit
  * @see Face
- * @see Flash
  * @see TimeOut
  * @see TwinBall
  */
@@ -25,13 +26,11 @@ public class TimeOut extends AlienObject implements MovingGameObject {
      *
      * @param gameView this is for Initialising the game object
      */
-    public TimeOut(GameView gameView) {
-        super(gameView);
-        this.live = 1;
+    public TimeOut(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
+        super(gameView,objectsToCollideWith);
         this.width = 29;
         this.height = 46;
         this.size = 1;
-        this.hit = false;
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
     }

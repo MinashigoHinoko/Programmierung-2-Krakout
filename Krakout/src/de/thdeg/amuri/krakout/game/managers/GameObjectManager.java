@@ -32,7 +32,6 @@ class GameObjectManager {
     private final LinkedList<LiveObject> liveObjects;
     private final LinkedList<Item> items;
     private final LinkedList<Pinball> balls;
-    private final LinkedList<Astronaut> astronauts;
     private final LinkedList<Bee> bees;
     private final LinkedList<BeeHive> beeHives;
     private final LinkedList<BonusShip> bonusShips;
@@ -62,7 +61,6 @@ class GameObjectManager {
         this.liveObjects = new LinkedList<>();
         this.items = new LinkedList<>();
         this.balls = new LinkedList<>();
-        this.astronauts = new LinkedList<>();
         this.bees = new LinkedList<>();
         this.beeHives = new LinkedList<>();
         this.bonusShips = new LinkedList<>();
@@ -85,7 +83,6 @@ class GameObjectManager {
     protected void moveWorld(double adaptX, double adaptY) {
         for (GameObject gameObject : gameObjects) {
             if (gameObject.getClass() != Face.class
-                    && gameObject.getClass() != Astronaut.class
                     && gameObject.getClass() != Bat.class
                     && gameObject.getClass() != Brick.class
                     && gameObject.getClass() != Background.class
@@ -111,7 +108,6 @@ class GameObjectManager {
         this.collidableGameObjects.clear();
         this.collidingGameObjects.clear();
 
-        this.alienObjects.addAll(this.astronauts);
         this.alienObjects.addAll(this.bees);
         this.alienObjects.addAll(this.beeHives);
         this.alienObjects.addAll(this.bonusShips);
@@ -122,7 +118,6 @@ class GameObjectManager {
         this.alienObjects.addAll(this.twinBalls);
 
         this.liveObjects.addAll(this.playerLives);
-        this.liveObjects.addAll(this.alienObjects);
 
         this.collidingGameObjects.addAll(this.balls);
 
@@ -138,6 +133,7 @@ class GameObjectManager {
         this.gameObjects.add(this.background);
         this.gameObjects.add(this.bat);
 
+        this.gameObjects.addAll(this.alienObjects);
         this.gameObjects.addAll(this.score);
         this.gameObjects.addAll(this.liveObjects);
         this.gameObjects.addAll(this.bricks);
@@ -162,13 +158,6 @@ class GameObjectManager {
      */
     public LinkedList<Pinball> getBalls() {
         return balls;
-    }
-
-    /**
-     * @return LinkedList getter for {@link Astronaut}
-     */
-    public LinkedList<Astronaut> getAstronauts() {
-        return astronauts;
     }
 
     /**

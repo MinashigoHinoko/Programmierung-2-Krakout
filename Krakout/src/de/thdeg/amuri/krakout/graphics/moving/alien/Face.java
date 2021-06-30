@@ -3,7 +3,10 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.movement.Position;
+
+import java.util.ArrayList;
 
 
 /**
@@ -24,14 +27,12 @@ public class Face extends AlienObject implements MovingGameObject {
      *
      * @param gameView this is for Initialising the game object
      */
-    public Face(GameView gameView) {
-        super(gameView);
-        this.live = 2;
+    public Face(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
+        super(gameView,objectsToCollideWith);
         this.width = 23;
         this.height = 23;
         this.size = 1.5;
         this.speedInPixel = 3.5;
-        this.hit = false;
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
         this.animationStatus = AnimationStatus.STAGE_ONE;
@@ -75,7 +76,7 @@ public class Face extends AlienObject implements MovingGameObject {
                     this.animationStatus = AnimationStatus.STAGE_ONE;
                     break;
             }
-            this.gameView.setTimer("AnimationFace", "Face" + this.timer, (long) (speedInPixel * 100));
+            this.gameView.setTimer("AnimationFace", "Face" + this.timer, (long) (this.speedInPixel * 100));
         }
     }
 

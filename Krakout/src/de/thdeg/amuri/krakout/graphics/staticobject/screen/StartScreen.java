@@ -25,21 +25,21 @@ public class StartScreen {
     public void showStartScreen() {
         //@formatter:off
         String title =
-                        " __   __   _______  _______  __   __   ________  __    __  _______ \n" +
+                " __   __   _______  _______  __   __   ________  __    __  _______ \n" +
                         "|  | |  | |   __  ||   _   ||  | |  | |        ||  |  |  ||       |\n" +
                         "|  | |  | |  |__| ||  | |  ||  | |  | |   __   ||  |  |  ||_     _|\n" +
                         "|  |_/  | |      | |  |_|  ||  |_/  | |  |  |  ||  |  |  |  |   |  \n" +
                         "|   _  |  |   _ |  |   _   ||   _  |  |  |__|  ||  |__|  |  |   |  \n" +
                         "|  | |  | |  | | | |  | |  ||  | |  | |        ||        |  |   |  \n" +
-                        "|__| |___||__| |__||__| |__||__| |___||________||________|  |___|  \n\n "+
-                                "                           Infinity                                \n";
+                        "|__| |___||__| |__||__| |__||__| |___||________||________|  |___|  \n\n " +
+                        "                           Infinity                                \n";
 
         String description =
-                  "              Krakout remake by Amir(Hiko)               \n\n"
-                +                                                          "\n\n\n"
-                + "            Destroy the Bricks with your Ball             \n\n"
-                + "               They get defended by Aliens!              \n\n\n\n\n"
-                + "   Use Up and Down to move the Bat and space to shoot!   ";
+                "              Krakout remake by Amir(Hiko)               \n\n"
+                        + "\n\n\n"
+                        + "            Destroy the Bricks with your Ball             \n\n"
+                        + "               They get defended by Aliens!              \n\n\n\n\n"
+                        + "   Use Up and Down to move the Bat and space to shoot!   ";
         //@formatter:on
         isDifficultySetToEasy = gameView.showSimpleStartScreen(title, description);
     }

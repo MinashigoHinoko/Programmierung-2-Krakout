@@ -2,8 +2,6 @@ package de.thdeg.amuri.krakout.game.managers;
 
 import de.thdeg.amuri.krakout.game.utilities.Level;
 
-import java.util.ArrayList;
-
 /**
  * Manages the levels of the game.
  */
@@ -27,7 +25,7 @@ class LevelManager {
         return true;
     }
 
-    public Level getLevel(){
+    public Level getLevel() {
         return this.level;
     }
 }

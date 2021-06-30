@@ -2,23 +2,23 @@ package de.thdeg.amuri.krakout.graphics.basicobject;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
-import de.thdeg.amuri.krakout.graphics.moving.Bat;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
-import de.thdeg.amuri.krakout.graphics.staticobject.*;
 import de.thdeg.amuri.krakout.movement.Position;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
 /**
  * Object for every Alien class
  */
-public abstract class AlienObject extends LiveObject implements MovingGameObject, Cloneable {
+public abstract class AlienObject extends CollidingGameObject implements MovingGameObject, Cloneable {
+    private final Random random;
     private boolean endOfScreenRight;
     private boolean endOfScreenLeft;
     private boolean endOfScreenUp;
     private boolean endOfScreenDown;
-    private final Random random;
     private int y;
     private int x;
 
@@ -27,41 +27,43 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
      *
      * @param gameView this is for Initialising the game object
      */
-    protected AlienObject(GameView gameView) {
-        super(gameView);
-        this.live = 1;
+    protected AlienObject(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
+        super(gameView,objectsToCollideWith);
         this.speedInPixel = 2.5;
-        this.hit = false;
         this.random = new Random();
-        while(y<70){
+        while (y < 70) {
             this.y = random.nextInt(460);
         }
-        while (x<60){
-            this.x = random.nextInt((int) (GameView.WIDTH-(this.width*this.size)));
+        while (x < 60) {
+            this.x = random.nextInt((int) (GameView.WIDTH - (this.width * this.size)));
         }
         this.position = new Position(this.x, this.y);
     }
 
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
-        if (otherObject.getClass() == Pinball.class) {
+        if(otherObject.getClass() == this.getClass()){
+            if (otherObject.getHitBox().intersectsLine(otherObject.getPosition().x, otherObject.getPosition().y, otherObject.getPosition().x, otherObject.getPosition().y + otherObject.getHeight())) {
+                this.endOfScreenRight = true;
+                this.endOfScreenLeft = false;
+            }
+            if (otherObject.getHitBox().intersectsLine(otherObject.getPosition().x + otherObject.getWidth(), otherObject.getPosition().y, otherObject.getPosition().x + otherObject.getWidth(), otherObject.getPosition().y + otherObject.getHeight())) {
+                this.endOfScreenRight = true;
+                this.endOfScreenLeft = false;
+            }
+            if (this.getHitBox().intersectsLine(otherObject.getPosition().x, otherObject.getPosition().y - otherObject.getHeight() * otherObject.getSize(), otherObject.getPosition().x + otherObject.getWidth() * otherObject.getSize(), otherObject.getPosition().y)) {
+                this.endOfScreenUp = true;
+                this.endOfScreenDown = false;
+            }
+            if (this.getHitBox().intersectsLine(otherObject.getPosition().x, otherObject.getPosition().y + otherObject.getHeight() * otherObject.getSize(), otherObject.getPosition().x + otherObject.getWidth() * otherObject.getSize(), otherObject.getPosition().y + otherObject.getHeight() * otherObject.getSize())) {
+                this.endOfScreenDown = true;
+                this.endOfScreenUp = false;
+            }
+        }else{
             this.gamePlayManager.destroy(this);
         }
-        if(otherObject.getHitBox().intersectsLine(otherObject.getPosition().x,otherObject.getPosition().y,otherObject.getPosition().x,otherObject.getPosition().y+otherObject.getHeight())){
-            this.endOfScreenRight = true;
-            this.endOfScreenLeft = false;
-        }
-        if(otherObject.getHitBox().intersectsLine(otherObject.getPosition().x+otherObject.getWidth(),otherObject.getPosition().y,otherObject.getPosition().x+otherObject.getWidth(),otherObject.getPosition().y+otherObject.getHeight())){
-            this.endOfScreenRight = true;
-            this.endOfScreenLeft = false;
-        }
-        if(this.getHitBox().intersectsLine(otherObject.getPosition().x, otherObject.getPosition().y - otherObject.getHeight() * otherObject.getSize(), otherObject.getPosition().x + otherObject.getWidth() * otherObject.getSize(), otherObject.getPosition().y)){
-            this.endOfScreenUp = true;
-            this.endOfScreenDown = false;
-        }
-        if(this.getHitBox().intersectsLine(otherObject.getPosition().x, otherObject.getPosition().y + otherObject.getHeight() * otherObject.getSize(), otherObject.getPosition().x + otherObject.getWidth() * otherObject.getSize(), otherObject.getPosition().y + otherObject.getHeight() * otherObject.getSize())){
-            this.endOfScreenDown = true;
-            this.endOfScreenUp = false;
+        if(otherObject.getClass() == Pinball.class){
+            this.gamePlayManager.managePoints(this);
         }
     }
 

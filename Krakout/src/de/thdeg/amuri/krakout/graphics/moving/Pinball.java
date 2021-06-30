@@ -4,7 +4,6 @@ import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
-import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
 import de.thdeg.amuri.krakout.graphics.moving.alien.BeeHive;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
@@ -85,13 +84,13 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
                     this.bounceUpDown = false;
                 }
                 if (!this.isColliding) {
-                    if (otherObject.getClass() == GameBorderRight.class || otherObject.getClass() == Bat.class || otherObject.getClass() == Brick.class || otherObject.getClass() == Astronaut.class || otherObject.getClass() == Face.class || otherObject.getClass() == BeeHive.class) {
+                    if (otherObject.getClass() == GameBorderRight.class || otherObject.getClass() == Bat.class || otherObject.getClass() == Brick.class  || otherObject.getClass() == Face.class || otherObject.getClass() == BeeHive.class) {
                         this.bounce = !this.bounce;
                     }
                 }
                 if (this.bounce || this.allowBounceUpDown) {
                     if (this.gameView.timerExpired("DebugBall", "Pinball")) {
-                        this.gameView.setTimer("DebugBall", "Pinball", 40);
+                        this.gameView.setTimer("DebugBall", "Pinball", 20);
                         this.isColliding = !this.isColliding;
                     }
                 }

@@ -3,12 +3,12 @@ package de.thdeg.amuri.krakout.game.managers;
 import de.thdeg.amuri.krakout.game.utilities.Level;
 import de.thdeg.amuri.krakout.game.utilities.Player;
 import de.thdeg.amuri.krakout.gameview.GameView;
-import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
-import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
-import de.thdeg.amuri.krakout.graphics.moving.alien.*;
+import de.thdeg.amuri.krakout.graphics.moving.alien.Bee;
+import de.thdeg.amuri.krakout.graphics.moving.alien.BeeHive;
+import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
 import de.thdeg.amuri.krakout.graphics.staticobject.screen.EndScreen;
 import de.thdeg.amuri.krakout.graphics.staticobject.screen.StartScreen;
@@ -31,7 +31,7 @@ public class GamePlayManager {
     private Level level;
     private LevelManager levelManager;
     private PlayerLive playerLive;
-    private boolean levelOver;
+    private boolean generatedHealth;
     private Player player;
     private boolean gameOver;
     private boolean generateWorld;
@@ -123,7 +123,15 @@ public class GamePlayManager {
     protected void generateHealth() {
         this.gameObjectManager.getPlayerLives().clear();
         if (this.gameObjectManager.getPlayerLives().size() <= playerLive.getTotalLive()) {
-            this.playerLive.manipulateTotalLive(0);
+            if (!this.generatedHealth) {
+                if (this.levelManager.level.playerLive < this.playerLive.getTotalLive()) {
+                    int lifeDif = this.levelManager.level.playerLive - this.playerLive.getTotalLive();
+                    this.playerLive.manipulateTotalLive(lifeDif);
+                    this.generatedHealth = true;
+                } else {
+                    this.playerLive.manipulateTotalLive(0);
+                }
+            }
             if (this.gameObjectManager.getPlayerLives().isEmpty()) {
                 this.playerLive.setLive(this.level.playerLive);
             }
@@ -169,13 +177,10 @@ public class GamePlayManager {
         if (object.getClass() == Brick.class) {
             this.gameObjectManager.getBricks().remove(object);
             this.gameView.playSound("BallHitBrick.wav", false);
+            this.managePoints(object);
         }
         if (object.getClass() == Face.class) {
             this.gameObjectManager.getFaces().remove(object);
-            this.gameView.playSound("BallHitAlien.wav", false);
-        }
-        if (object.getClass() == Astronaut.class) {
-            this.gameObjectManager.getAstronauts().remove(object);
             this.gameView.playSound("BallHitAlien.wav", false);
         }
         if (object.getClass() == BeeHive.class) {
@@ -190,8 +195,8 @@ public class GamePlayManager {
             this.gameObjectManager.getBalls().remove(object);
             this.level.playerLive -= 1;
             this.gameObjectManager.getBat().resetBat(false);
+            this.managePoints(object);
         }
-        this.managePoints(object);
     }
 
     /**
@@ -205,9 +210,6 @@ public class GamePlayManager {
             this.gameObjectManager.getScore().getFirst().plusScore(100);
         }
 
-        if (object.getClass() == Astronaut.class) {
-            this.gameObjectManager.getScore().getFirst().plusScore(100);
-        }
         if (object.getClass() == BeeHive.class) {
             this.gameObjectManager.getScore().getFirst().plusScore(600);
         }
@@ -222,7 +224,8 @@ public class GamePlayManager {
     }
 
     protected void spawnAndDestroyFace() {
-        Face face = new Face(this.gameView);
+        ArrayList<CollidableGameObject> collidableGameObjects = gameObjectManager.getCollidableGameObjects();
+        Face face = new Face(this.gameView, collidableGameObjects);
         boolean spawn = false;
         boolean destroy = false;
         if (this.gameView.timerExpired("SpawnFace", "GamePlayManager") /*&& gameView.timerExpired("Destroy","GamePlayManager")*/) {
@@ -237,23 +240,25 @@ public class GamePlayManager {
             listHasBeenDeleted = !listHasBeenDeleted;
         }
         if (spawn) {
-            if (this.gameObjectManager.getFaces().size() != 5){
+            if (this.gameObjectManager.getFaces().size() != 5) {
                 face.setGamePlayManager(this);
-            this.gameObjectManager.getFaces().add(face);
-        }
+                this.gameObjectManager.getFaces().add(face);
+            }
         }
         if (destroy && !this.gameObjectManager.getFaces().isEmpty()) {
             this.gameObjectManager.getFaces().remove(this.random.nextInt(this.gameObjectManager.getFaces().size()));
         }
         if (listHasBeenDeleted) {
             this.gameObjectManager.getFaces().clear();
-        }else if (this.gameObjectManager.getFaces().size() > 6) {
+        } else if (this.gameObjectManager.getFaces().size() > 6) {
             this.gameObjectManager.getFaces().removeFirst();
         }
         face.setTimer(this.gameObjectManager.getFaces().size());
     }
+
     protected void spawnAndDestroyHive() {
-        BeeHive hive = new BeeHive(this.gameView);
+        ArrayList<CollidableGameObject> collidableGameObjects = gameObjectManager.getCollidableGameObjects();
+        BeeHive hive = new BeeHive(this.gameView, collidableGameObjects);
         boolean spawn = false;
         boolean destroy = false;
         if (this.gameView.timerExpired("SpawnHive", "GamePlayManager") /*&& gameView.timerExpired("Destroy","GamePlayManager")*/) {
@@ -268,7 +273,7 @@ public class GamePlayManager {
             listHasBeenDeleted = !listHasBeenDeleted;
         }
         if (spawn) {
-            if (this.gameObjectManager.getBeeHives().size() != 2){
+            if (this.gameObjectManager.getBeeHives().size() != 2) {
                 hive.setGamePlayManager(this);
                 this.gameObjectManager.getBeeHives().add(hive);
             }
@@ -278,11 +283,12 @@ public class GamePlayManager {
         }
         if (listHasBeenDeleted) {
             this.gameObjectManager.getBeeHives().clear();
-        }else if (this.gameObjectManager.getBeeHives().size() > 3) {
+        } else if (this.gameObjectManager.getBeeHives().size() > 3) {
             this.gameObjectManager.getBeeHives().removeFirst();
         }
         hive.setTimer(this.gameObjectManager.getBeeHives().size());
     }
+
     protected void spawnBrick() {
         if (this.gameObjectManager.getBricks().isEmpty()) {
             this.brickSpawned = false;
@@ -309,11 +315,12 @@ public class GamePlayManager {
             this.gameObjectManager.getBalls().clear();
             this.gameObjectManager.getScore().clear();
             this.gameObjectManager.getScore().add(new Score(gameView));
+            this.generatedHealth = false;
             this.brickSpawned = false;
             this.generateWorld = true;
         }
         if (this.gameObjectManager.getScore().getFirst().getScore() > this.gameObjectManager.getScore().getFirst().getHighScore()) {
-            this.highScore=this.gameObjectManager.getScore().getFirst().getScore();
+            this.highScore = this.gameObjectManager.getScore().getFirst().getScore();
         }
         this.spawnBrick();
         this.spawnAndDestroyFace();

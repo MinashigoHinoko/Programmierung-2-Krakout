@@ -3,6 +3,9 @@ package de.thdeg.amuri.krakout.graphics.moving.alien;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
+import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
+
+import java.util.ArrayList;
 
 /**
  * releases {@link Bee}
@@ -19,13 +22,11 @@ public class BeeHive extends AlienObject implements MovingGameObject {
      *
      * @param gameView this is for Initialising the game object
      */
-    public BeeHive(GameView gameView) {
-        super(gameView);
-        this.live = 1;
+    public BeeHive(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
+        super(gameView,objectsToCollideWith);
         this.width = 35;
         this.height = 17;
         this.size = 1.5;
-        this.hit = false;
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
         this.animationStatus = AnimationStatus.STAGE_ONE;
