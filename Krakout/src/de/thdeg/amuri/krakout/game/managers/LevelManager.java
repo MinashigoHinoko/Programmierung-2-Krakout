@@ -12,9 +12,10 @@ class LevelManager {
 
     LevelManager(boolean difficultyIsSetToEasy) {
         Random random = new Random();
+        int maxnumberofBricks = difficultyIsSetToEasy ? 11 : 22;
         int randomNumberOfBricks = 0;
-        while (randomNumberOfBricks <= 11) {
-            randomNumberOfBricks = random.nextInt(difficultyIsSetToEasy ? 11 : 22);
+        while (randomNumberOfBricks <= (maxnumberofBricks / 2)) {
+            randomNumberOfBricks = random.nextInt(maxnumberofBricks);
         }
         int baseNumberOfLive = difficultyIsSetToEasy ? 3 : 2;
         this.level = new Level("   Level ∞\n\nInfinityMode", randomNumberOfBricks, baseNumberOfLive);

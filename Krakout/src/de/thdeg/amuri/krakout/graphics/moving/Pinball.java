@@ -93,7 +93,7 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
                 }
                 if (this.bounce || this.allowBounceUpDown) {
                     if (this.gameView.timerExpired("DebugBall", "Pinball")) {
-                        this.gameView.setTimer("DebugBall", "Pinball", 20);
+                        this.gameView.setTimer("DebugBall", "Pinball", 10);
                         this.isColliding = !this.isColliding;
                     }
                 }

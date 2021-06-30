@@ -60,6 +60,7 @@ public class GamePlayManager {
     private void initializeLevel() {
         this.level = this.levelManager.getLevel();
         this.gameObjectManager.getBat().resetBat(true);
+        gameObjectManager.getOverlay().showMessage(this.levelManager.level.name);
         Score score = new Score(this.gameView);
         this.gameObjectManager.getScore().add(score);
         LinkedList<Position> brickPositions = new LinkedList<>();
@@ -188,8 +189,8 @@ public class GamePlayManager {
             if (this.gameObjectManager.getPlayerLives().isEmpty()) {
                 this.playerLive.setLive(this.level.playerLive);
             }
-            for (int x = 0; x < playerLive.getTotalLive(); x++) {
-                this.gameObjectManager.getPlayerLives().add(playerLive);
+            for (int x = 0; x < this.playerLive.getTotalLive(); x++) {
+                this.gameObjectManager.getPlayerLives().add(this.playerLive);
             }
         }
     }
