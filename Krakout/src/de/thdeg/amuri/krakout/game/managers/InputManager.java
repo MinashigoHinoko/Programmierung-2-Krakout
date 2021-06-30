@@ -13,19 +13,18 @@ class InputManager {
     private final GameView gameView;
     private final Bat bat;
     private final boolean diagonalMovement;
-    private final PlayerLive playerlive;
 
 
     protected InputManager(GameView gameView, Bat bat) {
         this.gameView = gameView;
         this.bat = bat;
         this.diagonalMovement = true;
-        playerlive = new PlayerLive(gameView);
+        new PlayerLive(gameView);
     }
 
     void updateUserInputs() {
-        Integer[] gedruekteTasten = gameView.getKeyCodesOfCurrentlyPressedKeys();
-        for (int keyCode : gedruekteTasten) {
+        Integer[] pressedKey = gameView.getKeyCodesOfCurrentlyPressedKeys();
+        for (int keyCode : pressedKey) {
             if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
                 bat.up();
             }

@@ -28,7 +28,7 @@ public class Face extends AlienObject implements MovingGameObject {
      * @param gameView this is for Initialising the game object
      */
     public Face(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
-        super(gameView,objectsToCollideWith);
+        super(gameView, objectsToCollideWith);
         this.width = 23;
         this.height = 23;
         this.size = 1.5;

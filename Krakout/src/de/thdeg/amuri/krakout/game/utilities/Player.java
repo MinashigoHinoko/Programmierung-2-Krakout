@@ -19,11 +19,6 @@ public class Player {
     public int score;
 
     /**
-     * Diffuculty of the game.
-     */
-    public boolean difficultyIsSetToEasy;
-
-    /**
      * Creates a player with lives set to maximum an a score of 0.
      */
     public Player() {

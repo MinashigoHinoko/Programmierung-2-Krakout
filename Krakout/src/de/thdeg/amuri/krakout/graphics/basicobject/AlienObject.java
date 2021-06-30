@@ -3,7 +3,12 @@ package de.thdeg.amuri.krakout.graphics.basicobject;
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
+import de.thdeg.amuri.krakout.graphics.moving.Bat;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
+import de.thdeg.amuri.krakout.graphics.staticobject.GameBorderBottom;
+import de.thdeg.amuri.krakout.graphics.staticobject.GameBorderLeft;
+import de.thdeg.amuri.krakout.graphics.staticobject.GameBorderRight;
+import de.thdeg.amuri.krakout.graphics.staticobject.GameBorderTop;
 import de.thdeg.amuri.krakout.movement.Position;
 
 import java.util.ArrayList;
@@ -14,7 +19,6 @@ import java.util.Random;
  * Object for every Alien class
  */
 public abstract class AlienObject extends CollidingGameObject implements MovingGameObject, Cloneable {
-    private final Random random;
     private boolean endOfScreenRight;
     private boolean endOfScreenLeft;
     private boolean endOfScreenUp;
@@ -28,9 +32,9 @@ public abstract class AlienObject extends CollidingGameObject implements MovingG
      * @param gameView this is for Initialising the game object
      */
     protected AlienObject(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
-        super(gameView,objectsToCollideWith);
+        super(gameView, objectsToCollideWith);
         this.speedInPixel = 2.5;
-        this.random = new Random();
+        Random random = new Random();
         while (y < 70) {
             this.y = random.nextInt(460);
         }
@@ -42,28 +46,32 @@ public abstract class AlienObject extends CollidingGameObject implements MovingG
 
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
-        if(otherObject.getClass() == this.getClass()){
+        if (otherObject.getClass() == this.getClass()) {
+        } else if (otherObject.getClass() == GameBorderBottom.class || otherObject.getClass() == GameBorderTop.class || otherObject.getClass() == GameBorderLeft.class || otherObject.getClass() == GameBorderRight.class) {
             if (otherObject.getHitBox().intersectsLine(otherObject.getPosition().x, otherObject.getPosition().y, otherObject.getPosition().x, otherObject.getPosition().y + otherObject.getHeight())) {
-                this.endOfScreenRight = true;
-                this.endOfScreenLeft = false;
+                this.endOfScreenLeft = true;
+                this.endOfScreenRight = false;
             }
             if (otherObject.getHitBox().intersectsLine(otherObject.getPosition().x + otherObject.getWidth(), otherObject.getPosition().y, otherObject.getPosition().x + otherObject.getWidth(), otherObject.getPosition().y + otherObject.getHeight())) {
                 this.endOfScreenRight = true;
                 this.endOfScreenLeft = false;
             }
             if (this.getHitBox().intersectsLine(otherObject.getPosition().x, otherObject.getPosition().y - otherObject.getHeight() * otherObject.getSize(), otherObject.getPosition().x + otherObject.getWidth() * otherObject.getSize(), otherObject.getPosition().y)) {
-                this.endOfScreenUp = true;
-                this.endOfScreenDown = false;
-            }
-            if (this.getHitBox().intersectsLine(otherObject.getPosition().x, otherObject.getPosition().y + otherObject.getHeight() * otherObject.getSize(), otherObject.getPosition().x + otherObject.getWidth() * otherObject.getSize(), otherObject.getPosition().y + otherObject.getHeight() * otherObject.getSize())) {
                 this.endOfScreenDown = true;
                 this.endOfScreenUp = false;
             }
-        }else{
+            if (this.getHitBox().intersectsLine(otherObject.getPosition().x, otherObject.getPosition().y + otherObject.getHeight() * otherObject.getSize(), otherObject.getPosition().x + otherObject.getWidth() * otherObject.getSize(), otherObject.getPosition().y + otherObject.getHeight() * otherObject.getSize())) {
+                this.endOfScreenUp = true;
+                this.endOfScreenDown = false;
+            }
+        } else {
             this.gamePlayManager.destroy(this);
         }
-        if(otherObject.getClass() == Pinball.class){
+        if (otherObject.getClass() == Pinball.class) {
             this.gamePlayManager.managePoints(this);
+        }
+        if (otherObject.getClass() == Bat.class) {
+            this.gamePlayManager.destroy(otherObject);
         }
     }
 
@@ -75,39 +83,42 @@ public abstract class AlienObject extends CollidingGameObject implements MovingG
 
     @Override
     public void updatePosition() {
-        switch (this.random.nextInt(5)) {
+        int random = (int) (Math.random() * 10);
+        while (random == 0) {
+            random = (int) (Math.random() * 10);
+            if (random != 0) {
+                random = (10 % random);
+            }
+        }
+        switch (random) {
             case 1:
                 if (this.endOfScreenRight) {
                     this.position.left(this.speedInPixel);
-                    break;
                 } else {
                     this.position.right(this.speedInPixel);
-                    break;
                 }
+                break;
             case 2:
-                if (this.endOfScreenLeft == true) {
+                if (this.endOfScreenLeft) {
                     this.position.right(this.speedInPixel);
-                    break;
                 } else {
                     this.position.left(this.speedInPixel);
-                    break;
                 }
+                break;
             case 3:
-                if (this.endOfScreenUp == true) {
+                if (this.endOfScreenUp) {
                     this.position.down(this.speedInPixel);
-                    break;
                 } else {
                     this.position.up(this.speedInPixel);
-                    break;
                 }
+                break;
             case 4:
-                if (this.endOfScreenDown == true) {
+                if (this.endOfScreenDown) {
                     this.position.up((this.speedInPixel));
-                    break;
                 } else {
                     this.position.down(this.speedInPixel);
-                    break;
                 }
+                break;
         }
 
 
@@ -115,7 +126,7 @@ public abstract class AlienObject extends CollidingGameObject implements MovingG
 
     @Override
     public CollidableGameObject clone() {
-        AlienObject alienObject = null;
+        AlienObject alienObject;
         alienObject = (AlienObject) super.clone();
         alienObject.position = position.clone();
         return alienObject;

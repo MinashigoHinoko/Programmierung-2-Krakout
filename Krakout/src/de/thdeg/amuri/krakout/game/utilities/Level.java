@@ -18,14 +18,6 @@ public class Level {
      */
     public int numberOfBricks;
     /**
-     * Number of Bricks that have item.
-     */
-    public int numberOfItems;
-    /**
-     * Number of Aliens that will spawn in the level.
-     */
-    public int numberOfAliens;
-    /**
      * Amount of Live the player has in the level.
      */
     public int playerLive;
@@ -39,15 +31,11 @@ public class Level {
      *
      * @param name           Name of the level.
      * @param numberOfBricks Number of Bricks in the level.
-     * @param numberOfItems  Number of Bricks that have a Item.
-     * @param numberOfAliens Number of Aliens that will spawn in the level
      * @param playerLive     Amount of Live the player has in the level.
      */
-    public Level(String name, int numberOfBricks, int numberOfItems, int numberOfAliens, int playerLive) {
+    public Level(String name, int numberOfBricks, int playerLive) {
         this.name = name;
         this.numberOfBricks = numberOfBricks;
-        this.numberOfItems = numberOfItems;
-        this.numberOfAliens = numberOfAliens;
         this.playerLive = playerLive;
 
     }

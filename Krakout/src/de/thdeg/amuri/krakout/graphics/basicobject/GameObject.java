@@ -5,13 +5,12 @@ import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.staticobject.Background;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
-import de.thdeg.amuri.krakout.graphics.staticobject.Item;
 import de.thdeg.amuri.krakout.movement.Position;
 
 import java.util.Objects;
 
 /**
- * Super of {@link Pinball}, {@link Background}, {@link Brick} and {@link Item}
+ * Super of {@link Pinball}, {@link Background}, {@link Brick}
  * acts as extension of these Classes to include the shared Informations
  */
 public abstract class GameObject implements Cloneable {

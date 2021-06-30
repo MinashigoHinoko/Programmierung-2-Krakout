@@ -6,13 +6,16 @@ import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.alien.BeeHive;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
-import de.thdeg.amuri.krakout.graphics.staticobject.*;
+import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
+import de.thdeg.amuri.krakout.graphics.staticobject.GameBorderBottom;
+import de.thdeg.amuri.krakout.graphics.staticobject.GameBorderLeft;
+import de.thdeg.amuri.krakout.graphics.staticobject.GameBorderRight;
 import de.thdeg.amuri.krakout.movement.Position;
 
 import java.util.ArrayList;
 
 /**
- * This is the pinball the player needs to play with, it will destroy {@link Brick} and collect PowerUp {@link Item}
+ * This is the pinball the player needs to play with, it will destroy {@link Brick}
  */
 public class Pinball extends CollidingGameObject implements MovingGameObject {
     private boolean exist;
@@ -84,7 +87,7 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
                     this.bounceUpDown = false;
                 }
                 if (!this.isColliding) {
-                    if (otherObject.getClass() == GameBorderRight.class || otherObject.getClass() == Bat.class || otherObject.getClass() == Brick.class  || otherObject.getClass() == Face.class || otherObject.getClass() == BeeHive.class) {
+                    if (otherObject.getClass() == GameBorderRight.class || otherObject.getClass() == Bat.class || otherObject.getClass() == Brick.class || otherObject.getClass() == Face.class || otherObject.getClass() == BeeHive.class) {
                         this.bounce = !this.bounce;
                     }
                 }
@@ -101,10 +104,8 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
     private void rollingAnimation() {
         if (this.bounce) {
             this.rotation -= this.speedInPixel * this.size;
-        } else if (!this.bounce) {
-            this.rotation += this.speedInPixel * this.size;
         } else {
-            this.rotation = 0;
+            this.rotation += this.speedInPixel * this.size;
         }
     }
 

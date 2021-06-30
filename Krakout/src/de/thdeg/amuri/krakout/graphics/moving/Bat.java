@@ -10,8 +10,6 @@ import de.thdeg.amuri.krakout.movement.Position;
  * This is the Player Figure, that the Player controls. He uses it to manipulate the {@link Pinball} to break {@link Brick}
  */
 public class Bat extends LiveObject {
-    private final boolean playerGraphic;
-    private final boolean hasPowerUp;
     private JumpState jumpState;
     private Status status;
     private boolean shooting;
@@ -32,9 +30,7 @@ public class Bat extends LiveObject {
         this.width = 12;
         this.height = 33;
         this.rotation = 0;
-        this.hasPowerUp = false;
         this.speedInPixel = 3;
-        this.playerGraphic = true;
         this.position = new Position(20, 280);
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);

@@ -26,24 +26,6 @@ public abstract class LiveObject extends CollidableGameObject implements Cloneab
     }
 
     /**
-     * Manipulate life to increase or decrease values
-     *
-     * @param live is the value to be removed
-     */
-    public void manipulateLive(int live) {
-        this.live += live;
-    }
-
-    /**
-     * Get Live of Object to determine how often it has to be hit, to be destroyed
-     *
-     * @return remaining Live of Brick
-     */
-    public int getLive() {
-        return this.live;
-    }
-
-    /**
      * @param live as the current Live of the Object
      */
     public void setLive(int live) {
@@ -68,16 +50,9 @@ public abstract class LiveObject extends CollidableGameObject implements Cloneab
         this.totalLive += totalLive;
     }
 
-    /**
-     * determines if got hit
-     */
-    public void hasHit() {
-        this.hit = true;
-    }
-
     @Override
     public CollidableGameObject clone() {
-        LiveObject liveObject = null;
+        LiveObject liveObject;
         liveObject = (LiveObject) super.clone();
         liveObject.position = position.clone();
         return liveObject;

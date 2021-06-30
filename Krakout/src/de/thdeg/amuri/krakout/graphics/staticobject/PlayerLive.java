@@ -34,11 +34,6 @@ public class PlayerLive extends LiveObject {
     }
 
     @Override
-    public void hasHit() {
-        this.hit = true;
-    }
-
-    @Override
     public void addToCanvas() {
         position.x = 30;
         for (int x = 0; x < this.totalLive; x++) {

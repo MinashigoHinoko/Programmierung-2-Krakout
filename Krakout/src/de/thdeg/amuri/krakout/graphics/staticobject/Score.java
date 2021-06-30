@@ -9,25 +9,14 @@ import java.awt.*;
 /**
  * Score Output and Calculation class, gets manipulated by {@link de.thdeg.amuri.krakout.graphics.moving.Pinball} hitting enemies.
  *
- * @see de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut
- * @see de.thdeg.amuri.krakout.graphics.moving.alien.Bee
  * @see de.thdeg.amuri.krakout.graphics.moving.alien.BeeHive
- * @see de.thdeg.amuri.krakout.graphics.moving.alien.BonusShip
- * @see de.thdeg.amuri.krakout.graphics.moving.alien.Cannibal
- * @see de.thdeg.amuri.krakout.graphics.moving.alien.Egg
- * @see de.thdeg.amuri.krakout.graphics.moving.alien.Exit
  * @see de.thdeg.amuri.krakout.graphics.moving.alien.Face
- * @see de.thdeg.amuri.krakout.graphics.moving.alien.TimeOut
- * @see de.thdeg.amuri.krakout.graphics.moving.alien.TwinBall
- * @see Item
  * @see Brick
  */
 public class Score extends GameObject {
     private final Color color;
     private int score;
     private int highScore;
-    private String scoreOutput;
-    private String highScoreOutput;
 
     /**
      * This is the extension constructor, here you can find prebuild parameters.
@@ -36,7 +25,7 @@ public class Score extends GameObject {
      */
     public Score(GameView gameView) {
         super(gameView);
-        this.highScore = 10000;
+        this.highScore = 28000;
         this.score = 0;
         this.size = 18;
         this.color = Color.WHITE;
@@ -77,8 +66,8 @@ public class Score extends GameObject {
 
     @Override
     public void addToCanvas() {
-        this.scoreOutput = "Currentscore: " + score;
-        this.highScoreOutput = "Highscore: " + highScore;
+        String scoreOutput = "Currentscore: " + score;
+        String highScoreOutput = "Highscore: " + highScore;
         Position scoreposition = new Position(GameView.WIDTH - scoreOutput.length() * size, 0);
         Position highScoreposition = new Position(GameView.WIDTH - highScoreOutput.length() * size, GameView.HEIGHT - size);
         this.gameView.addTextToCanvas(scoreOutput, scoreposition.x, scoreposition.y, size, color, rotation);

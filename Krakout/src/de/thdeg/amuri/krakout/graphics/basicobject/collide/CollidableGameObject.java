@@ -56,8 +56,6 @@ public abstract class CollidableGameObject extends GameObject implements Cloneab
 
     /**
      * Clones the object.
-     *
-     * @return
      */
     @Override
     public CollidableGameObject clone() {

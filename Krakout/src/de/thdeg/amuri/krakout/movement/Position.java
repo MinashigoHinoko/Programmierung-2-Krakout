@@ -2,7 +2,6 @@ package de.thdeg.amuri.krakout.movement;
 
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.staticobject.Brick;
-import de.thdeg.amuri.krakout.graphics.staticobject.Item;
 
 import java.util.Objects;
 
@@ -23,7 +22,6 @@ public class Position implements Cloneable, Comparable<Position> {
      * Main Output of Position, every object that has to move interacts with this.
      *
      * @see Pinball
-     * @see Item
      * @see Brick
      */
     public Position() {
@@ -42,24 +40,10 @@ public class Position implements Cloneable, Comparable<Position> {
     }
 
     /**
-     * Takes input and lets the Object Move one left
-     */
-    public void left() {
-        this.x = x--;
-    }
-
-    /**
      * Takes input and lets the Object Move left with a certain pixel Speed
      */
     public void left(double pixel) {
         this.x -= pixel;
-    }
-
-    /**
-     * Takes input and lets the Object Move one right
-     */
-    public void right() {
-        this.x++;
     }
 
     /**
@@ -70,24 +54,10 @@ public class Position implements Cloneable, Comparable<Position> {
     }
 
     /**
-     * Takes input and lets the Object Move one up
-     */
-    public void up() {
-        this.y--;
-    }
-
-    /**
      * Takes input and lets the Object Move up with a certain pixel Speed
      */
     public void up(double pixel) {
         this.y -= pixel;
-    }
-
-    /**
-     * Takes input and lets the Object Move one down
-     */
-    public void down() {
-        this.y++;
     }
 
     /**
@@ -105,17 +75,6 @@ public class Position implements Cloneable, Comparable<Position> {
      */
     public double distance(Position other) {
         return Math.sqrt(Math.pow((x - other.x), 2) + Math.pow((y - other.y), 2));
-    }
-
-    /**
-     * Calculates the distance between two positions.
-     *
-     * @param x Position x
-     * @param y Position y
-     * @return the distance
-     */
-    public double distance(double x, double y) {
-        return Math.sqrt(Math.pow((x), 2) + Math.pow((y), 2));
     }
 
     @Override

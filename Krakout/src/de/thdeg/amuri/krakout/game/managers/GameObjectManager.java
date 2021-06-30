@@ -8,7 +8,8 @@ import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidingGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
-import de.thdeg.amuri.krakout.graphics.moving.alien.*;
+import de.thdeg.amuri.krakout.graphics.moving.alien.BeeHive;
+import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
 
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ import java.util.LinkedList;
  * Manager of all Game Object Visuals
  */
 class GameObjectManager {
-    private final GameView gameView;
     private final Bat bat;
     private final Background background;
     private final GameBorderTop gameBorderTop;
@@ -30,16 +30,10 @@ class GameObjectManager {
     private final LinkedList<GameObject> gameObjects;
     private final LinkedList<AlienObject> alienObjects;
     private final LinkedList<LiveObject> liveObjects;
-    private final LinkedList<Item> items;
     private final LinkedList<Pinball> balls;
-    private final LinkedList<Bee> bees;
     private final LinkedList<BeeHive> beeHives;
-    private final LinkedList<BonusShip> bonusShips;
-    private final LinkedList<Cannibal> cannibals;
-    private final LinkedList<Egg> eggs;
     private final LinkedList<Face> faces;
-    private final LinkedList<TimeOut> timeOuts;
-    private final LinkedList<TwinBall> twinBalls;
+
     private final LinkedList<PlayerLive> playerLives;
     private final LinkedList<Brick> bricks;
     private final LinkedList<Score> score;
@@ -47,7 +41,6 @@ class GameObjectManager {
     private final ArrayList<CollidingGameObject> collidingGameObjects;
 
     protected GameObjectManager(GameView gameView) {
-        this.gameView = gameView;
         this.bat = new Bat(gameView);
         this.background = new Background(gameView);
         this.gameBorderTop = new GameBorderTop(gameView);
@@ -59,16 +52,9 @@ class GameObjectManager {
         this.gameObjects = new LinkedList<>();
         this.alienObjects = new LinkedList<>();
         this.liveObjects = new LinkedList<>();
-        this.items = new LinkedList<>();
         this.balls = new LinkedList<>();
-        this.bees = new LinkedList<>();
         this.beeHives = new LinkedList<>();
-        this.bonusShips = new LinkedList<>();
-        this.cannibals = new LinkedList<>();
-        this.eggs = new LinkedList<>();
         this.faces = new LinkedList<>();
-        this.timeOuts = new LinkedList<>();
-        this.twinBalls = new LinkedList<>();
         this.playerLives = new LinkedList<>();
         this.bricks = new LinkedList<>();
         this.score = new LinkedList<>();
@@ -87,7 +73,6 @@ class GameObjectManager {
                     && gameObject.getClass() != Brick.class
                     && gameObject.getClass() != Background.class
                     && gameObject.getClass() != Pinball.class
-                    && gameObject.getClass() != Bee.class
                     && gameObject.getClass() != Overlay.class
                     && gameObject.getClass() != Score.class
                     && gameObject.getClass() != GameBorderTop.class
@@ -108,14 +93,8 @@ class GameObjectManager {
         this.collidableGameObjects.clear();
         this.collidingGameObjects.clear();
 
-        this.alienObjects.addAll(this.bees);
         this.alienObjects.addAll(this.beeHives);
-        this.alienObjects.addAll(this.bonusShips);
-        this.alienObjects.addAll(this.cannibals);
-        this.alienObjects.addAll(this.eggs);
         this.alienObjects.addAll(this.faces);
-        this.alienObjects.addAll(this.timeOuts);
-        this.alienObjects.addAll(this.twinBalls);
 
         this.liveObjects.addAll(this.playerLives);
 
@@ -137,7 +116,6 @@ class GameObjectManager {
         this.gameObjects.addAll(this.score);
         this.gameObjects.addAll(this.liveObjects);
         this.gameObjects.addAll(this.bricks);
-        this.gameObjects.addAll(this.items);
         this.gameObjects.addAll(this.balls);
         this.gameObjects.add(this.gameBorderTop);
         this.gameObjects.add(this.gameBorderBottom);
@@ -158,13 +136,6 @@ class GameObjectManager {
      */
     public LinkedList<Pinball> getBalls() {
         return balls;
-    }
-
-    /**
-     * @return LinkedList getter for {@link Bee}
-     */
-    public LinkedList<Bee> getBees() {
-        return bees;
     }
 
     /**
@@ -190,13 +161,6 @@ class GameObjectManager {
 
     public LinkedList<BeeHive> getBeeHives() {
         return beeHives;
-    }
-
-    /**
-     * @return LinkedList getter for {@link Item}
-     */
-    public LinkedList<Item> getItems() {
-        return items;
     }
 
     /**

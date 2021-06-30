@@ -22,7 +22,7 @@ public class Background extends GameObject {
         super(gameView);
         this.width = GameView.WIDTH;
         this.height = GameView.HEIGHT - 105;
-        this.position = new Position(GameView.WIDTH - GameView.WIDTH, GameView.HEIGHT / 10);
+        this.position = new Position(0, GameView.HEIGHT / 10);
         this.size = 5;
         gameView.setColorForBlockImage('B', Color.BLUE.darker());
     }
@@ -60,7 +60,6 @@ public class Background extends GameObject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        Background background = (Background) o;
         return size == size;
     }
 

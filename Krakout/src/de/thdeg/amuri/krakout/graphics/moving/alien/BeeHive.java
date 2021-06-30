@@ -8,7 +8,7 @@ import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import java.util.ArrayList;
 
 /**
- * releases {@link Bee}
+ * If touches the Bat, it gets reseted
  */
 public class BeeHive extends AlienObject implements MovingGameObject {
     private final static String HIVE_HIVE1 = "BeeHive.png";
@@ -23,7 +23,7 @@ public class BeeHive extends AlienObject implements MovingGameObject {
      * @param gameView this is for Initialising the game object
      */
     public BeeHive(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
-        super(gameView,objectsToCollideWith);
+        super(gameView, objectsToCollideWith);
         this.width = 35;
         this.height = 17;
         this.size = 1.5;
