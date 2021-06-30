@@ -187,8 +187,8 @@ public class Bat extends LiveObject {
                 rollingAnimation();
                 break;
             case DEAD:
-                break;
             case LIVE:
+                break;
         }
 
     }

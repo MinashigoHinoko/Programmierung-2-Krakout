@@ -38,10 +38,7 @@ class GameObjectManager {
     private final LinkedList<BonusShip> bonusShips;
     private final LinkedList<Cannibal> cannibals;
     private final LinkedList<Egg> eggs;
-    private final LinkedList<Exit> exits;
     private final LinkedList<Face> faces;
-    private final LinkedList<Flash> flashes;
-    private final LinkedList<FlashAttack> flashAttacks;
     private final LinkedList<TimeOut> timeOuts;
     private final LinkedList<TwinBall> twinBalls;
     private final LinkedList<PlayerLive> playerLives;
@@ -71,10 +68,7 @@ class GameObjectManager {
         this.bonusShips = new LinkedList<>();
         this.cannibals = new LinkedList<>();
         this.eggs = new LinkedList<>();
-        this.exits = new LinkedList<>();
         this.faces = new LinkedList<>();
-        this.flashes = new LinkedList<>();
-        this.flashAttacks = new LinkedList<>();
         this.timeOuts = new LinkedList<>();
         this.twinBalls = new LinkedList<>();
         this.playerLives = new LinkedList<>();
@@ -97,7 +91,7 @@ class GameObjectManager {
                     && gameObject.getClass() != Background.class
                     && gameObject.getClass() != Pinball.class
                     && gameObject.getClass() != Bee.class
-                    && gameObject.getClass() != FlashAttack.class
+                    && gameObject.getClass() != Overlay.class
                     && gameObject.getClass() != Score.class
                     && gameObject.getClass() != GameBorderTop.class
                     && gameObject.getClass() != GameBorderBottom.class
@@ -123,16 +117,13 @@ class GameObjectManager {
         this.alienObjects.addAll(this.bonusShips);
         this.alienObjects.addAll(this.cannibals);
         this.alienObjects.addAll(this.eggs);
-        this.alienObjects.addAll(this.exits);
         this.alienObjects.addAll(this.faces);
-        this.alienObjects.addAll(this.flashes);
         this.alienObjects.addAll(this.timeOuts);
         this.alienObjects.addAll(this.twinBalls);
 
         this.liveObjects.addAll(this.playerLives);
         this.liveObjects.addAll(this.alienObjects);
 
-        this.collidingGameObjects.addAll(this.flashAttacks);
         this.collidingGameObjects.addAll(this.balls);
 
         this.collidableGameObjects.add(this.gameBorderTop);
@@ -208,14 +199,20 @@ class GameObjectManager {
         return playerLives;
     }
 
-    public LinkedList<AlienObject> getAlienObjects() {
-        return alienObjects;
+    public LinkedList<BeeHive> getBeeHives() {
+        return beeHives;
     }
 
+    /**
+     * @return LinkedList getter for {@link Item}
+     */
     public LinkedList<Item> getItems() {
         return items;
     }
 
+    /**
+     * @return LinkedList getter for {@link Overlay}
+     */
     public Overlay getOverlay() {
         return overlay;
     }
@@ -227,6 +224,9 @@ class GameObjectManager {
         return bricks;
     }
 
+    /**
+     * @return LinkedList getter for {@link Score}
+     */
     public LinkedList<Score> getScore() {
         return score;
     }

@@ -16,7 +16,7 @@ public class Face extends AlienObject implements MovingGameObject {
     private final static String FACE_FACE1 = "Face.png";
     private final static String FACE_FACE2 = "Face2.png";
     private final static String FACE_FACE3 = "Face3.png";
-    private int faceTimer;
+    protected int timer;
     private AnimationStatus animationStatus;
 
     /**
@@ -35,7 +35,14 @@ public class Face extends AlienObject implements MovingGameObject {
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
         this.animationStatus = AnimationStatus.STAGE_ONE;
-        this.faceTimer = 1;
+        this.timer = 1;
+    }
+
+    /**
+     * @param timer how many Faces exist
+     */
+    public void setTimer(int timer) {
+        this.timer = timer;
     }
 
     @Override
@@ -54,13 +61,9 @@ public class Face extends AlienObject implements MovingGameObject {
         }
     }
 
-    public void setFaceTimer(int faceTimer) {
-        this.faceTimer = faceTimer;
-    }
-
     @Override
     public void updateStatus() {
-        if (this.gameView.timerExpired("AnimationFace", "Face" + faceTimer)) {
+        if (this.gameView.timerExpired("AnimationFace", "Face" + this.timer)) {
             switch (animationStatus) {
                 case STAGE_ONE:
                     this.animationStatus = AnimationStatus.STAGE_TWO;
@@ -72,7 +75,7 @@ public class Face extends AlienObject implements MovingGameObject {
                     this.animationStatus = AnimationStatus.STAGE_ONE;
                     break;
             }
-            this.gameView.setTimer("AnimationFace", "Face" + faceTimer, (long) (speedInPixel * 100));
+            this.gameView.setTimer("AnimationFace", "Face" + this.timer, (long) (speedInPixel * 100));
         }
     }
 

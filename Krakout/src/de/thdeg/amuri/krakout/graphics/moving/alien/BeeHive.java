@@ -8,6 +8,12 @@ import de.thdeg.amuri.krakout.graphics.basicobject.MovingGameObject;
  * releases {@link Bee}
  */
 public class BeeHive extends AlienObject implements MovingGameObject {
+    private final static String HIVE_HIVE1 = "BeeHive.png";
+    private final static String HIVE_HIVE2 = "BeeHive2.png";
+    private final static String HIVE_HIVE3 = "BeeHive3.png";
+    protected int timer;
+    private AnimationStatus animationStatus;
+
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      *
@@ -22,15 +28,55 @@ public class BeeHive extends AlienObject implements MovingGameObject {
         this.hit = false;
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
+        this.animationStatus = AnimationStatus.STAGE_ONE;
+        this.timer = 1;
     }
 
     @Override
     public void addToCanvas() {
-        this.gameView.addImageToCanvas("BeeHive.png", this.position.x, this.position.y, this.size, this.rotation);
+        switch (animationStatus) {
+            case STAGE_ONE:
+                this.gameView.addImageToCanvas(HIVE_HIVE1, this.position.x, this.position.y, this.size, this.rotation);
+                break;
+            case STAGE_TWO:
+                this.gameView.addImageToCanvas(HIVE_HIVE2, this.position.x, this.position.y, this.size, this.rotation);
+                break;
+            case STAGE_THREE:
+                this.gameView.addImageToCanvas(HIVE_HIVE3, this.position.x, this.position.y, this.size, this.rotation);
+                break;
+        }
+    }
+
+    /**
+     * @param timer how many Hives exist
+     */
+    public void setTimer(int timer) {
+        this.timer = timer;
     }
 
     @Override
     public void updateStatus() {
+        if (this.gameView.timerExpired("AnimationHive", "Hive" + this.timer)) {
+            switch (animationStatus) {
+                case STAGE_ONE:
+                    this.animationStatus = AnimationStatus.STAGE_TWO;
+                    break;
+                case STAGE_TWO:
+                    this.animationStatus = AnimationStatus.STAGE_THREE;
+                    break;
+                case STAGE_THREE:
+                    this.animationStatus = AnimationStatus.STAGE_ONE;
+                    break;
+            }
+            this.gameView.setTimer("AnimationHive", "Hive" + this.timer, 50);
+        }
+    }
 
+    enum AnimationStatus {
+        STAGE_ONE, STAGE_TWO, STAGE_THREE;
+
+        AnimationStatus() {
+
+        }
     }
 }

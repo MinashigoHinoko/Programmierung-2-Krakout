@@ -52,6 +52,9 @@ public class Level {
 
     }
 
+    /**
+     * @param brickPositions all positions of the brick
+     */
     public void setBrickPositions(LinkedList<Position> brickPositions) {
         this.brickPositions = brickPositions;
     }

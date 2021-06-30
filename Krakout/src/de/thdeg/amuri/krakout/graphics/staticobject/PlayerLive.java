@@ -20,6 +20,7 @@ public class PlayerLive extends LiveObject {
         this.position = new Position(30, 0);
         this.size = 3;
         this.live = 0;
+        this.totalLive = 3;
     }
 
     @Override

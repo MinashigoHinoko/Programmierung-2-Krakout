@@ -2,7 +2,9 @@ package de.thdeg.amuri.krakout.graphics.basicobject;
 
 import de.thdeg.amuri.krakout.gameview.GameView;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
+import de.thdeg.amuri.krakout.graphics.moving.Bat;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
+import de.thdeg.amuri.krakout.graphics.staticobject.*;
 import de.thdeg.amuri.krakout.movement.Position;
 
 import java.util.Objects;
@@ -12,12 +14,13 @@ import java.util.Random;
  * Object for every Alien class
  */
 public abstract class AlienObject extends LiveObject implements MovingGameObject, Cloneable {
-    private double x;
     private boolean endOfScreenRight;
     private boolean endOfScreenLeft;
     private boolean endOfScreenUp;
     private boolean endOfScreenDown;
     private final Random random;
+    private int y;
+    private int x;
 
     /**
      * This is the extension constructor, here you can find prebuild parameters.
@@ -30,13 +33,35 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
         this.speedInPixel = 2.5;
         this.hit = false;
         this.random = new Random();
-        this.position = new Position(random.nextInt(GameView.WIDTH), random.nextInt(GameView.HEIGHT - (GameView.HEIGHT / 10)));
+        while(y<70){
+            this.y = random.nextInt(460);
+        }
+        while (x<60){
+            this.x = random.nextInt((int) (GameView.WIDTH-(this.width*this.size)));
+        }
+        this.position = new Position(this.x, this.y);
     }
 
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
         if (otherObject.getClass() == Pinball.class) {
             this.gamePlayManager.destroy(this);
+        }
+        if(otherObject.getHitBox().intersectsLine(otherObject.getPosition().x,otherObject.getPosition().y,otherObject.getPosition().x,otherObject.getPosition().y+otherObject.getHeight())){
+            this.endOfScreenRight = true;
+            this.endOfScreenLeft = false;
+        }
+        if(otherObject.getHitBox().intersectsLine(otherObject.getPosition().x+otherObject.getWidth(),otherObject.getPosition().y,otherObject.getPosition().x+otherObject.getWidth(),otherObject.getPosition().y+otherObject.getHeight())){
+            this.endOfScreenRight = true;
+            this.endOfScreenLeft = false;
+        }
+        if(this.getHitBox().intersectsLine(otherObject.getPosition().x, otherObject.getPosition().y - otherObject.getHeight() * otherObject.getSize(), otherObject.getPosition().x + otherObject.getWidth() * otherObject.getSize(), otherObject.getPosition().y)){
+            this.endOfScreenUp = true;
+            this.endOfScreenDown = false;
+        }
+        if(this.getHitBox().intersectsLine(otherObject.getPosition().x, otherObject.getPosition().y + otherObject.getHeight() * otherObject.getSize(), otherObject.getPosition().x + otherObject.getWidth() * otherObject.getSize(), otherObject.getPosition().y + otherObject.getHeight() * otherObject.getSize())){
+            this.endOfScreenDown = true;
+            this.endOfScreenUp = false;
         }
     }
 
@@ -48,19 +73,8 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
 
     @Override
     public void updatePosition() {
-        x = Math.random() * 10;
-        while ((int) x == 0) {
-            x = Math.random() * 10;
-            if ((int) x != 0) {
-                x = (10 % (int) x);
-            }
-        }
-        switch ((int) x) {
+        switch (this.random.nextInt(5)) {
             case 1:
-                if (this.position.x >= GameView.WIDTH - this.width * this.size) {
-                    this.endOfScreenRight = true;
-                    this.endOfScreenLeft = false;
-                }
                 if (this.endOfScreenRight) {
                     this.position.left(this.speedInPixel);
                     break;
@@ -69,10 +83,6 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
                     break;
                 }
             case 2:
-                if (this.position.x <= (GameView.WIDTH - GameView.WIDTH) + this.width * this.size) {
-                    this.endOfScreenLeft = true;
-                    this.endOfScreenRight = false;
-                }
                 if (this.endOfScreenLeft == true) {
                     this.position.right(this.speedInPixel);
                     break;
@@ -81,10 +91,6 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
                     break;
                 }
             case 3:
-                if (this.position.y <= (50) + (this.height * this.size)) {
-                    this.endOfScreenUp = true;
-                    this.endOfScreenDown = false;
-                }
                 if (this.endOfScreenUp == true) {
                     this.position.down(this.speedInPixel);
                     break;
@@ -93,10 +99,6 @@ public abstract class AlienObject extends LiveObject implements MovingGameObject
                     break;
                 }
             case 4:
-                if (this.position.y >= (GameView.HEIGHT - 50 - (this.height * this.size))) {
-                    this.endOfScreenDown = true;
-                    this.endOfScreenUp = false;
-                }
                 if (this.endOfScreenDown == true) {
                     this.position.up((this.speedInPixel));
                     break;

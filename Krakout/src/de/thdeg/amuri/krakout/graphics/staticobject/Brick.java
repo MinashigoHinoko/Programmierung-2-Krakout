@@ -53,7 +53,6 @@ public class Brick extends LiveObject {
     public void reactToCollision(CollidableGameObject otherObject) {
         if (otherObject.getClass() == Pinball.class) {
             this.gamePlayManager.destroy(this);
-            this.gamePlayManager.managePoints(this);
         }
     }
 

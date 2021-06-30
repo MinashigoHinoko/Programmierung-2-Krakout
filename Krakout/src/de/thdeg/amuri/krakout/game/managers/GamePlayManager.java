@@ -3,12 +3,12 @@ package de.thdeg.amuri.krakout.game.managers;
 import de.thdeg.amuri.krakout.game.utilities.Level;
 import de.thdeg.amuri.krakout.game.utilities.Player;
 import de.thdeg.amuri.krakout.gameview.GameView;
+import de.thdeg.amuri.krakout.graphics.basicobject.AlienObject;
 import de.thdeg.amuri.krakout.graphics.basicobject.collide.CollidableGameObject;
 import de.thdeg.amuri.krakout.graphics.moving.Bat;
 import de.thdeg.amuri.krakout.graphics.moving.Pinball;
 import de.thdeg.amuri.krakout.graphics.moving.alien.Astronaut;
-import de.thdeg.amuri.krakout.graphics.moving.alien.Bee;
-import de.thdeg.amuri.krakout.graphics.moving.alien.Face;
+import de.thdeg.amuri.krakout.graphics.moving.alien.*;
 import de.thdeg.amuri.krakout.graphics.staticobject.*;
 import de.thdeg.amuri.krakout.graphics.staticobject.screen.EndScreen;
 import de.thdeg.amuri.krakout.graphics.staticobject.screen.StartScreen;
@@ -30,44 +30,42 @@ public class GamePlayManager {
     private boolean brickSpawned;
     private Level level;
     private LevelManager levelManager;
-    private final PlayerLive playerLive;
+    private PlayerLive playerLive;
     private boolean levelOver;
     private Player player;
     private boolean gameOver;
+    private boolean generateWorld;
     private int gameSound;
+    private int highScore;
 
     protected GamePlayManager(GameView gameView, GameObjectManager gameObjectManager) {
         this.gameView = gameView;
         this.gameObjectManager = gameObjectManager;
         this.random = new Random();
+        this.initializeGame();
+    }
+
+    private void initializeGame() {
         this.gameObjectManager.getBat().setGamePlayManager(this);
         this.listHasBeenDeleted = false;
         this.playerLive = new PlayerLive(this.gameView);
         this.player = new Player();
-        initializeGame();
-    }
-
-    private void initializeGame() {
         StartScreen startScreen = new StartScreen(gameView);
-        levelManager = new LevelManager(startScreen.isDifficultySetToEasy());
-        this.gameSound = gameView.playSound("GameSound.wav", true);
         startScreen.showStartScreen();
-        this.player.lives = Player.MAXIMUM_NUMBER_OF_LIVES;
-        this.player.score = 0;
-        initializeLevel();
+        this.levelManager = new LevelManager(startScreen.isDifficultySetToEasy());
+        gameSound = this.gameView.playSound("GameSound.wav", true);
+        this.level = this.levelManager.getLevel();
+        this.generateWorld = false;
+        this.initializeLevel();
     }
 
     private void initializeLevel() {
-        String name = this.levelManager.getNextLevel().name;
-        int numberOfBricks = this.levelManager.getNextLevel().numberOfBricks;
-        int  numberOfAliens = this.levelManager.getNextLevel().numberOfAliens;
-        int  numberOfItems = this.levelManager.getNextLevel().numberOfItems;
-        int playerLive = this.levelManager.getNextLevel().playerLive;
+        this.level = this.levelManager.getLevel();
         this.gameObjectManager.getBat().resetBat(true);
         Score score = new Score(this.gameView);
         this.gameObjectManager.getScore().add(score);
         LinkedList<Position> brickPositions = new LinkedList<>();
-        for (int i = 1; i <= level.numberOfBricks; i++) {
+        for (int i = 1; i <= this.level.numberOfBricks; i++) {
             int x = 450;
             int y = 300;
             if (i != 0) {
@@ -76,38 +74,26 @@ public class GamePlayManager {
             }
             brickPositions.add(new Position(x, y));
         }
-        this.level = new Level(name,numberOfBricks,numberOfItems,numberOfAliens,playerLive);
-        this.spawnAndDestroyFace();
-        this.spawnBrick();
-        this.generateHealth();
+        this.level.setBrickPositions(brickPositions);
     }
+
     private void nextGame() {
-        if (!this.gameOver) {
-            this.gameView.setTimer("game", "GamePlayManager", 3000);
-            this.gameOver = true;
-            this.gameObjectManager.getBat().setInvisible();
-            this.gameObjectManager.getOverlay().showMessage("Game Over!");
-        }
-        if (this.gameView.timerExpired("game", "GamePlayManager")) {
-            this.gameOver = false;
-            this.gameView.stopAllSounds();
-            EndScreen endScreen = new EndScreen(this.gameView);
-            endScreen.showEndScreen(this.player.score);
-            initializeGame();
-        }
-    }
-    private void nextLevel() {
-        if (!levelOver) {
-            gameView.setTimer("level", "GamePlayManager", 500);
-            levelOver = true;
+        if (!gameOver) {
+            gameView.setTimer("game", "GamePlayManager", 3000);
+            gameOver = true;
             gameObjectManager.getBat().setInvisible();
-            gameObjectManager.getOverlay().showMessage("Great job!");
+            this.gameObjectManager.getBalls().clear();
+            gameObjectManager.getOverlay().showMessage("Game Over!");
         }
-        if (gameView.timerExpired("level", "GamePlayManager")) {
-            levelOver = false;
-            initializeLevel();
+        if (gameView.timerExpired("game", "GamePlayManager")) {
+            gameOver = false;
+            gameView.stopAllSounds();
+            EndScreen endScreen = new EndScreen(gameView);
+            endScreen.showEndScreen(player.score);
+            this.initializeGame();
         }
     }
+
     /**
      * @param startPosition Shoots a ball, there can only be up to two at the same time.
      */
@@ -121,7 +107,7 @@ public class GamePlayManager {
         }
         if (ballCoolDown || this.gameObjectManager.getBalls().isEmpty()) {
             ballCall = !ballCall;
-            if (ballCall && this.gameObjectManager.getBalls().size() < 2) {
+            if (ballCall && this.gameObjectManager.getBalls().size() < 1) {
                 collidableGameObjects.remove(this.ball);
                 this.ball = new Pinball(this.gameView, collidableGameObjects);
                 this.ball.getPosition().x = startPosition.x + this.ball.getWidth() * this.ball.getSize();
@@ -137,9 +123,9 @@ public class GamePlayManager {
     protected void generateHealth() {
         this.gameObjectManager.getPlayerLives().clear();
         if (this.gameObjectManager.getPlayerLives().size() <= playerLive.getTotalLive()) {
-            this.playerLive.manipulateTotalLive(3);
+            this.playerLive.manipulateTotalLive(0);
             if (this.gameObjectManager.getPlayerLives().isEmpty()) {
-                playerLive.setLive(1);
+                this.playerLive.setLive(this.level.playerLive);
             }
             int live = playerLive.getLive();
             for (int x = 0; x < playerLive.getTotalLive(); x++) {
@@ -192,16 +178,25 @@ public class GamePlayManager {
             this.gameObjectManager.getAstronauts().remove(object);
             this.gameView.playSound("BallHitAlien.wav", false);
         }
+        if (object.getClass() == BeeHive.class) {
+            this.gameObjectManager.getBeeHives().remove(object);
+            this.gameView.playSound("BallHitAlien.wav", false);
+        }
         if (object.getClass() == Bee.class) {
             this.gameObjectManager.getBees().remove(object);
             this.gameView.playSound("BallHitAlien.wav", false);
         }
         if (object.getClass() == Pinball.class) {
             this.gameObjectManager.getBalls().remove(object);
+            this.level.playerLive -= 1;
+            this.gameObjectManager.getBat().resetBat(false);
         }
         this.managePoints(object);
     }
 
+    /**
+     * @param object The object, that manipulates the points
+     */
     public void managePoints(Object object) {
         if (object.getClass() == Brick.class) {
             this.gameObjectManager.getScore().getFirst().plusScore(200);
@@ -213,7 +208,9 @@ public class GamePlayManager {
         if (object.getClass() == Astronaut.class) {
             this.gameObjectManager.getScore().getFirst().plusScore(100);
         }
-
+        if (object.getClass() == BeeHive.class) {
+            this.gameObjectManager.getScore().getFirst().plusScore(600);
+        }
         if (object.getClass() == Bee.class) {
             this.gameObjectManager.getScore().getFirst().plusScore(400);
         }
@@ -226,40 +223,69 @@ public class GamePlayManager {
 
     protected void spawnAndDestroyFace() {
         Face face = new Face(this.gameView);
-        boolean spawnFace = false;
-        boolean destroyFace = false;
+        boolean spawn = false;
+        boolean destroy = false;
         if (this.gameView.timerExpired("SpawnFace", "GamePlayManager") /*&& gameView.timerExpired("Destroy","GamePlayManager")*/) {
             this.gameView.setTimer("SpawnFace", "GamePlayManager", 1000);
-            spawnFace = !spawnFace;
+            spawn = !spawn;
         }
         if (this.gameView.timerExpired("DestroyFace", "GamePlayManager")) {
             this.gameView.setTimer("DestroyFace", "GamePlayManager", 5000);
-            destroyFace = !destroyFace;
+            destroy = !destroy;
         }
         if (this.gameView.getGameTimeInMilliseconds() / 1000 == 10) {
             listHasBeenDeleted = !listHasBeenDeleted;
         }
-        if (spawnFace) {
-            face.setGamePlayManager(this);
+        if (spawn) {
+            if (this.gameObjectManager.getFaces().size() != 5){
+                face.setGamePlayManager(this);
             this.gameObjectManager.getFaces().add(face);
         }
-        if (destroyFace && !this.gameObjectManager.getFaces().isEmpty()) {
+        }
+        if (destroy && !this.gameObjectManager.getFaces().isEmpty()) {
             this.gameObjectManager.getFaces().remove(this.random.nextInt(this.gameObjectManager.getFaces().size()));
         }
         if (listHasBeenDeleted) {
             this.gameObjectManager.getFaces().clear();
-        }
-        if (this.gameObjectManager.getFaces().size() > 30) {
+        }else if (this.gameObjectManager.getFaces().size() > 6) {
             this.gameObjectManager.getFaces().removeFirst();
         }
-        if (!this.gameObjectManager.getFaces().isEmpty()) {
-        }
-        face.setFaceTimer(this.gameObjectManager.getFaces().size());
+        face.setTimer(this.gameObjectManager.getFaces().size());
     }
-
+    protected void spawnAndDestroyHive() {
+        BeeHive hive = new BeeHive(this.gameView);
+        boolean spawn = false;
+        boolean destroy = false;
+        if (this.gameView.timerExpired("SpawnHive", "GamePlayManager") /*&& gameView.timerExpired("Destroy","GamePlayManager")*/) {
+            this.gameView.setTimer("SpawnHive", "GamePlayManager", 1000);
+            spawn = !spawn;
+        }
+        if (this.gameView.timerExpired("DestroyHive", "GamePlayManager")) {
+            this.gameView.setTimer("DestroyHive", "GamePlayManager", 5000);
+            destroy = !destroy;
+        }
+        if (this.gameView.getGameTimeInMilliseconds() / 1000 == 10) {
+            listHasBeenDeleted = !listHasBeenDeleted;
+        }
+        if (spawn) {
+            if (this.gameObjectManager.getBeeHives().size() != 2){
+                hive.setGamePlayManager(this);
+                this.gameObjectManager.getBeeHives().add(hive);
+            }
+        }
+        if (destroy && !this.gameObjectManager.getFaces().isEmpty()) {
+            this.gameObjectManager.getBeeHives().remove(this.random.nextInt(this.gameObjectManager.getBeeHives().size()));
+        }
+        if (listHasBeenDeleted) {
+            this.gameObjectManager.getBeeHives().clear();
+        }else if (this.gameObjectManager.getBeeHives().size() > 3) {
+            this.gameObjectManager.getBeeHives().removeFirst();
+        }
+        hive.setTimer(this.gameObjectManager.getBeeHives().size());
+    }
     protected void spawnBrick() {
         if (this.gameObjectManager.getBricks().isEmpty()) {
-            //this.brickSpawned = false;
+            this.brickSpawned = false;
         }
         if (!this.brickSpawned) {
             for (Position position : this.level.brickPositions) {
@@ -274,18 +300,29 @@ public class GamePlayManager {
     }
 
     protected void updateGamePlay() {
-        this.gameObjectManager.getBricks().clear();
-        this.gameObjectManager.getItems().clear();
-        this.gameObjectManager.getAlienObjects().clear();
-        this.gameObjectManager.getPlayerLives().clear();
-        if (this.level.playerLive == 0) {
+        if (!this.generateWorld) {
+            this.gameObjectManager.getBat().resetBat(true);
+            this.gameObjectManager.getBricks().clear();
+            this.gameObjectManager.getItems().clear();
+            this.gameObjectManager.getFaces().clear();
+            this.gameObjectManager.getPlayerLives().clear();
+            this.gameObjectManager.getBalls().clear();
+            this.gameObjectManager.getScore().clear();
+            this.gameObjectManager.getScore().add(new Score(gameView));
+            this.brickSpawned = false;
+            this.generateWorld = true;
+        }
+        if (this.gameObjectManager.getScore().getFirst().getScore() > this.gameObjectManager.getScore().getFirst().getHighScore()) {
+            this.highScore=this.gameObjectManager.getScore().getFirst().getScore();
+        }
+        this.spawnBrick();
+        this.spawnAndDestroyFace();
+        this.spawnAndDestroyHive();
+        this.generateHealth();
+        this.gameObjectManager.getScore().getFirst().setHighScore(this.highScore);
+        if (level.playerLive == 0) {
             nextGame();
-        } else {
-            if (levelManager.hasNextLevel()) {
-                nextLevel();
-            } else {
-                nextGame();
-            }
+            this.gameObjectManager.getScore().getFirst().setScore(0);
         }
     }
 
