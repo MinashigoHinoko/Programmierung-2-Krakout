@@ -38,7 +38,7 @@ public class Pinball extends CollidingGameObject implements MovingGameObject {
         this.size = 2;
         super.width = 10;
         this.height = 10;
-        this.speedInPixel = 2;
+        this.speedInPixel = 3;
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
         this.exist = false;

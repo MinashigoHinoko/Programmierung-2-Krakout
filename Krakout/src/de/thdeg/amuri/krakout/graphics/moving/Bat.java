@@ -30,7 +30,7 @@ public class Bat extends LiveObject {
         this.width = 12;
         this.height = 33;
         this.rotation = 0;
-        this.speedInPixel = 3;
+        this.speedInPixel = 4;
         this.position = new Position(20, 280);
         this.hitBox.width = (int) (this.width * this.size);
         this.hitBox.height = (int) (this.height * this.size);
