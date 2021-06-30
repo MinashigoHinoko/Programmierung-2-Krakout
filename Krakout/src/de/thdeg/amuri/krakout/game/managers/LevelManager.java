@@ -20,6 +20,9 @@ class LevelManager {
         this.level = new Level("   Level ∞\n\nInfinityMode", randomNumberOfBricks, baseNumberOfLive);
     }
 
+    /**
+     * @return current and only level
+     */
     public Level getLevel() {
         return this.level;
     }

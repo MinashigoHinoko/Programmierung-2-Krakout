@@ -52,14 +52,23 @@ public class Score extends GameObject {
         return score;
     }
 
+    /**
+     * @param score set new score
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /**
+     * @return current highscore
+     */
     public int getHighScore() {
         return highScore;
     }
 
+    /**
+     * @param highScore set new highscore
+     */
     public void setHighScore(int highScore) {
         this.highScore = highScore;
     }

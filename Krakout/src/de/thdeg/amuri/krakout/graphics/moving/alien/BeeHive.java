@@ -20,7 +20,8 @@ public class BeeHive extends AlienObject implements MovingGameObject {
     /**
      * This is the extension constructor, here you can find prebuild parameters.
      *
-     * @param gameView this is for Initialising the game object
+     * @param gameView             this is for Initialising the game object
+     * @param objectsToCollideWith Object list to collide with
      */
     public BeeHive(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
         super(gameView, objectsToCollideWith);

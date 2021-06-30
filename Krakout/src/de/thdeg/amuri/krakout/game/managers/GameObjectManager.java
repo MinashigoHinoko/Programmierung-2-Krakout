@@ -159,6 +159,9 @@ class GameObjectManager {
         return playerLives;
     }
 
+    /**
+     * @return LinkedList getter for {@link BeeHive}
+     */
     public LinkedList<BeeHive> getBeeHives() {
         return beeHives;
     }
