@@ -284,7 +284,7 @@ public class GamePlayManager {
             listHasBeenDeleted = !listHasBeenDeleted;
         }
         if (spawn) {
-            if (this.gameObjectManager.getFaces().size() != 5) {
+            if (this.gameObjectManager.getFaces().size() != 2) {
                 face.setGamePlayManager(this);
                 this.gameObjectManager.getFaces().add(face);
             }
@@ -317,7 +317,7 @@ public class GamePlayManager {
             listHasBeenDeleted = !listHasBeenDeleted;
         }
         if (spawn) {
-            if (this.gameObjectManager.getBeeHives().size() != 2) {
+            if (this.gameObjectManager.getBeeHives().size() != 1) {
                 hive.setGamePlayManager(this);
                 this.gameObjectManager.getBeeHives().add(hive);
             }
